@@ -1,0 +1,33 @@
+
+body{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	
+}
+
+
+
+/* header */
+.top_menu{
+	background-color: #9ACD32;
+	font-weight: bold;
+}
+.bottom_menu{
+	background-color:  #ADFF2F; 
+
+}
+.bottom_menu a{
+	color: black;
+	font-weight: bold;
+}
+/* endheader */
+h1{
+	color:green;
+}
+
+/*footer*/
+.page-footer{
+	background-color: #ADFF2F;
+}
+/*endfooter*/
