@@ -1,13 +1,12 @@
 from django.shortcuts import render
 from minus.models import MinusstoreMinusstats, MinusstoreMinusrecord
-
+from minus.tops_functions import *
 # Create your views here.
 
+
 def main(request):
-	minus = MinusstoreMinusstats.objects.all()
-	minus_id = minus.minus_id
-	minus_id = minus_id[:11]
-	for i in minus_id:
+
+	
 		 
 
-	return render(request, 'main/index.html')
+	return render(request, 'main/index.html' , {'minus_top_all_time' : top_minus_per_all_time() })

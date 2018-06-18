@@ -66,9 +66,14 @@
 				  <li>
 				    <div class="collapsible-header">
 				      <i class="material-icons">hourglass_full</i>
-				      First
+				     	Топ завантажень
 				      <span class="badge"></span></div>
-				    <div class="collapsible-body"><p>Топ завантажень</p></div>
+				    <div class="collapsible-body"><p>
+				    	{% for m_a in minus_top_all_time %}
+							<span>{{ m_a.title }}</span><br>
+
+				    	{% endfor %}
+				    </p></div>
 				  </li>
 				  <li>
 				    <div class="collapsible-header">
