@@ -278,6 +278,7 @@ class DeliverySubscribersmailsettings(models.Model):
         db_table = 'delivery_subscribersmailsettings'
 
 
+
 class DjangoAdminLog(models.Model):
     action_time = models.DateTimeField()
     user_id = models.IntegerField()

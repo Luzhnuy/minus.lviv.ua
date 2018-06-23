@@ -14,7 +14,9 @@
 	<link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
+
 <div class="father_GOD">
+	
 	<header>
 		
 
@@ -63,8 +65,8 @@
 			<div class="row">
 				
 				<ul class="collapsible">
-				  <li >
-				    <div class="collapsible-header " >
+				  <li class="active">
+				    <div class="collapsible-header active" >
 				      <i class="material-icons">hourglass_full</i>
 				     	Топ завантажень
 				      <span class="badge"></span></div>
@@ -129,8 +131,82 @@
  {% endblock %}
 
 <!-- Права панель -->
-		<div class="right_block col s2">
+		<div class="right_block col s3">
 			<div class="row">
+				<div class="new-files col s12">
+					<ul class="collapsible">
+					<li >
+				    <div class="collapsible-header">
+				      <i class="material-icons">person</i>
+				      Закуліси
+				      <span class="badge"></span></div>
+				    <div class="collapsible-body">
+						<div class="row">
+							<div class="name_and_status col s7">
+								<p>Богдан Іванишин</p>
+								<span>Адміністратор</span>
+								<hr>
+
+
+							</div>
+							<div class="avatar_mini col s5">
+								<img src="{% static 'avatar_mini.jpg' %}"  class="rectengular responsive-img" alt="">
+							</div>
+							<div class="urls col s12">
+								<ul class="collection with-header">
+        								
+        							<li class="collection-item"><div>Профіль<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+        							<li class="collection-item"><div>Мінусовки<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+        							<li class="collection-item"><div>Записи<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+        							<li class="collection-item"><div>Фото<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+        							<li class="collection-item"><div>Оголошення<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+     							</ul>								
+							</div>
+						</div>				    	
+				    </div>
+				  </li>						
+				  <li class="active" >
+				    <div class="collapsible-header active" >
+				      <i class="material-icons left">access_time</i>
+				     	Файли які очікують підтвердження
+				      <span class="badge"></span></div>
+				    <div class="collapsible-body ">
+				    	
+							<div>
+								
+								<h6>Народна-Гнала дівки з горба гната</h6>
+							</div>
+							<div>
+								
+								<h6>Круг Місько - Владімірскій централ</h6>
+							</div>							
+							<div>
+								
+								<h6>Народна - Розпрягайте хлопці коней</h6>
+							</div>
+							<div>
+								
+								<h6>Володимир Івасюк - Червона рута</h6>
+							</div>											    	
+				    </div>
+				  </li>
+				   <li >
+				    <div class="collapsible-header">
+				      <i class="material-icons">person</i>
+				      Користувачі онлайн
+				      <span class="badge"></span></div>
+				    <div class="collapsible-body">
+						{% for u in top_users %}
+							<div>	
+								<h6>{{ u.first_name }} {{ u.last_name }}</h6>
+								
+							</div>
+
+				    	{% endfor %}				    	
+				    </div>
+				  </li>	
+				</ul>
+
 		
 			</div>
 		</div>

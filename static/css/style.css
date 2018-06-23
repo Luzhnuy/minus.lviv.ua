@@ -53,7 +53,28 @@ h1{
 	color: #9ACD32;
 	font-weight: 800;
 }
+.collapsible-body .name_and_status p {
+	color:#000;
 
+}
+.collapsible-body .name_and_status span {
+	font-size:11px;
+
+}
+.collapsible-body .urls ul li {
+	color:#000;
+}
+.collapsible-body .urls ul li a{
+	color:#9ACD32;
+}
+/*.caption{
+	background-color: #9ACD32;
+}
+
+.caption h2{
+	font-size:20px;
+	color:white;
+}*/
 /*footer*/
 .page-footer{
 	background-color: #9ACD32;
@@ -142,6 +163,12 @@ h1{
 		font-size:25px;		
 		text-align: center;
 	}
+
+
+	.new_caption h2{
+		font-size:25px;
+	}
+
 	.authors_and_button a{
 		background-color: #fff;
 		color:#9ACD32;
@@ -153,4 +180,28 @@ h1{
 	}
 	.authors_and_button a .wawes-ripple {
 		background-color: #9ACD32;
+	}
+
+
+	/* Куплю продам */
+	.marketing {
+		height:100px;
+		border:0.2px solid lightgrey ;
+		color: #000;
+		font-size:25px;		
+		text-align: center;
+	}
+	.marketing h2{
+		margin:0;
+		padding:0;
+	}
+	.buy_and_selling a{
+		background-color:  #9ACD32;
+	}
+	.buy_and_selling a:hover{
+		background-color:  #fff;
+	}
+	.buy_and_selling h1{
+		font-size:3em;
+		color:#000;
 	}
