@@ -190,18 +190,39 @@ h1{
 		color: #000;
 		font-size:25px;		
 		text-align: center;
+		margin-bottom: 1vh;
 	}
 	.marketing h2{
 		margin:0;
 		padding:0;
+	}
+	.buy_and_selling {
+		text-align:center;
 	}
 	.buy_and_selling a{
 		background-color:  #9ACD32;
 	}
 	.buy_and_selling a:hover{
 		background-color:  #fff;
+		color:#9ACD32;
 	}
-	.buy_and_selling h1{
-		font-size:3em;
+	.buy_and_selling span{
+		font-size:2.2em;
 		color:#000;
+	}
+	.shops .div_round{
+		height:10%;
+		text-align: center;
+		background-color: #fff;
+		margin-right:15px;
+		color:#9ACD32;
+		font-weight: bold;
+	}
+	.shops .div_round:hover{
+		
+		background-color: #9ACD32;
+		color: #fff;
+	}
+	 .select_region ul li span{
+		color: #9ACD32;
 	}
