@@ -22,11 +22,11 @@
 
 		  <nav class="nav-extended">
 		    <div class="nav-wrapper top_menu">
-		      <a href="#" class="brand-logo">Logo</a>
+		      <a href="{% url 'main' %}" class="brand-logo">Logo</a>
 		      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 		      <ul id="nav-mobile" class="right hide-on-med-and-down">
-		        <li><a href="sass.html">Куплю/продам</a></li>
-		        <li><a href="badges.html">Мінусовки</a></li>
+		        <li><a href="{% url 'main_shop' %}">Куплю/продам</a></li>
+		        <li><a href="{% url 'minusstore_main' %}">Мінусовки</a></li>
 		        <li><a href="collapsible.html">Форум</a></li>
 		        <li><a href="collapsible.html">Новини</a></li>
 		        <li><a href="collapsible.html">Партнери</a></li>
