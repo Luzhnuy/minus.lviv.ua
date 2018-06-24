@@ -34,5 +34,10 @@ $(document).ready(function(){
 	  $('.comments').on('click', function(){
 	  		getComment();
 	  		M.toast({html: 'комент',  classes: 'green'});	
+	  		
+			        
 	  });
+
+
+
 });

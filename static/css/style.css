@@ -226,3 +226,35 @@ h1{
 	 .select_region ul li span{
 		color: #9ACD32;
 	}
+	.sbmt { 
+		display: block;
+		background-color:  #9ACD32;
+	 }
+	 .sbmt:hover{
+	 	background-color:  #fff;
+	 	color:#9ACD32;
+	 }
+	  .tabs .tab>a {
+	 	color:#9ACD32;
+	 	transition-property: #9ACD32, background-color;
+
+	 }
+	 .tabs .tab a:focus, .tabs .tab a:focus.active{
+	 	background-color:rgba(154, 205, 50,0.1) ;
+	 	color:#9ACD32;
+	 }
+	 .tabs .tab a:hover, .tabs .tab a.active{
+	 	
+	 	color:#9ACD32;
+	 }
+	.tabs .indicator {
+	 	background-color: #9ACD32;
+	 }
+	 .card .card-image img{
+	 	width:20%;
+	 }
+
+	 /* endshop */
+
+
+	 
