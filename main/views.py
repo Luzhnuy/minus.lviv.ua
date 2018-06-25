@@ -22,6 +22,7 @@ def main(request):
 		'minus_top_week' : top_minus_per_week(),
 		'top_users' : top_users(),
 		'news' : news,
+		'forum' : last_forum(),
 		})
 
 

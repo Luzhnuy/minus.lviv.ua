@@ -67,6 +67,12 @@ h1{
 .collapsible-body .urls ul li a{
 	color:#9ACD32;
 }
+.last_forum div p{
+	color:#000;
+}
+.last_forum>div>p{
+	color:#9ACD32;
+}
 /*.caption{
 	background-color: #9ACD32;
 }
@@ -257,4 +263,69 @@ h1{
 	 /* endshop */
 
 
+	 /* minus  */
 	 
+	 .author p {
+	 	display: inline-block;
+	 	font-size: 2em;
+	 	color:#9ACD32 ;
+	 	margin:0;
+	 }
+	 .author p i{
+	 	font-size:1.5em;
+	 	
+	 }
+
+	 .name p  {
+	 	display: inline-block;
+	 	font-size:1.5em;
+	 	color:#000;
+	 	margin:0;
+	 	margin-bottom: 2vh;
+	 }
+
+	 .name p i{
+	 	font-size:1em;
+
+	 }
+
+	.about_minus {
+		margin-bottom: 2vh;
+	}
+	.minus span {
+		font-size: 14px;
+	}
+	.minus span i{
+		font-size:14px;
+	}
+
+	.more_about .main_more_about_p p{
+		font-size:1.3em;
+		font-weight: 400;
+	}
+
+	.plus p {
+		font-size:1.3em;
+		font-weight: 400;
+	}
+
+	/* endminus  */
+
+	.name_and_lastname{
+		margin:0;
+		padding:0;
+	}
+
+	.name_and_lastname p{
+		font-size:2em;
+		margin:0;
+		padding:0;
+	}
+	.status_and_urls p{
+		color:#9ACD32;
+		display:inline-block;
+	}
+
+	.status_and_urls span {
+		color:#000;
+	}

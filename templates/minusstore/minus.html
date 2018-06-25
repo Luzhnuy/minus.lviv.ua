@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+<section class="col s6">
+	<div class="row">
+		<div class="header col s11 offset-s1">
+			<div class="row">
+				<div class="col s12 author">
+
+					<p><span><i class="large material-icons">accessibility</i></span>  А ми у двох</p>
+				</div>
+				<div class="col s12 name">
+					<p><span><i class="large material-icons">audiotrack</i></span> Якби на річку покласти кладку</p>
+				</div>
+				<div class="col s12 about_minus">
+					      <table>
+					        <thead>
+					          <tr>
+					              <th>Мінусовку додав</th>
+					              <th>Тип файлу</th>
+					              <th>Тривалість</th>
+					              <th>Дата </th>
+					          </tr>
+					        </thead>
+
+					        <tbody>
+					          <tr>
+					            <td>Bulgar</td>
+					            <td>Аудіо</td>
+					            <td>3:27</td>
+					            <td>26 травня 2017</td>
+					          </tr>
+					
+					        </tbody>
+					      </table>
+				</div>
+				<div class="col s12 minus">
+					<audio src="{% static 'minus.mp3' %}" controls controlsList="nodownload"></audio>
+					<span><i class="large material-icons">star</i>297</span>
+				</div>
+				<div class="col s12 more_about">
+					<div class="row">
+						<div class="col s12 main_more_about_p ">
+							<p>Додаткові дані:
+							</p>
+						</div>
+						<div class="col s4"><p>Тематика:</p></div>
+						<div class="col s6"><p>Вальс</p></div>
+						<div class="col s4"><p>Темп:</p></div>
+						<div class="col s6"><p>Помірна</p></div>
+						<div class="col s4"><p>Виконується:</p></div>
+						<div class="col s6"><p>Соло</p></div>
+						<div class="col s4"><p>Властивості:</p></div>
+						<div class="col s6"><p>Обрядові(весілля,свята)</p></div>
+						<div class="col s4"><p>Належить до жанрів</p></div>
+						<div class="col s6"><p>Нарізка+бек</p></div>
+						
+					</div>
+				</div>
+				<div class="col s12 plus">
+					<p>Плюсовий запис</p>
+					<audio src="{% static 'plus.mp3' %}" controls controlsList="nodownload"></audio>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+</section>
+
+{% endblock %}

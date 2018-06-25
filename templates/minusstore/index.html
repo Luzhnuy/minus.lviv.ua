@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
-
+{% load staticfiles %}
 
 {% block content %}
 <section class="col s6">
 	<div class="row">
-			<form class="col s12">
+		<form class="col s12">
       		<div class="row">
         		<div class="input-field col s12">
           			<i class="material-icons prefix">search</i>
@@ -94,7 +94,7 @@
 				    <div class="collapsible-body">
 						
 							<div>	
-								<h6></h6>
+								<audio src="{% static 'minus.mp3' %}" controls controlsList="nodownload"></audio>
 								
 							</div>
 

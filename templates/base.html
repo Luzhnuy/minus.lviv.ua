@@ -34,7 +34,7 @@
 		    </div>
 		    <div class="nav-content bottom_menu">
 		      <ul class="tabs tabs-transparent">
-		        <li class="tab"><a href="#test1" class="bmenu_a">Моя сторінка</a></li>
+		        <li class="tab"><a href="{% url 'user_page' %}" class="bmenu_a">Моя сторінка</a></li>
 		        <li class="tab"><a class="bmenu_a" href="#test2"><i class="small material-icons">notifications</i></a></li>
 		        <li class="tab"><a href="#test3" class="bmenu_a"><i class="small material-icons">email</i></a></li>
 		        <li class="tab"><a href="#test4" class="bmenu_a">Партнери</a></li>
@@ -113,7 +113,22 @@
 				  </li>				  
 				</ul>				
 
-
+				<ul class="collapsible">
+				  <li class="active">
+				    <div class="collapsible-header active" >
+				      <i class="material-icons">collections_bookmark</i>
+				     	Останні повідомлення на форумі
+				      <span class="badge"></span></div>
+				    <div class="collapsible-body last_forum">
+				    	{% for f in forum %}
+							<div>
+								<p>{{ f.user.username }}: </p>
+								<span>{{ f.body|safe }}</span></br>
+							</div>
+				    	{% endfor %}
+				    </div>
+				  </li>
+				 </ul> 
 
 			</div>
 	

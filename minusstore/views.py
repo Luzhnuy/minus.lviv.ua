@@ -16,6 +16,18 @@ def minusstore_main(request):
 		'minus_top_week' : top_minus_per_week(),
 		'top_users' : top_users(),
 		'author' : author,
-		
+		'forum' : last_forum(),
 		})
 
+
+def minusstore_minus(request):
+
+
+
+		return render(request, 'minusstore/minus.html' , {
+		'minus_top_all_time' : top_minus_per_all_time(), 
+		'minus_top_week' : top_minus_per_week(),
+		'top_users' : top_users(),
+		'forum' : last_forum(),
+		
+		})
