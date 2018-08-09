@@ -14,6 +14,7 @@
 			</div>
 		</div>
 		<div class="col s12 shops">
+			<h1>Корпорації рекомендовані порталом</h1>
 			<div class="row">
 			<div class="btn-floating btn-large waves-effect waves-light col s1 div_round ">Вільно</div>
 			<div class="btn-floating btn-large waves-effect waves-light col s1 div_round">Вільно</div>
@@ -38,7 +39,17 @@
           					<label for="icon_prefix2">Пошук</label>
 
        					 </div>
-       					 <div class="input-field col s4 select_region">
+       	<!-- 				 <div class="input-field col s3 select_region">
+						    <select>
+						      <option value="" disabled selected>Виберіть розділ</option>
+						      <option value="1">Звукове обладнання</option>
+						      <option value="2">Світлове обладнання</option>
+						      <option value="3">Студійне обладнання</option>
+						      <option value="4">Музичні інструменти</option>
+						    </select>
+						    
+						</div> -->
+						<div class="input-field col s4 select_region">
 						    <select>
 						      <option value="" disabled selected>Виберіть бажаний регіон</option>
 						      <option value="1">Львів</option>
@@ -50,9 +61,50 @@
 						 <div class="input-field col s4 select_category">
 						    <select multiple>
 						      <option value="" disabled selected>Виберіть категорію</option>
-						      <option value="1">Клавішні</option>
-						      <option value="2">Cтрунні</option>
-						      <option value="3">Музичне обладнання</option>
+						   	  <optgroup label="Звукове обладнання">
+						      	<option value="1">Акустичні системи</option>
+						      	<option value="2">Підсилювачі</option>
+						      	<option value="3">Мікшерні пульти</option>
+						      	<option value="4">Мікрофони</option>
+						      	<option value="5">Прилади обробки звуку</option>
+						      	<option value="6">Стійки,реки,чохли</option>
+						      	<option value="7">Комутація</option>
+						      	<option value="8">Інше звукове начиння</option>
+						      </optgroup>
+						       <optgroup label="Світлове обладнання">
+						      	<option value="9">Рухомі голови</option>
+						      	<option value="10">Сканери</option>
+						      	<option value="11">Заливаючи пари</option>
+						      	<option value="12">Лазери</option>
+						      	<option value="13">Дискоефекти</option>
+						      	<option value="14">Стробоскопи</option>
+						      	<option value="15">Спец. ефекти</option>
+						      	<option value="16">Прилади керування світлом</option>
+						      	<option value="17">Ферми,лебідки,стійки</option>
+						      	<option value="18">Інше світлове начиння</option>
+						      </optgroup>
+						       <optgroup label="Студійне обладнання">
+						      	<option value="19">Студійні монітори</option>
+						      	<option value="20">Студійні підсилювачі</option>
+						      	<option value="21">Навушники</option>
+						      	<option value="22">Звукові інтерфейси(карти)</option>
+						      	<option value="23">Студійні мікрофони</option>
+						      	<option value="24">Студійні преампи</option>
+						      	<option value="25">Міді клавіатури/контроллери</option>
+						      	<option value="26">Студійний софт</option>
+						      	<option value="27">Інше студійне начиння</option>
+						      </optgroup>
+						       <optgroup label="Музичні інструменти">
+						      	<option value="25">Гітари</option>
+						      	<option value="26">Клавішні інструменти</option>
+						      	<option value="27">Ударні інструменти</option>
+						      	<option value="28">Духові інструменти</option>
+						      	<option value="29">Народні інструменти</option>
+						      	<option value="30">Струнно-смичкові</option>
+						      	<option value="31">Комбопідсилювачі</option>
+						      	<option value="32">Аксесуари</option>
+						      </optgroup>
+						      
 						    </select>
 						    
 						</div>
@@ -73,6 +125,13 @@
 						    </select>
 						    
 						 </div>
+						 <div class="input-field col s2 select_region ">
+							<label>
+					        	<input type="checkbox" checked="checked" />
+					        	<span>Не показувати протермінованні оголошення</span>
+					    	</label>
+						    
+						 </div>
 
 						  <div class="col s12"><button class="btn waves-effect sbmt col s4 offset-s4" type="submit" name="action">Знайти
     							<i class="material-icons right">send</i>
@@ -85,14 +144,14 @@
 			 <div class="row">
 			    <div class="col s12">
 			      <ul class="tabs ">
-			        <li class="tab col s4 "><a href="#test1" class="active ">Всі товари</a></li>
-			        <li class="tab col s4"><a  href="#test2">Товари приватних користувачів</a></li>
-			        <li class="tab col s4"><a href="#test3">Товари бізнес користувачів</a></li>
+			        <li class="tab col s4 "><a href="#test1" class="active ">Приватні</a></li>
+			        <li class="tab col s4"><a  href="#test2">Бізнес</a></li>
+			        <li class="tab col s4"><a href="#test3">Всі</a></li>
 			      </ul>
 			    </div>
 			    <div id="test1" class="col s12">
 
-					  <div class="card">
+					  <div class="card col s4">
 					    <div class="card-image waves-effect waves-block waves-light">
 					      <img class="activator responsive-img" src="http://praktikaprava.ru/wp-content/uploads/2017/11/obmen-tovara-v-techenii-14-dnej.jpg">
 					    </div>
@@ -105,7 +164,7 @@
 					      <p>Here is some more information about this product that is only revealed once clicked on.</p>
 					    </div>
 					  </div>
-					  <div class="card">
+					  <div class="card col s4">
 					    <div class="card-image waves-effect waves-block waves-light">
 					      <img class="activator responsive-img" src="http://praktikaprava.ru/wp-content/uploads/2017/11/obmen-tovara-v-techenii-14-dnej.jpg">
 					    </div>
@@ -118,7 +177,7 @@
 					      <p>Here is some more information about this product that is only revealed once clicked on.</p>
 					    </div>
 					  </div>
-					  <div class="card">
+					  <div class="card col s4">
 					    <div class="card-image waves-effect waves-block waves-light">
 					      <img class="activator  responsive-img" src="http://praktikaprava.ru/wp-content/uploads/2017/11/obmen-tovara-v-techenii-14-dnej.jpg">
 					    </div>
@@ -131,7 +190,7 @@
 					      <p>Here is some more information about this product that is only revealed once clicked on.</p>
 					    </div>
 					  </div>
-					  <div class="card">
+					  <div class="card col s4">
 					    <div class="card-image waves-effect waves-block waves-light">
 					      <img class="activator  responsive-img" src="http://praktikaprava.ru/wp-content/uploads/2017/11/obmen-tovara-v-techenii-14-dnej.jpg">
 					    </div>
@@ -144,7 +203,7 @@
 					      <p>Here is some more information about this product that is only revealed once clicked on.</p>
 					    </div>
 					  </div>
-					  <div class="card">
+					  <div class="card col s4">
 					    <div class="card-image waves-effect waves-block waves-light">
 					      <img class="activator   responsive-img" src="http://praktikaprava.ru/wp-content/uploads/2017/11/obmen-tovara-v-techenii-14-dnej.jpg">
 					    </div>
@@ -159,7 +218,7 @@
 					  </div>			    	
 			    </div>
 			    <div id="test2" class="col s12">
-					  <div class="card">
+					  <div class="card col s4">
 					    <div class="card-image waves-effect waves-block waves-light">
 					      <img class="activator responsive-img" src="http://praktikaprava.ru/wp-content/uploads/2017/11/obmen-tovara-v-techenii-14-dnej.jpg">
 					    </div>
@@ -172,7 +231,7 @@
 					      <p>Here is some more information about this product that is only revealed once clicked on.</p>
 					    </div>
 					  </div>
-					  <div class="card">
+					  <div class="card col s4">
 					    <div class="card-image waves-effect waves-block waves-light">
 					      <img class="activator responsive-img" src="http://praktikaprava.ru/wp-content/uploads/2017/11/obmen-tovara-v-techenii-14-dnej.jpg">
 					    </div>
@@ -185,7 +244,7 @@
 					      <p>Here is some more information about this product that is only revealed once clicked on.</p>
 					    </div>
 					  </div>
-					  <div class="card">
+					  <div class="card col s4">
 					    <div class="card-image waves-effect waves-block waves-light">
 					      <img class="activator  responsive-img" src="http://praktikaprava.ru/wp-content/uploads/2017/11/obmen-tovara-v-techenii-14-dnej.jpg">
 					    </div>
@@ -198,7 +257,7 @@
 					      <p>Here is some more information about this product that is only revealed once clicked on.</p>
 					    </div>
 					  </div>
-					  <div class="card">
+					  <div class="card col s4">
 					    <div class="card-image waves-effect waves-block waves-light">
 					      <img class="activator  responsive-img" src="http://praktikaprava.ru/wp-content/uploads/2017/11/obmen-tovara-v-techenii-14-dnej.jpg">
 					    </div>
@@ -211,7 +270,7 @@
 					      <p>Here is some more information about this product that is only revealed once clicked on.</p>
 					    </div>
 					  </div>
-					  <div class="card">
+					  <div class="card col s4">
 					    <div class="card-image waves-effect waves-block waves-light">
 					      <img class="activator   responsive-img" src="http://praktikaprava.ru/wp-content/uploads/2017/11/obmen-tovara-v-techenii-14-dnej.jpg">
 					    </div>
@@ -226,7 +285,7 @@
 					  </div>			    	
 			    </div>
 			    <div id="test3" class="col s12">
-					  <div class="card">
+					  <div class="card col s4">
 					    <div class="card-image waves-effect waves-block waves-light">
 					      <img class="activator responsive-img" src="http://praktikaprava.ru/wp-content/uploads/2017/11/obmen-tovara-v-techenii-14-dnej.jpg">
 					    </div>
@@ -239,7 +298,7 @@
 					      <p>Here is some more information about this product that is only revealed once clicked on.</p>
 					    </div>
 					  </div>
-					  <div class="card">
+					  <div class="card col s4">
 					    <div class="card-image waves-effect waves-block waves-light">
 					      <img class="activator responsive-img" src="http://praktikaprava.ru/wp-content/uploads/2017/11/obmen-tovara-v-techenii-14-dnej.jpg">
 					    </div>
@@ -252,7 +311,7 @@
 					      <p>Here is some more information about this product that is only revealed once clicked on.</p>
 					    </div>
 					  </div>
-					  <div class="card">
+					  <div class="card col s4">
 					    <div class="card-image waves-effect waves-block waves-light">
 					      <img class="activator  responsive-img" src="http://praktikaprava.ru/wp-content/uploads/2017/11/obmen-tovara-v-techenii-14-dnej.jpg">
 					    </div>
@@ -265,7 +324,7 @@
 					      <p>Here is some more information about this product that is only revealed once clicked on.</p>
 					    </div>
 					  </div>
-					  <div class="card">
+					  <div class="card col s4">
 					    <div class="card-image waves-effect waves-block waves-light">
 					      <img class="activator  responsive-img" src="http://praktikaprava.ru/wp-content/uploads/2017/11/obmen-tovara-v-techenii-14-dnej.jpg">
 					    </div>
@@ -278,7 +337,7 @@
 					      <p>Here is some more information about this product that is only revealed once clicked on.</p>
 					    </div>
 					  </div>
-					  <div class="card">
+					  <div class="card col s4">
 					    <div class="card-image waves-effect waves-block waves-light">
 					      <img class="activator   responsive-img" src="http://praktikaprava.ru/wp-content/uploads/2017/11/obmen-tovara-v-techenii-14-dnej.jpg">
 					    </div>

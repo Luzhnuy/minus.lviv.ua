@@ -14,7 +14,6 @@
 // }
 
 
-
 function getComment(){
 
 	$.ajax({
@@ -30,6 +29,7 @@ function getComment(){
 
 
 $(document).ready(function(){
+	
 	 M.AutoInit();
 	  $('.comments').on('click', function(){
 	  		getComment();
