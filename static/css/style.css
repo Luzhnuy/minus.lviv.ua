@@ -24,11 +24,15 @@ header{
 .bottom_menu{
 	background-color:  #fff; 
 
+
 }
 .bottom_menu li:hover {
 	background-color: #9ACD32;
 }
-
+.back_menu {
+	font-size:1em;
+	color:black;
+}
 
 .tabs.tabs-transparent .tab a, .tabs.tabs-transparent .tab a.active {
 	color: #9ACD32;
@@ -86,7 +90,38 @@ h1{
 	background-color: #9ACD32;
 }
 /*endfooter*/
+.auth {
+	color:black;
+	
+	
 
+}
+.auth h2 {
+	font-size:1.5em;
+}
+.sbm_auth {
+	background-color: #9ACD32 ;
+}
+.sbm_auth:hover{
+	background-color: #fff;
+	color: #9ACD32;
+}
+.url_to_reg{
+	margin-top: 10px;
+}
+.url_to_reg a{
+	color:black;
+}
+.url_to_reg a:hover {
+	color:#9ACD32;
+
+}
+
+.reg h2{
+
+	font-size:2em;
+	font-weight: 800;
+}
 /* materialize forms*/
 
 	.input-field{
@@ -336,4 +371,8 @@ h1{
 
 	.status_and_urls span {
 		color:#000;
+	}
+	#shame_adward{
+		font-size:1em;
+		color:red;
 	}

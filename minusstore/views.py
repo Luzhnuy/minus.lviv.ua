@@ -3,12 +3,12 @@ from minus.models import NewsNewsitem,AuthUser,DjangoComments,MinusstoreMinusaut
 from minus.tops_functions import *
 from django.http import HttpResponse
 from django.core import serializers
-
+from main.forms import AuthForm
 # Create your views here.
 
 
 def minusstore_main(request):
-
+	form = AuthForm()
 	author = MinusstoreMinusauthor.objects.all().order_by('name')[:20]
 
 	return render(request, 'minusstore/index.html' , {
@@ -17,6 +17,7 @@ def minusstore_main(request):
 		'top_users' : top_users(),
 		'author' : author,
 		'forum' : last_forum(),
+		'form' : form,
 		})
 
 
