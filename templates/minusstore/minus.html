@@ -11,8 +11,15 @@
 
 					<p><span><i class="large material-icons">accessibility</i></span>  А ми у двох</p>
 				</div>
-				<div class="col s12 name">
+				<div class="col s6 name">
 					<p><span><i class="large material-icons">audiotrack</i></span> Якби на річку покласти кладку</p>
+
+				</div>
+				<div class="col s6 minus_main_btn">
+					<div class="row">
+						<a class="waves-effect waves-light btn-large col s4">Редагувати</a>
+						<a class="waves-effect waves-light btn-large col s8">Повідомити модератора</a>
+					</div>	
 				</div>
 				<div class="col s12 about_minus">
 					      <table>
@@ -37,8 +44,28 @@
 					      </table>
 				</div>
 				<div class="col s12 minus">
-					<audio src="{% static 'minus.mp3' %}" controls controlsList="nodownload"></audio>
-					<span><i class="large material-icons">star</i>297</span>
+					<div class="audio col s6">
+						<audio src="{% static 'minus.mp3' %}" controls controlsList="nodownload"></audio>
+					</div>
+					<div class="download_btn col s1 ">
+					
+							<a class="waves-effect waves-light btn-small ">Завантажити</a>
+						
+					</div>
+					<div class="howmany col s3 offset-s2">
+						<p>Прослухано:800</p>
+						<p>Завантажено: 153</p>
+					</div>
+				</div>
+				<div class="col s12 social_btn">
+					<a class="waves-effect waves-light btn-large "><i class="material-icons left">mood</i><span>345</span></a>
+					<a class="waves-effect waves-light btn-large "><i class="material-icons left">mood_bad</i><span>15</span></a>
+					<a class="waves-effect waves-light btn-large ">Якість запису: <span>10</span></a>
+					<a class="waves-effect waves-light btn-large ">Аранжування: <span>10</span></a>
+					<a class="waves-effect waves-light btn-large ">Загальний рейтинг: <span>251</span></a>
+				</div>
+				<div class="col s12 user_which_upload">
+					
 				</div>
 				<div class="col s12 more_about">
 					<div class="row">

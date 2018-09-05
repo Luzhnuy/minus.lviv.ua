@@ -331,16 +331,19 @@ h1{
 	 	font-size:1em;
 
 	 }
-
+	
+	.minus{
+		margin-bottom: 2vh;
+	}
 	.about_minus {
 		margin-bottom: 2vh;
 	}
-	.minus span {
+/*	.minus span {
 		font-size: 14px;
 	}
 	.minus span i{
 		font-size:14px;
-	}
+	}*/
 
 	.more_about .main_more_about_p p{
 		font-size:1.3em;
@@ -350,6 +353,57 @@ h1{
 	.plus p {
 		font-size:1.3em;
 		font-weight: 400;
+	}
+	.minus_main_btn a{
+		box-sizing: border-box;
+		background-color: #fff;
+		font-size:12px;
+		
+		color:#000;
+
+	}
+
+	.minus_main_btn a:hover{
+		background-color: #9ACD32;
+		color:#fff;
+	}
+
+	.download_btn{
+		line-height: 60px;
+
+	}
+	.download_btn a{
+		box-sizing: border-box;
+		background-color: #9ACD32;
+		font-size:12px;
+		
+		color:#fff;
+	}
+	.download_btn a:hover{
+		background-color: #fff;
+		color:#9ACD32;
+	}
+	.howmany {
+		line-height: 30px;
+		padding:0;
+		margin:0;
+	}
+	.howmany p{
+		margin:0;
+	}
+	.social_btn{
+		text-align: center;
+	}
+	.social_btn a{
+		margin-bottom: 1vh;
+		background-color: #fff;
+		color:#9ACD32;
+	}
+	.social_btn a:hover{
+		background-color: #F5F5F5;
+	}
+	.social_btn span{
+		color:#000;
 	}
 
 	/* endminus  */
