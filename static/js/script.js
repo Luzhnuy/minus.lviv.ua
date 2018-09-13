@@ -23,7 +23,7 @@ function getComment(){
 		success:function(comments){
 			alert(comments);
 		}
-	})
+	});
 }
 
 
@@ -37,5 +37,13 @@ $(document).ready(function(){
 	  		
 			        
 	  });
+	$('#like').click(function() {
+        $('#likes').html(+$('#likes').html()+1);
+
+    });
+    $('#dislike').click(function() {
+        $('#dislike').html(+$('#dislikes').html()+1);
+
+    });
 
 });

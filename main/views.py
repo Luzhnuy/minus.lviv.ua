@@ -4,7 +4,8 @@ from minus.tops_functions import *
 from django.http import HttpResponse
 from django.core import serializers
 from .forms import AuthForm
-
+from minus.autentification import *
+from minus.new_minuses import *
 
 
 
@@ -13,12 +14,13 @@ from .forms import AuthForm
 
 def main(request):
 	form = AuthForm()
+	request.session['usr']=signin(request,form)
 	news = NewsNewsitem.objects.all().order_by('-id')
 	for i in news:
 		i.user = AuthUser.objects.get(pk = i.user_id)
 	
 		 
-
+	usr = request.session['usr']
 	return render(request, 'main/index.html' , {
 		'minus_top_all_time' : top_minus_per_all_time(), 
 		'minus_top_week' : top_minus_per_week(),
@@ -26,6 +28,8 @@ def main(request):
 		'news' : news,
 		'forum' : last_forum(),
 		'form' : form,
+		'usr' : usr,
+		'new_m':new_minuses(),
 		})
 
 

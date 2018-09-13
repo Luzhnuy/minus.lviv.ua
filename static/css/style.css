@@ -24,23 +24,56 @@ header{
 .bottom_menu{
 	background-color:  #fff; 
 
+	
+}
+.tabik {
+	display: inline-block;
+    text-align: center;
+    line-height: 48px;
+    height: 48px;
+    padding: 0;
+    text-transform: uppercase;
+    margin-bottom: 4vh;
 
+}
+nav ul a:hover{
+	background-color: transparent;
+}
+
+.bottom_menu .tabik a{
+	font-size: 1em;
+	font-weight: bold;
+	color: #9ACD32;
 }
 .bottom_menu li:hover {
 	background-color: #9ACD32;
+}
+.bottom_menu li:hover a{
+	color:#fff;
 }
 .back_menu {
 	font-size:1em;
 	color:black;
 }
-
-.tabs.tabs-transparent .tab a, .tabs.tabs-transparent .tab a.active {
-	color: #9ACD32;
-	font-weight: bold;
-}
-.tabs.tabs-transparent .tab a:hover{
+.add_comment button{
+	background-color: #9ACD32;
 	color:#fff;
 }
+.add_comment button:hover{
+	background-color: #fff;
+	color:#9ACD32;
+
+}
+.add_comment label{
+	margin-left: 20%;
+}
+/*.tabiks.tabiks-transparent .tabik a, .tabiks.tabiks-transparent .tabik a.active {
+	color: #9ACD32;
+	font-weight: bold;
+}*/
+/*.tabs.tabs-transparent .tab a:hover{
+	color:#fff;
+}*/
 
 /* endheader */
 
@@ -303,6 +336,20 @@ h1{
 	 	width:20%;
 	 }
 
+	.new_minuses {
+		padding:0;
+		margin:0;
+	}
+	.new_minuses div{
+		margin-left: 1%;
+	}
+	.new_minuses div a{
+		background-color: #9ACD32;
+	}
+	.new_minuses div a:hover{
+		background-color: #fff;
+		color:black;
+	}
 	 /* endshop */
 
 
@@ -349,7 +396,13 @@ h1{
 		font-size:1.3em;
 		font-weight: 400;
 	}
-
+	.more_about .line{
+		font-weight: 1000;
+		color:#9ACD32;
+	}
+	.more_about .left{
+		text-align: right;
+	}
 	.plus p {
 		font-size:1.3em;
 		font-weight: 400;
@@ -358,7 +411,7 @@ h1{
 		box-sizing: border-box;
 		background-color: #fff;
 		font-size:12px;
-		
+		font-weight: bold;
 		color:#000;
 
 	}
@@ -404,6 +457,49 @@ h1{
 	}
 	.social_btn span{
 		color:#000;
+	}
+
+	.user_which_upload .information_about a{
+		color:#000;
+
+	}
+	.user_which_upload .more_about_minus_from_uploader{
+		border:1px solid #000;
+	}
+	.social_network p{
+		font-size:1.3em;
+		font-weight: 400;		
+	}
+	.social_network a{
+		background-color: #fff;
+		color:#000;
+	}
+	.social_network a:hover{
+		background-color: #9ACD32;
+	}
+	.social_network a>img{
+		width: 100%;
+	}
+	.text_of_track p:first-child{
+		font-weight: bold;
+		color:#000;
+	}
+	.text_of_track p:last-child{
+		text-align: left;
+		
+	}
+	.text_of_track a{
+		background-color: #9ACD32;
+		color:#fff;
+	}
+	.text_of_track a:hover {
+		background-color: #fff;
+		border: 2px solid #9ACD32;
+		color: #9ACD32;
+	}
+	.comments_in_minusstore>p {
+		font-weight: bold;
+		font-size:1.3em;
 	}
 
 	/* endminus  */

@@ -4,6 +4,7 @@ from minus.tops_functions import *
 from django.http import HttpResponse
 from django.core import serializers
 from main.forms import AuthForm, RegForm
+from minus.new_minuses import *
 
 def user_page(request):
 	
@@ -15,10 +16,11 @@ def user_page(request):
 		'top_users' : top_users(),
 		'form' : form,
 		'forum' : last_forum(),
+		'new_m':new_minuses(),
 		})
 
 def registration_page(request):
-	Reg_form = RegForm()
+	Reg_form = RegForm(request.POST)
 	if request.method == "POST":
 		if Reg_form.is_valid():
 			user = Reg_form.save(commit=False)
@@ -37,4 +39,5 @@ def registration_page(request):
 		'top_users' : top_users(),
 		'form' : Reg_form,
 		'forum' : last_forum(),
+		'new_m':new_minuses(),
 	})

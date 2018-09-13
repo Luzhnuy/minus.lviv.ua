@@ -1,0 +1,24 @@
+% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+<section class="col s6">
+	<div class="row">
+		<div class="header col s11 offset-s1">
+			<div class="row">
+						<form class="col s11 offset-s1 reg" method="POST">
+							{% csrf_token %}
+							<h2>Залийте мінусовку</h2>
+							{{ form_add_minus.as_p }}
+							<button type="submit" class="sbm_auth waves-effect waves-light btn-large col s12">Увійти</button>
+							
+						</form>
+			</div>
+		</div>
+
+
+	</div>
+</section>
+
+{% endblock %}

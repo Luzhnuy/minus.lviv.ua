@@ -4,7 +4,7 @@ from minus.tops_functions import *
 from django.http import HttpResponse
 from django.core import serializers
 from main.forms import AuthForm
-
+from minus.new_minuses import *
 
 # Create your views here.
 
@@ -23,6 +23,7 @@ def desk_of_shame(request):
 		'news' : news,
 		'forum' : last_forum(),
 		'form' : form,
+		'new_m':new_minuses(),
 		})
 
 def desk_or_respect(request):
@@ -33,12 +34,13 @@ def desk_or_respect(request):
 	
 		 
 
-	return render(request, 'desks/shame.html' , {
+	return render(request, 'desks/respect.html' , {
 		'minus_top_all_time' : top_minus_per_all_time(), 
 		'minus_top_week' : top_minus_per_week(),
 		'top_users' : top_users(),
 		'news' : news,
 		'forum' : last_forum(),
 		'form' : form,
+		'new_m':new_minuses(),
 		})
 

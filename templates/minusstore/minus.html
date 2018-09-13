@@ -65,7 +65,19 @@
 					<a class="waves-effect waves-light btn-large ">Загальний рейтинг: <span>251</span></a>
 				</div>
 				<div class="col s12 user_which_upload">
-					
+					<div class="row">
+						<div class="col s6 information_about">	
+							<p>Мінусовку завантажив:</p>
+							<div class="avatar_mini col s4">
+								<img src="{% static 'avatar_mini.jpg' %}"  class="circle responsive-img" alt="">
+							</div>
+							<p>Богдан Іванишин<a href="#"><i class="material-icons left">message</i></a></p>
+							<p>Всього завантежених мінусовок (599)</p>
+						</div>	
+						<div class="col s5 offset-s1 more_about_minus_from_uploader">
+							<p>Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. </p>
+						</div>
+					</div>	
 				</div>
 				<div class="col s12 more_about">
 					<div class="row">
@@ -73,22 +85,105 @@
 							<p>Додаткові дані:
 							</p>
 						</div>
-						<div class="col s4"><p>Тематика:</p></div>
-						<div class="col s6"><p>Вальс</p></div>
-						<div class="col s4"><p>Темп:</p></div>
-						<div class="col s6"><p>Помірна</p></div>
-						<div class="col s4"><p>Виконується:</p></div>
-						<div class="col s6"><p>Соло</p></div>
-						<div class="col s4"><p>Властивості:</p></div>
-						<div class="col s6"><p>Обрядові(весілля,свята)</p></div>
-						<div class="col s4"><p>Належить до жанрів</p></div>
-						<div class="col s6"><p>Нарізка+бек</p></div>
+						<div class="col s4 left"><p>Автор аранжування<span></p></div>
+						<div class="col s1 line">_____</div>						
+						<div class="col s4"><p>Вальс</p></div>
+						<div class="col s4 left"><p>Вид каталогу</p></div>
+						<div class="col s1 line">_____</div>						
+						<div class="col s4"><p>Помірна</p></div>
+						<div class="col s4 left"><p>Вид за призначенням</p></div>
+						<div class="col s1 line">_____</div>
+						<div class="col s4"><p>Соло</p></div>
+						<div class="col s4 left"><p>Належить до жанру</p></div>
+						<div class="col s1 line">_____</div>
+						<div class="col s4"><p>Обрядові(весілля,свята)</p></div>
+				
 						
 					</div>
 				</div>
-				<div class="col s12 plus">
+				<div class="col s6 plus">
 					<p>Плюсовий запис</p>
 					<audio src="{% static 'plus.mp3' %}" controls controlsList="nodownload"></audio>
+				</div>
+				<div class="col s5 offset-s1 social_network">
+					<div class="row">
+					<p>Поділитись:</p>
+					<a class="waves-effect waves-light btn-large col s3"><img src="{% static 'img/facebook.png' %}"/></a>
+					<a class="waves-effect waves-light btn-large col s3"><img src="{% static 'img/instagram.png' %}"/></a>
+					<a class="waves-effect waves-light btn-large col s3"><img src="{% static 'img/twitter.png' %}"/></a>
+					
+					</div>
+				</div>
+				<div class="col s12 text_of_track">
+					<p>Текст пісні</p>
+					<a class="waves-effect waves-light btn-large"><i class="material-icons left">cloud_download</i>Завантажити текст</a>
+					<p class="col s5">Якби на річку покласти кладку,
+						І через неї перейти.
+						Якби забути щире кохання,
+						І до дівчини більш не йти.
+
+						Ой знаю, занаю Ти мій миленький,
+						Що Ти аж трьох нас полюбив.
+						Тільки не знаю Ти мій миленький,
+						Котру на серці залишив.
+
+						Одну любив я за карі очі,
+						Другу любив за красоту.
+						А тая третя сумна ходила,
+						Лишилась в серці моєму.
+
+						Ой вийшла мила на крутий берег,
+						Там де плавають кораблі.
+						Скочила вводу згубила вроду,
+						Знайшла притулочок собі.
+
+						За нею милий на крутий берег,
+						Там де плавають кораблі.
+						Вийняв хустину кинув на воду,
+						Візьми миленька – це Тобі.
+
+						Візьми миленька зав'яжи рану,
+						Щоб не розмила її вода.
+						Ті карі очі, той стан дівочий,
+						Що нахилився вже до дна.
+
+						І став дрібненький дощ накрапати,
+						Висока хвиля виграва.
+						Усі дівчата гуляють в парі,
+						Моєї милої нема.
+
+						І вже на річку поклали кладку,
+						Я через річку перейшов.
+						Я не забув те щире кохання,
+						Хоч до дівчини більш не йшов.
+					</p>
+				</div>
+				<div class="col s12 video">
+					<iframe width="560" height="315" src="https://www.youtube.com/embed/082v4qv7lAA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+				</div>
+				<div class="col s12 comments_in_minusstore">
+					<p>Коментарі(0):</p>
+				<!-- 	<div class="comment">
+						<div class="avatar_mini col s4">
+								<img src="{% static 'avatar_mini.jpg' %}"  class="circle responsive-img" alt="">
+						</div>
+						<p>Богдан Іванишин</p>
+						<p>Всього завантежених мінусовок (599)</p>
+					</div> -->
+					<div class="add_comment">
+						<form  method="POST">
+							<textarea name="comment_body"   cols="30" rows="15" placeholder="Залиште коментар"></textarea>
+								<button type="submit" class="waves-effect waves-light btn-small">
+									Відправити
+								</button>
+								 
+      								<label>
+        								<input type="checkbox" />
+        								<span>Підписатись на коментарі до цього мінуса</span>
+      								</label>
+    							
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
