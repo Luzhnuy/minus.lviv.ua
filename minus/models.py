@@ -100,7 +100,7 @@ class AuthPermission(models.Model):
 
 
 class AuthUser(models.Model):
-    user = models.OneToOneField(User, unique=True, verbose_name='Користувач')
+    
     username = models.CharField(unique=True, max_length=30)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
@@ -1130,7 +1130,7 @@ class TastypieApikey(models.Model):
 
 
 class Userprofile(models.Model):
-    user_id = models.OneToOneField(User, unique=True, verbose_name='Користувач')
+    user_id = models.IntegerField(unique=True)
     gender = models.CharField(max_length=6, blank=True, null=True)
     city = models.CharField(max_length=128, blank=True, null=True)
     country = models.CharField(max_length=128, blank=True, null=True)

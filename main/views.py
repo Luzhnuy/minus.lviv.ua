@@ -1,11 +1,10 @@
 from django.shortcuts import render
 from minus.models import NewsNewsitem,Userprofile,DjangoComments
-from minus.tops_functions import *
 from django.http import HttpResponse
 from django.core import serializers
 from .forms import AuthForm
 from minus.autentification import *
-from minus.new_minuses import *
+
 
 
 
@@ -22,17 +21,15 @@ def main(request):
 		 
 	usr = request.session['usr']
 	return render(request, 'main/index.html' , {
-		'minus_top_all_time' : top_minus_per_all_time(), 
-		'minus_top_week' : top_minus_per_week(),
-		'top_users' : top_users(),
+	
 		'news' : news,
-		'forum' : last_forum(),
+		
 		'form' : form,
 		'usr' : usr,
-		'new_m':new_minuses(),
+		
 		})
 
-
+	
 def comments(request,pk):
 
 
