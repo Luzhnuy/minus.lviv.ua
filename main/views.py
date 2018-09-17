@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from minus.models import NewsNewsitem,AuthUser,DjangoComments
+from minus.models import NewsNewsitem,Userprofile,DjangoComments
 from minus.tops_functions import *
 from django.http import HttpResponse
 from django.core import serializers
@@ -17,7 +17,7 @@ def main(request):
 	request.session['usr']=signin(request,form)
 	news = NewsNewsitem.objects.all().order_by('-id')
 	for i in news:
-		i.user = AuthUser.objects.get(pk = i.user_id)
+		i.user = Userprofile.objects.get(user_id = i.user_id)
 	
 		 
 	usr = request.session['usr']
