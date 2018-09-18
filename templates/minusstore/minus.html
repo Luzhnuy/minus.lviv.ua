@@ -9,10 +9,10 @@
 			<div class="row">
 				<div class="col s12 author">
 
-					<p><span><i class="large material-icons">accessibility</i></span>  А ми у двох</p>
+					<p><span><i class="large material-icons">accessibility</i></span> {{ author.name }}</p>
 				</div>
 				<div class="col s6 name">
-					<p><span><i class="large material-icons">audiotrack</i></span> Якби на річку покласти кладку</p>
+					<p><span><i class="large material-icons">audiotrack</i></span> {{ minus.title }}</p>
 
 				</div>
 				<div class="col s6 minus_main_btn">
@@ -34,10 +34,10 @@
 
 					        <tbody>
 					          <tr>
-					            <td>Bulgar</td>
+					            <td>{{ minus_user.username }}</td>
 					            <td>Аудіо</td>
 					            <td>3:27</td>
-					            <td>26 травня 2017</td>
+					            <td>{{ minus.pub_date }}</td>
 					          </tr>
 					
 					        </tbody>
@@ -71,8 +71,8 @@
 							<div class="avatar_mini col s4">
 								<img src="{% static 'avatar_mini.jpg' %}"  class="circle responsive-img" alt="">
 							</div>
-							<p>Богдан Іванишин<a href="#"><i class="material-icons left">message</i></a></p>
-							<p>Всього завантежених мінусовок (599)</p>
+							<p>{{ minus_user.first_name }} {{ minus_user.last_name }}<a href="#"><i class="material-icons left">message</i></a></p>
+							<p>Всього завантежених мінусовок ({{ upload_minuses }})</p>
 						</div>	
 						<div class="col s5 offset-s1 more_about_minus_from_uploader">
 							<p>Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. </p>
@@ -114,62 +114,66 @@
 					
 					</div>
 				</div>
+				{% if minus.lyrics %}
 				<div class="col s12 text_of_track">
 					<p>Текст пісні</p>
 					<a class="waves-effect waves-light btn-large"><i class="material-icons left">cloud_download</i>Завантажити текст</a>
-					<p class="col s5">Якби на річку покласти кладку,
-						І через неї перейти.
-						Якби забути щире кохання,
-						І до дівчини більш не йти.
-
-						Ой знаю, занаю Ти мій миленький,
-						Що Ти аж трьох нас полюбив.
-						Тільки не знаю Ти мій миленький,
-						Котру на серці залишив.
-
-						Одну любив я за карі очі,
-						Другу любив за красоту.
-						А тая третя сумна ходила,
-						Лишилась в серці моєму.
-
-						Ой вийшла мила на крутий берег,
-						Там де плавають кораблі.
-						Скочила вводу згубила вроду,
-						Знайшла притулочок собі.
-
-						За нею милий на крутий берег,
-						Там де плавають кораблі.
-						Вийняв хустину кинув на воду,
-						Візьми миленька – це Тобі.
-
-						Візьми миленька зав'яжи рану,
-						Щоб не розмила її вода.
-						Ті карі очі, той стан дівочий,
-						Що нахилився вже до дна.
-
-						І став дрібненький дощ накрапати,
-						Висока хвиля виграва.
-						Усі дівчата гуляють в парі,
-						Моєї милої нема.
-
-						І вже на річку поклали кладку,
-						Я через річку перейшов.
-						Я не забув те щире кохання,
-						Хоч до дівчини більш не йшов.
-					</p>
+					<p class="col s5"><!-- {Якби на річку покласти кладку,
+											І через неї перейти.
+											Якби забути щире кохання,
+											І до дівчини більш не йти.
+					
+											Ой знаю, занаю Ти мій миленький,
+											Що Ти аж трьох нас полюбив.
+											Тільки не знаю Ти мій миленький,
+											Котру на серці залишив.
+					
+											Одну любив я за карі очі,
+											Другу любив за красоту.
+											А тая третя сумна ходила,
+											Лишилась в серці моєму.
+					
+											Ой вийшла мила на крутий берег,
+											Там де плавають кораблі.
+											Скочила вводу згубила вроду,
+											Знайшла притулочок собі.
+					
+											За нею милий на крутий берег,
+											Там де плавають кораблі.
+											Вийняв хустину кинув на воду,
+											Візьми миленька – це Тобі.
+					
+											Візьми миленька зав'яжи рану,
+											Щоб не розмила її вода.
+											Ті карі очі, той стан дівочий,
+											Що нахилився вже до дна.
+					
+											І став дрібненький дощ накрапати,
+											Висока хвиля виграва.
+											Усі дівчата гуляють в парі,
+											Моєї милої нема.
+					
+											І вже на річку поклали кладку,
+											Я через річку перейшов.
+											Я не забув те щире кохання,
+											Хоч до дівчини більш не йшов.} -->
+					{{ minus.lyrics }}</p>
 				</div>
+				{% endif %}
 				<div class="col s12 video">
 					<iframe width="560" height="315" src="https://www.youtube.com/embed/082v4qv7lAA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 				</div>
 				<div class="col s12 comments_in_minusstore">
 					<p>Коментарі(0):</p>
-				<!-- 	<div class="comment">
+					{% for c in comments %}
+					<div class="comment col s12">
 						<div class="avatar_mini col s4">
 								<img src="{% static 'avatar_mini.jpg' %}"  class="circle responsive-img" alt="">
 						</div>
 						<p>Богдан Іванишин</p>
-						<p>Всього завантежених мінусовок (599)</p>
-					</div> -->
+						<p style="float:rigth;">{{ c.comment }}</p>
+					</div>
+					{% endfor %}
 					<div class="add_comment">
 						<form  method="POST">
 							<textarea name="comment_body"   cols="30" rows="15" placeholder="Залиште коментар"></textarea>
