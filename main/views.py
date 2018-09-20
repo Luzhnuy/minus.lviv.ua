@@ -3,7 +3,9 @@ from minus.models import NewsNewsitem,Userprofile,DjangoComments
 from django.http import HttpResponse
 from django.core import serializers
 from .forms import AuthForm
-from minus.autentification import *
+# from minus.autentification import *
+
+
 
 
 
@@ -13,19 +15,20 @@ from minus.autentification import *
 
 def main(request):
 	form = AuthForm()
-	request.session['usr']=signin(request,form)
+	# signin(request,form)
+
+	
+	
 	news = NewsNewsitem.objects.all().order_by('-id')
 	for i in news:
 		i.user = Userprofile.objects.get(user_id = i.user_id)
 	
 		 
-	usr = request.session['usr']
+	
 	return render(request, 'main/index.html' , {
 	
 		'news' : news,
-		
 		'form' : form,
-		'usr' : usr,
 		
 		})
 
