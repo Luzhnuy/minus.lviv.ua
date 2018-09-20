@@ -19,18 +19,23 @@
 	
 	<header>
 		
-
+		<div class="lozung">
+			<h1>Всеукраїнський музичний інформаційний портал</h1>
+		</div>
 		  <nav class="nav-extended">
 		    <div class="nav-wrapper top_menu">
 		      <a href="{% url 'main' %}" class="brand-logo">Logo</a>
 		      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 		      <ul id="nav-mobile" class="right hide-on-med-and-down">
+		      	<li><a href="{% url 'main' %}">Новини</a></li>
+		      	<li><a href="collapsible.html">Події</a></li>
+		      	<li><a href="{% url 'minusstore_main' %}">Мінусовки</a></li>
 		        <li><a href="{% url 'main_shop' %}">Куплю/продам</a></li>
-		        <li><a href="{% url 'minusstore_main' %}">Мінусовки</a></li>
-		        <li><a href="collapsible.html">Події</a></li>
+		        
+		        
 		        <li><a href="collapsible.html">Чат</a></li>
 		        <li><a href="collapsible.html">Форум</a></li>
-		        <li><a href="collapsible.html">Новини</a></li>
+		        
 		        
 		      </ul>
 		    </div>
@@ -45,6 +50,7 @@
 		        <li class="tabik "><a href="#" class="bmenu_a back_menu">Допомога порталу</a></li>
 		        <li class="tabik green_li" style="background-color: #9ACD32;color:white;"><a href="{% url 'user_page' %}" class="bmenu_a" style="color:white;">Моя сторінка</a></li>
 		        <li class="tabik green_li" style="background-color: #9ACD32;color:white;"><a class="bmenu_a" href="#test2" style="color:white;"><i class="small material-icons">notifications</i></a></li>
+		        <li class="tabik green_li" style="background-color: #9ACD32;color:white;"><a class="bmenu_a" href="#test2" style="color:white;"><i class="small material-icons">email</i></a></li>
 		    <!--     <li class="tab"><a href="#test3" class="bmenu_a"><i class="small material-icons">email</i></a></li>
 		        <li class="tab"><a href="#test4" class="bmenu_a">Партнери</a></li> -->
 		        
@@ -274,7 +280,7 @@
 </div>
 
 
-
+</div>
 
 
 

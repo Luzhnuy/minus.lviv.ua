@@ -2,6 +2,7 @@ from django import template
 from minus.new_minuses import *
 from minus.tops_functions import *
 from minus.new_minuses import *
+from minus.models import UsersUserrating
 
 register = template.Library()
 
@@ -16,7 +17,14 @@ def minus_per_week():
 
 @register.inclusion_tag('mytags/top_user.html')
 def top_u():
-	return {'top_users' : top_users()}
+	users = top_users()
+	# rate = UsersUserrating.objects.order_by('-rating')[:10]
+	# for i in users:
+	# 	i.is_staff = rate.rating
+	return {
+		'top_users' : users,
+		# 'rating' : rate,
+	}
 
 @register.inclusion_tag('mytags/new_m.html')
 def new_m():

@@ -1,7 +1,10 @@
 						{% for u in top_users %}
-							<div>	
-								<h6>{{ u.first_name }} {{ u.last_name }}</h6>
+							<div>
+						
 								
+								<h6>{{ u.first_name }} {{ u.last_name }}    <!-- {{ u.is_staff }} --></h6>
+								
+						
 							</div>
 
 				    	{% endfor %}

@@ -38,7 +38,6 @@ def top_users():
 
 	
 	top_users = []
-	
 	# top_minus_id = []
 	
 	# for i in range(10):	
@@ -51,6 +50,8 @@ def top_users():
 		top_users.append(AuthUser.objects.get(pk = i.user_id))
 
 	return top_users
+
+
 
 
 def last_forum():
