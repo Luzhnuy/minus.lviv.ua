@@ -43,8 +43,8 @@
 		      <li class="tabik "> <a href="{% url 'desk_of_shame' %}" class="bmenu_a back_menu" >Пауза користувача  <span style="color:red;">4</span></a></li>
 		        <li class="tabik "><a href="#" class="bmenu_a back_menu">FAQ</a></li>
 		        <li class="tabik "><a href="#" class="bmenu_a back_menu">Допомога порталу</a></li>
-		        <li class="tabik " style="background-color: #9ACD32;color:white;"><a href="{% url 'user_page' %}" class="bmenu_a" style="color:white;">Моя сторінка</a></li>
-		        <li class="tabik " style="background-color: #9ACD32;color:white;"><a class="bmenu_a" href="#test2" style="color:white;"><i class="small material-icons">notifications</i></a></li>
+		        <li class="tabik green_li" style="background-color: #9ACD32;color:white;"><a href="{% url 'user_page' %}" class="bmenu_a" style="color:white;">Моя сторінка</a></li>
+		        <li class="tabik green_li" style="background-color: #9ACD32;color:white;"><a class="bmenu_a" href="#test2" style="color:white;"><i class="small material-icons">notifications</i></a></li>
 		    <!--     <li class="tab"><a href="#test3" class="bmenu_a"><i class="small material-icons">email</i></a></li>
 		        <li class="tab"><a href="#test4" class="bmenu_a">Партнери</a></li> -->
 		        
@@ -87,6 +87,26 @@
 								<h6>{{ m_a.title }}</h6>
 							</div>
 				    	{% endfor %} -->
+				    </div>
+				  </li>
+				  <li >
+				    <div class="collapsible-header">
+				      <i class="material-icons">alarm_add</i>
+				     Топ за рік
+				      <span class="badge"></span></div>
+				    <div class="collapsible-body">
+					{% minus_per_week %}
+
+				    </div>
+				  </li>
+				  <li >
+				    <div class="collapsible-header">
+				      <i class="material-icons">alarm</i>
+				     Топ за місяць
+				      <span class="badge"></span></div>
+				    <div class="collapsible-body">
+					{% minus_per_week %}
+
 				    </div>
 				  </li>
 				  <li >

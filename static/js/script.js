@@ -14,14 +14,16 @@
 // }
 
 
-function getComment(){
+function getComment(id){
 
 	$.ajax({
-		url:'http://127.0.0.1:8000/comments',
+		url:'http://127.0.0.1:8000/comments/'+id+'/',
 		method:'GET',
-		dataType: 'json',
+		dataType: 'JSON',
 		success:function(comments){
-			alert(comments);
+			// comment = JSON.parse(comments)
+			// alert(typeof(comments));
+			M.toast({html: comments[0].fields.comment,  classes: 'green'});	
 		}
 	});
 }
@@ -29,11 +31,12 @@ function getComment(){
 
 
 $(document).ready(function(){
+	M.AutoInit();
 	
-	 M.AutoInit();
 	  $('.comments').on('click', function(){
-	  		getComment();
-	  		M.toast({html: 'комент',  classes: 'green'});	
+	  		id = $('#k').text()
+	  		getComment(id);
+	  		
 	  		
 			        
 	  });

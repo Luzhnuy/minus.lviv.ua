@@ -21,10 +21,19 @@ header{
 	background-color: #9ACD32;
 	font-weight: bold;
 }
+.top_menu li{
+	border-left:0.5px solid white;
+}
+.top_menu li:hover{
+	text-decoration: underline;
+}
 .bottom_menu{
 	background-color:  #fff; 
 
 	
+}
+.bottom_menu li{
+	border-left: 0.5px solid #9ACD32;
 }
 .tabik {
 	display: inline-block;
@@ -34,6 +43,7 @@ header{
     padding: 0;
     text-transform: uppercase;
     margin-bottom: 4vh;
+
 
 }
 nav ul a:hover{
@@ -54,6 +64,12 @@ nav ul a:hover{
 .back_menu {
 	font-size:1em;
 	color:black;
+}
+.green_li{
+	background-color: #9ACD32;
+	color:white;
+	float: right;
+	margin-right: 5px;
 }
 .add_comment button{
 	background-color: #9ACD32;

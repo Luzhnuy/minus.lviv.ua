@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login
 from django.template import RequestContext
 from django.contrib.auth.models import User
 
+
 def user_page(request):
 	
 	form = AuthForm()

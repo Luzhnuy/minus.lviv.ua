@@ -1,12 +1,14 @@
 from django.shortcuts import render
-from minus.tops_functions import *
 from django.http import HttpResponse
 from django.core import serializers
+from minus.models import BlurbsBlurb
+
 
 def main_shop(request):
-	
+	good = BlurbsBlurb.objects.all().order_by('-id')
+	for i in good:
+		i.user = AuthUser.objects.get(pk = i.user_id)
 	return render(request, 'shop/index.html' , {
-		# 'minus_top_all_time' : top_minus_per_all_time(), 
-		# 'minus_top_week' : top_minus_per_week(),
-		# 'top_users' : top_users(),
-				})
+		'goods':good,			
+				
+	})
