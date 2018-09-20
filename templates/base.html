@@ -150,9 +150,9 @@
 				      <span class="badge"></span></div>
 				    <div class="collapsible-body">
 						<div class="row">
-						{%	if usr %}
+						{%	if request.user.is_authenticated %}
 							<div class="name_and_status col s7">
-								<p>{{ usr.first_name }}</p>
+								<p>Богдан Іванишин</p>
 								<span>Адміністратор</span>
 								<hr>
 
@@ -172,7 +172,7 @@
      							</ul>								
 							</div>
 							{% else %}
-							<form class="auth" method="POST">
+							<form class="auth" method="POST" action="{% url 'signin' %}">
 								{% csrf_token %}
 								<h2>Вхід</h2>
 								{{ form.as_p }}

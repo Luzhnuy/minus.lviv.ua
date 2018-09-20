@@ -1,4 +1,4 @@
-% extends 'base.html' %}
+{% extends 'base.html' %}
 
 {% load staticfiles %}
 
@@ -11,7 +11,7 @@
 							{% csrf_token %}
 							<h2>Залийте мінусовку</h2>
 							{{ form_add_minus.as_p }}
-							<button type="submit" class="sbm_auth waves-effect waves-light btn-large col s12">Увійти</button>
+							<button type="submit" class="sbm_auth waves-effect waves-light btn-large col s12">Залити мінусовку</button>
 							
 						</form>
 			</div>
