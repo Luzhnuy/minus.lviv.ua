@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+		<section class="col s6">
+			<div class="row">
+				<div class="col s11 offset-s1 more_about">
+					<div class="row">
+						
+						
+						<div class="col s6"><p>Заголовок</p></div>
+						<div class="col s6"><p>{{ minus.title }}</p></div>
+						<div class="col s6"><p>Тематика</p></div>
+						<div class="col s6"><p>{% if minus.thematics%} {{ minus.thematics }} {% else %} Немає тематики {% endif %}</p></div>
+						<div class="col s6"><p>Плюсовка</p></div>
+						<div class="col s6"><p>{% if minus.plusrecord %} Так {% else %} Ні {% endif %}</p></div>
+						<div class="col s6"><p>Категорія:</p></div>
+						<div class="col s6"><p>{% if category %} {{ category.name }} {% else %} Немає категорії {% endif %}</p></div>
+						<div class="col s6"><p>Текст пісні </p></div>
+						<div class="col s6"><p>{% if minus.lyrics %} {{ minus.lyrics }} {% else %} Немає тексту пісні {% endif %}</p></div>
+						<a class="waves-effect waves-light btn-large col s12 follow"><!-- <i class="material-icons left">add</i> -->Посаржитиcь на оформлення</a>	
+					</div>
+				</div>
+			</div>
+		</section>	
+
+{% endblock %}

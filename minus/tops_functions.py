@@ -47,9 +47,9 @@ def top_users():
 	users = UsersUserrating.objects.order_by('-rating')[:10]
 	
 	for i in users:
-		top_users.append(AuthUser.objects.get(pk = i.user_id))
+		i.user = AuthUser.objects.get(pk=i.user_id)
 
-	return top_users
+	return users
 
 
 

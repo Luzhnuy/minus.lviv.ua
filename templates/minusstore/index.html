@@ -134,14 +134,16 @@
 				<li >
 				    <div class="collapsible-header">
 				      <i class="material-icons">person</i>
-				      <a href="{% url 'minus' pk=a.pk %}" style="color:white;text-decoration: underline;">{{ a.name }}</a>
+				      <a  style="color:white;text-decoration: underline;">{{ a.name }}</a>
 				      <span class="badge"></span></div>
 				    <div class="collapsible-body">
-						
-							<div>	
+						{% for m in a.minus %}
+							<div>
+								<p><a href="{% url 'minus' pk=m.pk %}" style="color:black;text-decoration: underline;">{{ m.title }}</a></p>
 								<audio src="{% static 'minus.mp3' %}" controls controlsList="nodownload"></audio>
-								
+								<p>(Аудіо) 8.{{ m.filesize }}мб 320Кбіт/с завантажено burgar {{ m.pubdate}}</p>
 							</div>
+						{% endfor %}	
 
 				    				    	
 				    </div>

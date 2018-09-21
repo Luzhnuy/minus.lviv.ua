@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'minus',
     'main',
     'minusstore',
+    'desks'
 ]
 
 MIDDLEWARE = [

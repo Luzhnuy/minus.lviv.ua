@@ -18,9 +18,7 @@ def minus_per_week():
 @register.inclusion_tag('mytags/top_user.html')
 def top_u():
 	users = top_users()
-	# rate = UsersUserrating.objects.order_by('-rating')[:10]
-	# for i in users:
-	# 	i.is_staff = rate.rating
+	
 	return {
 		'top_users' : users,
 		# 'rating' : rate,

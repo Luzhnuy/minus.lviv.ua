@@ -17,8 +17,8 @@
 				</div>
 				<div class="col s6 minus_main_btn">
 					<div class="row">
-						<a class="waves-effect waves-light btn-large col s4">Редагувати</a>
-						<a class="waves-effect waves-light btn-large col s8">Повідомити модератора</a>
+						<a class="waves-effect waves-light btn-large col s12">Редагувати</a>
+						<a class="waves-effect waves-light btn-large col s12">Повідомити модератора</a>
 					</div>	
 				</div>
 				<div class="col s12 about_minus">
@@ -26,6 +26,8 @@
 					        <thead>
 					          <tr>
 					              <th>Мінусовку додав</th>
+								  <th>Бітрейт </th>
+								  <th>Розмір</th>
 					              <th>Тип файлу</th>
 					              <th>Тривалість</th>
 					              <th>Дата </th>
@@ -35,6 +37,8 @@
 					        <tbody>
 					          <tr>
 					            <td>{{ minus_user.username }}</td>
+					            <td>{{ minus.bitrate }}</td>
+					            <td>{{ minus.filesize }} Мб</td>
 					            <td>Аудіо</td>
 					            <td>3:27</td>
 					            <td>{{ minus.pub_date }}</td>
@@ -60,9 +64,9 @@
 				<div class="col s12 social_btn">
 					<a class="waves-effect waves-light btn-large "><i class="material-icons left">mood</i><span>345</span></a>
 					<a class="waves-effect waves-light btn-large "><i class="material-icons left">mood_bad</i><span>15</span></a>
-					<a class="waves-effect waves-light btn-large ">Якість запису: <span>10</span></a>
-					<a class="waves-effect waves-light btn-large ">Аранжування: <span>10</span></a>
-					<a class="waves-effect waves-light btn-large ">Загальний рейтинг: <span>251</span></a>
+					<a class="waves-effect waves-light btn-large tooltipped" data-position="bottom" data-tooltip="<a class='waves-effect waves-light btn-small '>1</a><a class='waves-effect waves-light btn-small '>2</a><a class='waves-effect waves-light btn-small '>3</a><a class='waves-effect waves-light btn-small '>4</a><a class='waves-effect waves-light btn-small '>5</a><a class='waves-effect waves-light btn-small '>6</a><a class='waves-effect waves-light btn-small '>7</a><a class='waves-effect waves-light btn-small '>8</a><a class='waves-effect waves-light btn-small '>9</a><a class='waves-effect waves-light btn-small '>10</a>">Якість запису: <span>10</span></a>
+					<a class="waves-effect waves-light btn-large tooltipped" data-position="bottom" data-tooltip="<a class='waves-effect waves-light btn-small '>1</a><a class='waves-effect waves-light btn-small '>2</a><a class='waves-effect waves-light btn-small '>3</a><a class='waves-effect waves-light btn-small '>4</a><a class='waves-effect waves-light btn-small '>5</a><a class='waves-effect waves-light btn-small '>6</a><a class='waves-effect waves-light btn-small '>7</a><a class='waves-effect waves-light btn-small '>8</a><a class='waves-effect waves-light btn-small '>9</a><a class='waves-effect waves-light btn-small '>10</a>">Аранжування: <span>10</span></a>
+					<a class="waves-effect waves-light btn-large tooltipped" data-position="bottom" data-tooltip="<a class='waves-effect waves-light btn-small '>1</a><a class='waves-effect waves-light btn-small '>2</a><a class='waves-effect waves-light btn-small '>3</a><a class='waves-effect waves-light btn-small '>4</a><a class='waves-effect waves-light btn-small '>5</a><a class='waves-effect waves-light btn-small '>6</a><a class='waves-effect waves-light btn-small '>7</a><a class='waves-effect waves-light btn-small '>8</a><a class='waves-effect waves-light btn-small '>9</a><a class='waves-effect waves-light btn-small '>10</a>">Загальний рейтинг: <span>8.5</span></a>
 				</div>
 				<div class="col s12 user_which_upload">
 					<div class="row">

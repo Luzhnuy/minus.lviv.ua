@@ -5,6 +5,12 @@
 <!-- центральна секція -->
 <section class="col s6">
 	<div class="row">
+		<div class="main_btn col s11 offset-s1">
+		  <div class="row">
+			<a class="waves-effect waves-light btn-large col s6" href="{% url 'add_minus' %}"><i class="material-icons left">file_download</i>Завантажити мінусовку</a>
+			<a class="waves-effect waves-light btn-large col s6"><i class="material-icons right">star</i>Статут та правила порталу</a>
+		  </div>	
+		</div>
 	 	<form class="col s12">
       		<div class="row">
         		<div class="input-field col s12">
@@ -76,12 +82,7 @@
 			<a class="waves-effect waves-light btn-small">Я</a>
 			<a class="waves-effect waves-light btn-small">Ь</a>
 		</div>
-		<div class="main_btn col s11 offset-s1">
-		  <div class="row">
-			<a class="waves-effect waves-light btn-large col s6" href="{% url 'add_minus' %}"><i class="material-icons left">file_download</i>Завантажити мінусовку</a>
-			<a class="waves-effect waves-light btn-large col s6"><i class="material-icons right">star</i>Статут та правила порталу</a>
-		  </div>	
-		</div>
+
 		<div class="main_new col s11 offset-s1">
 			<span>Банер-кнопка.Важлива новина</span>
 			
@@ -97,9 +98,10 @@
 						<div class="new_text col s12">
 							<p>{{ new.preview }}</p>
 						</div>
-						<div class="authors_and_button col s6">
+						<div class="authors_and_button col s12">
 							<div class="row">
-								<a class="waves-effect waves-light btn-large col s3 tooltipped" data-position="bottom" data-tooltip="{{ new.user.first_name }} {{ new.user.last_name }}"><i class="material-icons left">perm_identity</i></a>
+<!-- 	data-position="bottom" data-tooltip="" -->
+								<a class="waves-effect waves-light btn-large  " ><i class="material-icons left">perm_identity</i>{{ new.user.first_name }} {{ new.user.last_name }}, {{ new.pub_date }}}</a>
 								<a class="waves-effect waves-light btn-large col s3 comments"  ><i class="material-icons left">comment</i>2</a>
 								<span id="k" style="display: none;">{{ new.id }}</span>
 							</div>
