@@ -68,6 +68,7 @@ def last_forum():
 
 	for i in post:
 		i.user =  AuthUser.objects.get(pk= i.user_id)
+		i.body = i.body[:250] + '...'
 
 
 	return post	

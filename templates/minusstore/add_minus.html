@@ -10,8 +10,47 @@
 						<form class="col s11 offset-s1 reg" method="POST">
 							{% csrf_token %}
 							<h2>Залийте мінусовку</h2>
-							{{ form_add_minus.as_p }}
-							<button type="submit" class="sbm_auth waves-effect waves-light btn-large col s12">Залити мінусовку</button>
+							<label for="minus">Залийте мінус</label>
+							<input type="file" name="minus" ><br>
+							<br>
+							<label for="title">Назва мінусу</label>
+							<input type="text" name="title" >
+							<label for="author">Виконавець</label>
+							<input type="text" name="author" >
+							 <div class="input-field col s12">
+						    <select multiple>
+						      <option value="" disabled selected>Тип</option>
+						      <option value="1">Option 1</option>
+						      <option value="2">Option 2</option>
+						      <option value="3">Option 3</option>
+						    </select>
+						    
+						  </div>
+						  <div class="input-field col s12">
+						    <select multiple>
+						      <option value="" disabled selected>Жанр</option>
+						      <option value="1">Option 1</option>
+						      <option value="2">Option 2</option>
+						      <option value="3">Option 3</option>
+						    </select>
+						    
+						  </div>
+							  <div class="input-field col s12">
+						    <select multiple>
+						      <option value="" disabled selected>Вид</option>
+						      <option value="1">Option 1</option>
+						      <option value="2">Option 2</option>
+						      <option value="3">Option 3</option>
+						    </select>
+						    
+						  </div>
+
+						  <label for="plus">Залийте плюс</label>
+							<input type="file" name="plus" ><br>
+							<br>
+						  <label for="video">Посилання на відео</label>
+						  <input type="text">
+						  <button type="submit" class="sbm_auth waves-effect waves-light btn-large col s12">Залити мінусовку</button>
 							
 						</form>
 			</div>

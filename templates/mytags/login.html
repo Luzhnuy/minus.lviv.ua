@@ -1,0 +1,8 @@
+<form class="auth" method="POST" action="{% url 'signin' %}">
+	{% csrf_token %}
+	<h2>Вхід</h2>
+	{{ form.as_p }}
+	<button type="submit" class="sbm_auth waves-effect waves-light btn-small">Увійти</button>
+
+</form>
+<div class="url_to_reg"><a href="{% url 'registration_page' %}">Або ж зараєструйтесь</a></div>

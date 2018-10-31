@@ -12,3 +12,7 @@ def main_shop(request):
 		'goods':good,			
 				
 	})
+def goods(request,pk):
+	good = BlurbsBlurb.objects.get(pk=pk)
+	
+	return render(request, 'shop/goods.html' , {'good':good,})

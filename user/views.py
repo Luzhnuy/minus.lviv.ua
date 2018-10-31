@@ -1,59 +1,79 @@
 from django.shortcuts import render
-from minus.models import NewsNewsitem,AuthUser,DjangoComments,MinusstoreMinusauthor
+from minus.models import NewsNewsitem,AuthUser,DjangoComments,MinusstoreMinusauthor,Userprofile,UsersUserrating
 from django.http import HttpResponse,HttpResponseRedirect
 from django.core import serializers
-from main.forms import AuthForm, RegForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.views import LoginView
 from django.template import RequestContext
 from django.contrib.auth.models import User
+# from django.views.generic import LoginView
+from django.contrib.auth import logout
+from django.views.generic.edit import FormView
+from django.contrib.auth.forms import UserCreationForm
+from .forms import UserCreateForm
+import datetime
 
 
-def user_page(request):
-	
-	form = AuthForm()
-
-	return render(request, 'user/index.html',{
-		'form' : form,
-		})
-
-
-def registration_page(request):
-	Reg_form = RegForm(request.POST)
-	form = AuthForm(request.POST)
-	if request.method == "POST":
-		if Reg_form.is_valid():
-			user = Reg_form.save(commit=False)
-			user.email = request.email
-			user.username = request.username 
-			user.first_name = request.first_name
-			user.last_name = request.last_name
-			user.password = request.password
-			user.save()
-			
-
-		
-	return render(request, 'user/registration.html',{
-		'Reg_form' : Reg_form,
+def user_page(request,pk):
+    user = Userprofile.objects.get(pk = pk)
+    user.u = User.objects.get(pk = user.user_id)
+    user.rating = UsersUserrating.objects.get(user_id = user.id)
+    return render(request, 'user/index.html', {
+        'user':user,
 	})
 
 
 
-def signin(request):
-	form = AuthForm(request.POST)
+def userlist(request):
+    users = User.objects.all()[:20]
+
+    return render(request,'user/list.html',{'users':users})
+
+class RegisterFormView(FormView):
+    form_class = UserCreateForm
+
+    # Ссылка, на которую будет перенаправляться пользователь в случае успешной регистрации.
+    # В данном случае указана ссылка на страницу входа для зарегистрированных пользователей.
+    success_url = "http://127.0.0.1:8000"
+
+    # Шаблон, который будет использоваться при отображении представления.
+    template_name = "user/registration.html"
+
+    def form_valid(self, form):
+        # Создаём пользователя, если данные в форму были введены корректно.
+        self.last_login = datetime.datetime.now()
+        form.save()
+
+        return super(RegisterFormView, self).form_valid(form)
+
+ 
+
 	
-	if request.method == "POST":
-		if form.is_valid():
-			login = request.POST['email']
-			pas = request.POST['password']
-			user = authenticate(email=login, password=pas)
-			if user is not None:
-				login(request,user)
-				
-				return render(request, 'main/index.html' , {
-					'user' : user,
-					})
-			else:
-				
-				return render(request, 'user/registration.html' , {})
-	else:
-			return HttpResponse(len(User.objects.all()))		
+
+class UserLoginView(LoginView):
+    form_class = AuthenticationForm
+    template_name = 'mytags/login.html'
+    redirect_authenticated_user = True
+
+    def post(self, request, *args, **kwargs):
+
+        form = self.get_form()  # type: AuthenticationForm
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            # выведем ошибку если пользователь не существует
+            if 'username' in form.cleaned_data:
+                username = form.cleaned_data['username']
+                try:
+                    User.objects.get(username=username)
+                except User.DoesNotExist:
+                    form.add_error('username',
+                                   mark_safe('Пользователь с таким логином не зарегистрирован'))
+                    del form._errors['password']  # не знаю как ещё оставить только одну ошибку
+
+            return self.form_invalid(form)
+
+
+def logout_view(request):
+	logout(request) 
+	return HttpResponseRedirect('../../')           

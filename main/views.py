@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from minus.models import NewsNewsitem,Userprofile,DjangoComments,AuthUser
 from django.http import HttpResponse
 from django.core import serializers
@@ -14,7 +14,7 @@ from .forms import AuthForm
 
 
 def main(request):
-	form = AuthForm()
+
 	# signin(request,form)
 
 	
@@ -28,10 +28,29 @@ def main(request):
 	return render(request, 'main/index.html' , {
 	
 		'news' : news,
-		'form' : form,
+		
 		
 		})
 
+
+def news_index(request,pk):
+	
+
+
+
+	new = get_object_or_404(NewsNewsitem,pk=pk)
+
+	new.user = AuthUser.objects.get(pk = new.user_id)
+	new.comments = DjangoComments.objects.filter(content_type_id = 51,object_pk = pk)
+	for i in new.comments:
+		i.user = AuthUser.objects.get(pk = i.user_id)
+
+	return render(request, 'main/news.html' , {
+	
+		'news' : new,
+	
+		
+		})	
 	
 def comments(request,pk):
 

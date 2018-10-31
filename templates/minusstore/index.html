@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
-
+{% load my_tags %}
 {% load staticfiles %}
+
 
 {% block content %}
 <section class="col s6">
@@ -12,77 +13,18 @@
           			<input id="icon_prefix" type="text" class="validate">
           			<label for="icon_prefix">Пошук мінусовок</label>
         		</div>
-      
+
       		</div>
     	</form>
-		
-		<div class="dictionary col s10 offset-s1">
-			<a class="waves-effect waves-light btn-small">0-9</a>
-			<a class="waves-effect waves-light btn-small">A</a>
-			<a class="waves-effect waves-light btn-small">B</a>
-			<a class="waves-effect waves-light btn-small">C</a>
-			<a class="waves-effect waves-light btn-small">D</a>
-			<a class="waves-effect waves-light btn-small">E</a>
-			<a class="waves-effect waves-light btn-small">F</a>
-			<a class="waves-effect waves-light btn-small">G</a>
-			<a class="waves-effect waves-light btn-small">H</a>
-			<a class="waves-effect waves-light btn-small">I</a>
-			<a class="waves-effect waves-light btn-small">J</a>
-			<a class="waves-effect waves-light btn-small">K</a>
-			<a class="waves-effect waves-light btn-small">L</a>
-			<a class="waves-effect waves-light btn-small">M</a>
-			<a class="waves-effect waves-light btn-small">N</a>
-			<a class="waves-effect waves-light btn-small">O</a>
-			<a class="waves-effect waves-light btn-small">P</a>
-			<a class="waves-effect waves-light btn-small">Q</a>
-			<a class="waves-effect waves-light btn-small">R</a>
-			<a class="waves-effect waves-light btn-small">S</a>
-			<a class="waves-effect waves-light btn-small">T</a>
-			<a class="waves-effect waves-light btn-small">U</a>
-			<a class="waves-effect waves-light btn-small">V</a>
-			<a class="waves-effect waves-light btn-small">W</a>
-			<a class="waves-effect waves-light btn-small">X</a>
-			<a class="waves-effect waves-light btn-small">Y</a>
-			<a class="waves-effect waves-light btn-small">Z</a>
-			<a class="waves-effect waves-light btn-small">А</a>
-			<a class="waves-effect waves-light btn-small">Б</a>
-			<a class="waves-effect waves-light btn-small">В</a>
-			<a class="waves-effect waves-light btn-small">Г</a>
-			<a class="waves-effect waves-light btn-small">Ґ</a>
-			<a class="waves-effect waves-light btn-small">Д</a>
-			<a class="waves-effect waves-light btn-small">Е</a>
-			<a class="waves-effect waves-light btn-small">Є</a>
-			<a class="waves-effect waves-light btn-small">Ж</a>
-			<a class="waves-effect waves-light btn-small">З</a>
-			<a class="waves-effect waves-light btn-small">И</a>
-			<a class="waves-effect waves-light btn-small">І</a>
-			<a class="waves-effect waves-light btn-small">Й</a>
-			<a class="waves-effect waves-light btn-small">К</a>
-			<a class="waves-effect waves-light btn-small">Л</a>
-			<a class="waves-effect waves-light btn-small">М</a>
-			<a class="waves-effect waves-light btn-small">Н</a>
-			<a class="waves-effect waves-light btn-small">О</a>
-			<a class="waves-effect waves-light btn-small">П</a>
-			<a class="waves-effect waves-light btn-small">Р</a>
-			<a class="waves-effect waves-light btn-small">С</a>
-			<a class="waves-effect waves-light btn-small">Т</a>
-			<a class="waves-effect waves-light btn-small">У</a>
-			<a class="waves-effect waves-light btn-small">Ф</a>
-			<a class="waves-effect waves-light btn-small">Х</a>
-			<a class="waves-effect waves-light btn-small">Ц</a>
-			<a class="waves-effect waves-light btn-small">Ч</a>
-			<a class="waves-effect waves-light btn-small">Ш</a>
-			<a class="waves-effect waves-light btn-small">Ю</a>
-			<a class="waves-effect waves-light btn-small">Я</a>
-			<a class="waves-effect waves-light btn-small">Ь</a>
-		</div>
+
+	{% letters %}
 		<div class="form_select_type_minus col s12">
 			<div class="row">
 				<form action="" class="col s11 offset-s1">
 					<div class="row">
 						 <div class="input-field col s6 select_region">
 						    <select>
-						      
+
 						      <option value="1">Всі</option>
 						      <option value="2">Аудіо</option>
 						      <option value="3">General MIDI</option>
@@ -93,17 +35,17 @@
 						  </div>
 							 <div class="input-field col s6 select_region">
 							    <select>
-							      
+
 							      <option value="1">Все</option>
 							      <option value="2">Українські мінусовки</option>
 							      <option value="3">Інструментальні</option>
 							    </select>
 							   <label>Каталог</label>
- 
+
 						</div>
 						<div class="input-field col s6 select_region">
 						    <select>
-						      
+
 						      <option value="1">Всі</option>
 						      <option value="2">Аудіо</option>
 						      <option value="3">General MIDI</option>
@@ -114,21 +56,21 @@
 						  </div>
 							 <div class="input-field col s6 select_region">
 							    <select>
-							      
+
 							      <option value="1">Все</option>
 							      <option value="2">Українські мінусовки</option>
 							      <option value="3">Інструментальні</option>
 							    </select>
 							   <label>Вибір за жанром</label>
- 
-						</div>							  
+
+						</div>
 					</div>
 				</form>
 			</div>
 		</div>
 		<div class="authors col s11 offset-s1">
 			<div class="row">
-				<h3>Всі автори</h3>
+				<h3>{% if letter %} Всі автори на {{ letter }} {% else %}Всі автори {% endif %}</h3>
 				<ul class="collapsible">
 				{% for a in author %}
 				<li >
@@ -139,17 +81,17 @@
 				    <div class="collapsible-body">
 						{% for m in a.minus %}
 							<div>
-								<p><a href="{% url 'minus' pk=m.pk %}" style="color:black;text-decoration: underline;">{{ m.title }}</a></p>
+								<p><a href="{% url 'minus' pk=m.id %}" style="color:black;text-decoration: underline;">{{ m.title }}</a></p>
 								<audio src="{% static 'minus.mp3' %}" controls controlsList="nodownload"></audio>
 								<p>(Аудіо) 8.{{ m.filesize }}мб 320Кбіт/с завантажено burgar {{ m.pubdate}}</p>
 							</div>
-						{% endfor %}	
+						{% endfor %}
 
-				    				    	
+
 				    </div>
-				  </li>			
-				  {% endfor %}	 
-				</ul>	
+				  </li>
+				  {% endfor %}
+				</ul>
 			</div>
 		</div>
 </div>

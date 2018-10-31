@@ -110,10 +110,10 @@
 						</div>
 						  <div class="input-field col s2 select_region">
 						    <select>
-						      <option value="" disabled selected>Виберіть бренд</option>
-						      <option value="1">Fender</option>
-						      <option value="2">Casio</option>
-						      <option value="3">Yamaha</option>
+						      <option value="" disabled selected>Виберіть вид</option>
+						      <option value="1">Вид</option>
+						      <option value="2">Вид 2</option>
+						      <option value="3">Вид 3</option>
 						    </select>
 						   
 						 </div>
@@ -158,7 +158,7 @@
 					    </div>
 					    <div class="card-content">
 					      <span class="card-title activator grey-text text-darken-4">{{ g.title }}<i class="material-icons right">more_vert</i></span>
-					      <p><a href="#">This is a link</a></p>
+					      <p><a href="{% url 'goods' pk=g.pk %}">This is a link</a></p>
 					    </div>
 					    <div class="card-reveal">
 					      <span class="card-title grey-text text-darken-4">{{ g.title }}<i class="material-icons right">close</i></span>

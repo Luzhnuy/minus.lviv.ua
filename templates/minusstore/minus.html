@@ -17,7 +17,7 @@
 				</div>
 				<div class="col s6 minus_main_btn">
 					<div class="row">
-						<a class="waves-effect waves-light btn-large col s12">Редагувати</a>
+						{% if request.user.is_autheticated %}<a class="waves-effect waves-light btn-large col s12">Редагувати</a> {% endif %}
 						<a class="waves-effect waves-light btn-large col s12">Повідомити модератора</a>
 					</div>	
 				</div>
@@ -121,7 +121,7 @@
 				{% if minus.lyrics %}
 				<div class="col s12 text_of_track">
 					<p>Текст пісні</p>
-					<a class="waves-effect waves-light btn-large"><i class="material-icons left">cloud_download</i>Завантажити текст</a>
+					<a class="waves-effect waves-light btn-large" href="{% url 'generete_pdf' pk=minus.id %}"><i class="material-icons left">cloud_download</i>Завантажити текст</a>
 					<p class="col s5"><!-- {Якби на річку покласти кладку,
 											І через неї перейти.
 											Якби забути щире кохання,

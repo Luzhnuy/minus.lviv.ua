@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load my_tags %}
 {% block content %}
 
 <!-- центральна секція -->
@@ -7,9 +7,9 @@
 	<div class="row">
 		<div class="main_btn col s11 offset-s1">
 		  <div class="row">
-			<a class="waves-effect waves-light btn-large col s6" href="{% url 'add_minus' %}"><i class="material-icons left">file_download</i>Завантажити мінусовку</a>
-			<a class="waves-effect waves-light btn-large col s6"><i class="material-icons right">star</i>Статут та правила порталу</a>
-		  </div>	
+			<a class="waves-effect waves-light btn-large col s6 " href="{% url 'add_minus' %}"><i class="material-icons left">file_upload</i>Завантажити мінусовку</a>
+			<a class="waves-effect waves-light btn-large col s6 "><i class="material-icons right" style="color:red;">star</i>Статут та правила порталу</a>
+		  </div>
 		</div>
 	 	<form class="col s12">
       		<div class="row">
@@ -18,86 +18,87 @@
           			<input id="icon_prefix" type="text" class="validate">
           			<label for="icon_prefix">Пошук мінусовок</label>
         		</div>
-      
+
       		</div>
     	</form>
-		
-		<div class="dictionary col s10 offset-s1">
-            <a class="waves-effect waves-light btn-small">0-9</a>
-			<a class="waves-effect waves-light btn-small">A</a>
-			<a class="waves-effect waves-light btn-small">B</a>
-			<a class="waves-effect waves-light btn-small">C</a>
-			<a class="waves-effect waves-light btn-small">D</a>
-			<a class="waves-effect waves-light btn-small">E</a>
-			<a class="waves-effect waves-light btn-small">F</a>
-			<a class="waves-effect waves-light btn-small">G</a>
-			<a class="waves-effect waves-light btn-small">H</a>
-			<a class="waves-effect waves-light btn-small">I</a>
-			<a class="waves-effect waves-light btn-small">J</a>
-			<a class="waves-effect waves-light btn-small">K</a>
-			<a class="waves-effect waves-light btn-small">L</a>
-			<a class="waves-effect waves-light btn-small">M</a>
-			<a class="waves-effect waves-light btn-small">N</a>
-			<a class="waves-effect waves-light btn-small">O</a>
-			<a class="waves-effect waves-light btn-small">P</a>
-			<a class="waves-effect waves-light btn-small">Q</a>
-			<a class="waves-effect waves-light btn-small">R</a>
-			<a class="waves-effect waves-light btn-small">S</a>
-			<a class="waves-effect waves-light btn-small">T</a>
-			<a class="waves-effect waves-light btn-small">U</a>
-			<a class="waves-effect waves-light btn-small">V</a>
-			<a class="waves-effect waves-light btn-small">W</a>
-			<a class="waves-effect waves-light btn-small">X</a>
-			<a class="waves-effect waves-light btn-small">Y</a>
-			<a class="waves-effect waves-light btn-small">Z</a>
-			<a class="waves-effect waves-light btn-small">А</a>
-			<a class="waves-effect waves-light btn-small">Б</a>
-			<a class="waves-effect waves-light btn-small">В</a>
-			<a class="waves-effect waves-light btn-small">Г</a>
-			<a class="waves-effect waves-light btn-small">Ґ</a>
-			<a class="waves-effect waves-light btn-small">Д</a>
-			<a class="waves-effect waves-light btn-small">Е</a>
-			<a class="waves-effect waves-light btn-small">Є</a>
-			<a class="waves-effect waves-light btn-small">Ж</a>
-			<a class="waves-effect waves-light btn-small">З</a>
-			<a class="waves-effect waves-light btn-small">И</a>
-			<a class="waves-effect waves-light btn-small">І</a>
-			<a class="waves-effect waves-light btn-small">Й</a>
-			<a class="waves-effect waves-light btn-small">К</a>
-			<a class="waves-effect waves-light btn-small">Л</a>
-			<a class="waves-effect waves-light btn-small">М</a>
-			<a class="waves-effect waves-light btn-small">Н</a>
-			<a class="waves-effect waves-light btn-small">О</a>
-			<a class="waves-effect waves-light btn-small">П</a>
-			<a class="waves-effect waves-light btn-small">Р</a>
-			<a class="waves-effect waves-light btn-small">С</a>
-			<a class="waves-effect waves-light btn-small">Т</a>
-			<a class="waves-effect waves-light btn-small">У</a>
-			<a class="waves-effect waves-light btn-small">Ф</a>
-			<a class="waves-effect waves-light btn-small">Х</a>
-			<a class="waves-effect waves-light btn-small">Ц</a>
-			<a class="waves-effect waves-light btn-small">Ч</a>
-			<a class="waves-effect waves-light btn-small">Ш</a>
-			<a class="waves-effect waves-light btn-small">Ю</a>
-			<a class="waves-effect waves-light btn-small">Я</a>
-			<a class="waves-effect waves-light btn-small">Ь</a>
-		</div>
+		{% letters %}
+<!-- 		<div class="dictionary col s10 offset-s1">
+            <a class="waves-effect waves-light btn-small col s1">0-9</a>
+			<a class="waves-effect waves-light btn-small col s1">A</a>
+			<a class="waves-effect waves-light btn-small col s1">B</a>
+			<a class="waves-effect waves-light btn-small col s1">C</a>
+			<a class="waves-effect waves-light btn-small col s1">D</a>
+			<a class="waves-effect waves-light btn-small col s1">E</a>
+			<a class="waves-effect waves-light btn-small col s1">F</a>
+			<a class="waves-effect waves-light btn-small col s1">G</a>
+			<a class="waves-effect waves-light btn-small col s1">H</a>
+			<a class="waves-effect waves-light btn-small col s1">I</a>
+			<a class="waves-effect waves-light btn-small col s1">J</a>
+			<a class="waves-effect waves-light btn-small col s1">K</a>
+			<a class="waves-effect waves-light btn-small col s1">L</a>
+			<a class="waves-effect waves-light btn-small col s1">M</a>
+			<a class="waves-effect waves-light btn-small col s1">N</a>
+			<a class="waves-effect waves-light btn-small col s1">O</a>
+			<a class="waves-effect waves-light btn-small col s1">P</a>
+			<a class="waves-effect waves-light btn-small col s1">Q</a>
+			<a class="waves-effect waves-light btn-small col s1">R</a>
+			<a class="waves-effect waves-light btn-small col s1">S</a>
+			<a class="waves-effect waves-light btn-small col s1">T</a>
+			<a class="waves-effect waves-light btn-small col s1">U</a>
+			<a class="waves-effect waves-light btn-small col s1">V</a>
+			<a class="waves-effect waves-light btn-small col s1">W</a>
+			<a class="waves-effect waves-light btn-small col s1">X</a>
+			<a class="waves-effect waves-light btn-small col s1">Y</a>
+			<a class="waves-effect waves-light btn-small col s1">Z</a>
+			<a class="waves-effect waves-light btn-small col s1">А</a>
+			<a class="waves-effect waves-light btn-small col s1">Б</a>
+			<a class="waves-effect waves-light btn-small col s1">В</a>
+			<a class="waves-effect waves-light btn-small col s1">Г</a>
+			<a class="waves-effect waves-light btn-small col s1">Ґ</a>
+			<a class="waves-effect waves-light btn-small col s1">Д</a>
+			<a class="waves-effect waves-light btn-small col s1">Е</a>
+			<a class="waves-effect waves-light btn-small col s1">Є</a>
+			<a class="waves-effect waves-light btn-small col s1">Ж</a>
+			<a class="waves-effect waves-light btn-small col s1">З</a>
+			<a class="waves-effect waves-light btn-small col s1">И</a>
+			<a class="waves-effect waves-light btn-small col s1">І</a>
+			<a class="waves-effect waves-light btn-small col s1">Й</a>
+			<a class="waves-effect waves-light btn-small col s1">К</a>
+			<a class="waves-effect waves-light btn-small col s1">Л</a>
+			<a class="waves-effect waves-light btn-small col s1">М</a>
+			<a class="waves-effect waves-light btn-small col s1">Н</a>
+			<a class="waves-effect waves-light btn-small col s1">О</a>
+			<a class="waves-effect waves-light btn-small col s1">П</a>
+			<a class="waves-effect waves-light btn-small col s1">Р</a>
+			<a class="waves-effect waves-light btn-small col s1">С</a>
+			<a class="waves-effect waves-light btn-small col s1">Т</a>
+			<a class="waves-effect waves-light btn-small col s1">У</a>
+			<a class="waves-effect waves-light btn-small col s1">Ф</a>
+			<a class="waves-effect waves-light btn-small col s1">Х</a>
+			<a class="waves-effect waves-light btn-small col s1">Ц</a>
+			<a class="waves-effect waves-light btn-small col s1">Ч</a>
+			<a class="waves-effect waves-light btn-small col s1">Ш</a>
+			<a class="waves-effect waves-light btn-small col s1">Ю</a>
+			<a class="waves-effect waves-light btn-small col s1">Я</a>
+			<a class="waves-effect waves-light btn-small col s1">Ь</a>
+		</div> -->
 
 		<div class="main_new col s11 offset-s1">
 			<span>Банер-кнопка.Важлива новина</span>
-			
+
 		</div>
 		<div class="all_news col s11 offset-s1">
 			<div class="row">
 			{% for new in news %}
 				<div class="new col s12">
 					<div class="row">
+					<a href="{% url 'news_index' pk=new.id %}" style="color:black;">
 						<div class="new_caption col s12">
 							<h2>{{ new.title }}</h2>
 						</div>
 						<div class="new_text col s12">
 							<p>{{ new.preview }}</p>
-						</div>
+						</div></a>
 						<div class="authors_and_button col s12">
 							<div class="row">
 <!-- 	data-position="bottom" data-tooltip="" -->

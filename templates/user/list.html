@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+<section class="col s6">
+	<div class="row">
+		<form class="col s12">
+      		<div class="row">
+        		<div class="input-field col s12">
+          			<i class="material-icons prefix">search</i>
+          			<input id="icon_prefix" type="text" class="validate">
+          			<label for="icon_prefix">Пошук користувачів</label>
+        		</div>
+      
+      		</div>
+    	</form>
+		
+		
+		<div class="authors col s11 offset-s1">
+			<div class="row">
+				<h3>Користувачі</h3>
+				
+				{% for u in users %}
+				<div class="col s12">
+					<ul class="collection">
+						    <li class="collection-item avatar">
+						      <img src="{% static 'avatar_mini.jpg' %}" alt="" class="circle">
+						      <span class="title" style="color:#9ACD32;">{{ u.username }}</span>
+						      <p style="font-weight: bold;">{{ u.first_name }} {{ u.last_name }} <br>
+						        {{ u.email }}
+						      </p>
+						      <a href="{% url 'user_page' pk=u.id %}" class="secondary-content"><i class="material-icons">send</i></a>
+						    </li>
+						
+						 </ul>
+					
+				</div>
+				{% endfor %}	 
+					
+			</div>
+		</div>
+</div>
+</section>
+
+
+{% endblock %}

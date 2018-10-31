@@ -8,7 +8,8 @@
 		<form class="col s11 offset-s1 reg" method="POST">
 			{% csrf_token %}
 			<h2>Зареєструйтесь</h2>
-			{{ Reg_form.as_p }}
+			{{ form }}
+			
 			<button type="submit" class="sbm_auth waves-effect waves-light btn-large col s12">Увійти</button>
 			
 		</form>

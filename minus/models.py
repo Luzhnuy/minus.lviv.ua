@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
+
 class AdminToolsDashboardPreferences(models.Model):
     user_id = models.IntegerField()
     data = models.TextField()
@@ -51,7 +52,7 @@ class AlbumsAudioalbum(models.Model):
     user_id = models.IntegerField()
     content_type_id = models.IntegerField(blank=True, null=True)
     object_pk = models.IntegerField(blank=True, null=True)
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=128,default='null')
     slug = models.CharField(unique=True, max_length=150)
     description = models.TextField(blank=True, null=True)
     pub_date = models.DateTimeField()
@@ -62,7 +63,7 @@ class AlbumsAudioalbum(models.Model):
 
 
 class AuthGroup(models.Model):
-    name = models.CharField(unique=True, max_length=80)
+    name = models.CharField(unique=True, max_length=80,default='null')
 
     class Meta:
         managed = True
@@ -89,7 +90,7 @@ class AuthMessage(models.Model):
 
 
 class AuthPermission(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50,default='null')
     content_type_id = models.IntegerField()
     codename = models.CharField(max_length=100)
 
@@ -100,7 +101,7 @@ class AuthPermission(models.Model):
 
 
 class AuthUser(models.Model):
-    
+
     username = models.CharField(unique=True, max_length=30)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
@@ -109,12 +110,13 @@ class AuthUser(models.Model):
     is_staff = models.IntegerField()
     is_active = models.IntegerField()
     is_superuser = models.IntegerField()
-    last_login = models.DateTimeField()
-    date_joined = models.DateTimeField()
+    last_login = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    date_joined = models.DateTimeField(auto_now_add=True, blank=True)
 
     class Meta:
         managed = True
         db_table = 'auth_user'
+
 
 
 # class AuthUserGroups(models.Model):
@@ -358,7 +360,7 @@ class DjangoComments(models.Model):
 
 
 class DjangoContentType(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100,default='null')
     app_label = models.CharField(max_length=100)
     model = models.CharField(max_length=100)
 
@@ -430,7 +432,7 @@ class DjangoSession(models.Model):
 
 class DjangoSite(models.Model):
     domain = models.CharField(max_length=100)
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50,default='null')
 
     class Meta:
         managed = True
@@ -442,7 +444,7 @@ class DjangobbForumAttachment(models.Model):
     size = models.IntegerField()
     content_type = models.CharField(max_length=255)
     path = models.CharField(max_length=255)
-    name = models.TextField()
+    name = models.TextField(default='null')
     hash = models.CharField(max_length=40)
 
     class Meta:
@@ -462,7 +464,7 @@ class DjangobbForumBan(models.Model):
 
 
 class DjangobbForumCategory(models.Model):
-    name = models.CharField(max_length=80)
+    name = models.CharField(max_length=80,default='null')
     position = models.IntegerField()
 
     class Meta:
@@ -482,7 +484,7 @@ class DjangobbForumCategoryGroups(models.Model):
 
 class DjangobbForumForum(models.Model):
     category_id = models.IntegerField()
-    name = models.CharField(max_length=80)
+    name = models.CharField(max_length=80,default='null')
     position = models.IntegerField()
     description = models.TextField()
     updated = models.DateTimeField()
@@ -588,7 +590,7 @@ class DjangobbForumReputation(models.Model):
 
 class DjangobbForumTopic(models.Model):
     forum_id = models.IntegerField()
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255,default='null')
     created = models.DateTimeField()
     updated = models.DateTimeField(blank=True, null=True)
     user_id = models.IntegerField()
@@ -834,7 +836,7 @@ class LinksFriendlink(models.Model):
 
 
 class LinksFriendlinkcategory(models.Model):
-    name = models.CharField(max_length=256)
+    name = models.CharField(max_length=256,default='null')
 
     class Meta:
         managed = True
@@ -890,12 +892,7 @@ class MinusstoreMinus(models.Model):
         db_table = 'minusstore_minus'
 
 
-class MinusstoreMinusauthor(models.Model):
-    name = models.CharField(max_length=255)
 
-    class Meta:
-        managed = True
-        db_table = 'minusstore_minusauthor'
 
 
 class MinusstoreMinusauthorFiletypes(models.Model):
@@ -908,7 +905,7 @@ class MinusstoreMinusauthorFiletypes(models.Model):
 
 
 class MinusstoreMinuscategory(models.Model):
-    name = models.CharField(max_length=15)
+    name = models.CharField(max_length=15,default='null')
     display_name = models.CharField(max_length=20, blank=True, null=True)
 
     class Meta:
@@ -956,6 +953,13 @@ class MinusstoreMinusrecord(models.Model):
     class Meta:
         managed = True
         db_table = 'minusstore_minusrecord'
+
+class MinusstoreMinusauthor(models.Model):
+    name = models.CharField(max_length=255,default='null')
+    # minus = models.ManyToManyField(MinusstoreMinusrecord)
+    class Meta:
+        managed = True
+        db_table = 'minusstore_minusauthor'
 
 
 class MinusstoreMinusrecordCategories(models.Model):
@@ -1024,7 +1028,7 @@ class PhotosPhoto(models.Model):
 
 class PhotosPhotoalbum(models.Model):
     user_id = models.IntegerField()
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=128,default='null')
     slug = models.CharField(unique=True, max_length=150)
     description = models.TextField(blank=True, null=True)
     pub_date = models.DateTimeField()
@@ -1202,7 +1206,7 @@ class VideosVideo(models.Model):
 
 class VideosVideoalbum(models.Model):
     user_id = models.IntegerField(unique=True)
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=128,default='null')
     slug = models.CharField(unique=True, max_length=50)
     description = models.TextField(blank=True, null=True)
     date_created = models.DateTimeField()
