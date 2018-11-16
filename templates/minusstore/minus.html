@@ -17,9 +17,9 @@
 				</div>
 				<div class="col s6 minus_main_btn">
 					<div class="row">
-						{% if request.user.is_autheticated %}<a class="waves-effect waves-light btn-large col s12">Редагувати</a> {% endif %}
+						{% if request.user.is_authenticated %}<a class="waves-effect waves-light btn-large col s12">Редагувати</a> {% endif %}
 						<a class="waves-effect waves-light btn-large col s12">Повідомити модератора</a>
-					</div>	
+					</div>
 				</div>
 				<div class="col s12 about_minus">
 					      <table>
@@ -43,7 +43,7 @@
 					            <td>3:27</td>
 					            <td>{{ minus.pub_date }}</td>
 					          </tr>
-					
+
 					        </tbody>
 					      </table>
 				</div>
@@ -52,9 +52,9 @@
 						<audio src="{% static 'minus.mp3' %}" controls controlsList="nodownload"></audio>
 					</div>
 					<div class="download_btn col s1 ">
-					
+
 							<a class="waves-effect waves-light btn-small ">Завантажити</a>
-						
+
 					</div>
 					<div class="howmany col s3 offset-s2">
 						<p>Прослухано:800</p>
@@ -62,26 +62,30 @@
 					</div>
 				</div>
 				<div class="col s12 social_btn">
-					<a class="waves-effect waves-light btn-large "><i class="material-icons left">mood</i><span>345</span></a>
-					<a class="waves-effect waves-light btn-large "><i class="material-icons left">mood_bad</i><span>15</span></a>
+				{% if request.user.is_authenticated %}
+					<a class="waves-effect waves-light btn-large like" id="{{ minus.id }}"><i class="material-icons left">mood</i><span>{% if likedislike %}
+					{{ likedislike.likes }} {% else %} 0 {% endif %}</span><span style="display:none;" id="userl">{{ request.user.id }}</span></a>
+					<a class="waves-effect waves-light btn-large dislike" id="{{ minus.id }}"><i class="material-icons left">mood_bad</i><span>{% if likedislike %}
+					{{ likedislike.dislikes }} {% else %} 0 {% endif %}</span></a>
+				{% endif %}
 					<a class="waves-effect waves-light btn-large tooltipped" data-position="bottom" data-tooltip="<a class='waves-effect waves-light btn-small '>1</a><a class='waves-effect waves-light btn-small '>2</a><a class='waves-effect waves-light btn-small '>3</a><a class='waves-effect waves-light btn-small '>4</a><a class='waves-effect waves-light btn-small '>5</a><a class='waves-effect waves-light btn-small '>6</a><a class='waves-effect waves-light btn-small '>7</a><a class='waves-effect waves-light btn-small '>8</a><a class='waves-effect waves-light btn-small '>9</a><a class='waves-effect waves-light btn-small '>10</a>">Якість запису: <span>10</span></a>
 					<a class="waves-effect waves-light btn-large tooltipped" data-position="bottom" data-tooltip="<a class='waves-effect waves-light btn-small '>1</a><a class='waves-effect waves-light btn-small '>2</a><a class='waves-effect waves-light btn-small '>3</a><a class='waves-effect waves-light btn-small '>4</a><a class='waves-effect waves-light btn-small '>5</a><a class='waves-effect waves-light btn-small '>6</a><a class='waves-effect waves-light btn-small '>7</a><a class='waves-effect waves-light btn-small '>8</a><a class='waves-effect waves-light btn-small '>9</a><a class='waves-effect waves-light btn-small '>10</a>">Аранжування: <span>10</span></a>
 					<a class="waves-effect waves-light btn-large tooltipped" data-position="bottom" data-tooltip="<a class='waves-effect waves-light btn-small '>1</a><a class='waves-effect waves-light btn-small '>2</a><a class='waves-effect waves-light btn-small '>3</a><a class='waves-effect waves-light btn-small '>4</a><a class='waves-effect waves-light btn-small '>5</a><a class='waves-effect waves-light btn-small '>6</a><a class='waves-effect waves-light btn-small '>7</a><a class='waves-effect waves-light btn-small '>8</a><a class='waves-effect waves-light btn-small '>9</a><a class='waves-effect waves-light btn-small '>10</a>">Загальний рейтинг: <span>8.5</span></a>
 				</div>
 				<div class="col s12 user_which_upload">
 					<div class="row">
-						<div class="col s6 information_about">	
+						<div class="col s6 information_about">
 							<p>Мінусовку завантажив:</p>
 							<div class="avatar_mini col s4">
 								<img src="{% static 'avatar_mini.jpg' %}"  class="circle responsive-img" alt="">
 							</div>
 							<p>{{ minus_user.first_name }} {{ minus_user.last_name }}<a href="#"><i class="material-icons left">message</i></a></p>
 							<p>Всього завантежених мінусовок ({{ upload_minuses }})</p>
-						</div>	
+						</div>
 						<div class="col s5 offset-s1 more_about_minus_from_uploader">
 							<p>Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. </p>
 						</div>
-					</div>	
+					</div>
 				</div>
 				<div class="col s12 more_about">
 					<div class="row">
@@ -90,10 +94,10 @@
 							</p>
 						</div>
 						<div class="col s4 left"><p>Автор аранжування<span></p></div>
-						<div class="col s1 line">_____</div>						
+						<div class="col s1 line">_____</div>
 						<div class="col s4"><p>Вальс</p></div>
 						<div class="col s4 left"><p>Вид каталогу</p></div>
-						<div class="col s1 line">_____</div>						
+						<div class="col s1 line">_____</div>
 						<div class="col s4"><p>Помірна</p></div>
 						<div class="col s4 left"><p>Вид за призначенням</p></div>
 						<div class="col s1 line">_____</div>
@@ -101,8 +105,8 @@
 						<div class="col s4 left"><p>Належить до жанру</p></div>
 						<div class="col s1 line">_____</div>
 						<div class="col s4"><p>Обрядові(весілля,свята)</p></div>
-				
-						
+
+
 					</div>
 				</div>
 				<div class="col s6 plus">
@@ -115,7 +119,7 @@
 					<a class="waves-effect waves-light btn-large col s3"><img src="{% static 'img/facebook.png' %}"/></a>
 					<a class="waves-effect waves-light btn-large col s3"><img src="{% static 'img/instagram.png' %}"/></a>
 					<a class="waves-effect waves-light btn-large col s3"><img src="{% static 'img/twitter.png' %}"/></a>
-					
+
 					</div>
 				</div>
 				{% if minus.lyrics %}
@@ -126,37 +130,37 @@
 											І через неї перейти.
 											Якби забути щире кохання,
 											І до дівчини більш не йти.
-					
+
 											Ой знаю, занаю Ти мій миленький,
 											Що Ти аж трьох нас полюбив.
 											Тільки не знаю Ти мій миленький,
 											Котру на серці залишив.
-					
+
 											Одну любив я за карі очі,
 											Другу любив за красоту.
 											А тая третя сумна ходила,
 											Лишилась в серці моєму.
-					
+
 											Ой вийшла мила на крутий берег,
 											Там де плавають кораблі.
 											Скочила вводу згубила вроду,
 											Знайшла притулочок собі.
-					
+
 											За нею милий на крутий берег,
 											Там де плавають кораблі.
 											Вийняв хустину кинув на воду,
 											Візьми миленька – це Тобі.
-					
+
 											Візьми миленька зав'яжи рану,
 											Щоб не розмила її вода.
 											Ті карі очі, той стан дівочий,
 											Що нахилився вже до дна.
-					
+
 											І став дрібненький дощ накрапати,
 											Висока хвиля виграва.
 											Усі дівчата гуляють в парі,
 											Моєї милої нема.
-					
+
 											І вже на річку поклали кладку,
 											Я через річку перейшов.
 											Я не забув те щире кохання,
@@ -168,7 +172,7 @@
 					<iframe width="560" height="315" src="https://www.youtube.com/embed/082v4qv7lAA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 				</div>
 				<div class="col s12 comments_in_minusstore">
-					<p>Коментарі(0):</p>
+					<p>Коментарі:</p>
 					{% for c in comments %}
 					<div class="comment col s12">
 						<div class="avatar_mini col s4">
@@ -184,12 +188,12 @@
 								<button type="submit" class="waves-effect waves-light btn-small">
 									Відправити
 								</button>
-								 
+
       								<label>
         								<input type="checkbox" />
         								<span>Підписатись на коментарі до цього мінуса</span>
       								</label>
-    							
+
 						</form>
 					</div>
 				</div>

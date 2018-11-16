@@ -1,11 +1,11 @@
 						{% for u in top_users %}
 							<div class="users_and_rate">
-							
-								
-								<div class="name_rate col s6  rating"><p>{{ u.user.first_name }} {{ u.user.last_name }}   </p></div>
+
+
+								<div class="name_rate col s6  rating"><p>{{ u.user.username }} </p></div>
 								<div class="user_rating col s6 rating"><p>{{ u.rating }}</p></div>
-								
-							
+
+
 							</div>
 
 				    	{% endfor %}

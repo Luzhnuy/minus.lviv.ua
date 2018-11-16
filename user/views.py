@@ -1,12 +1,14 @@
 from django.shortcuts import render
-from minus.models import NewsNewsitem,AuthUser,DjangoComments,MinusstoreMinusauthor,Userprofile,UsersUserrating
+from user.models import AuthUser,Userprofile,UsersUserrating
+from minus.models import DjangoComments
+from minusstore.models import MinusstoreMinusauthor
 from django.http import HttpResponse,HttpResponseRedirect
 from django.core import serializers
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
 from django.template import RequestContext
 from django.contrib.auth.models import User
-# from django.views.generic import LoginView
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth import logout
 from django.views.generic.edit import FormView
 from django.contrib.auth.forms import UserCreationForm
@@ -15,9 +17,9 @@ import datetime
 
 
 def user_page(request,pk):
-    user = Userprofile.objects.get(pk = pk)
+    user = Userprofile.objects.get(user_id = pk)
     user.u = User.objects.get(pk = user.user_id)
-    user.rating = UsersUserrating.objects.get(user_id = user.id)
+    user.rating = UsersUserrating.objects.get(user_id = user.u.id)
     return render(request, 'user/index.html', {
         'user':user,
 	})
@@ -25,7 +27,18 @@ def user_page(request,pk):
 
 
 def userlist(request):
-    users = User.objects.all()[:20]
+    users = User.objects.all()
+    paginator = Paginator(users, 25)
+    page = request.GET.get('page')
+    try:
+        users = paginator.page(page)
+        print('first')
+    except PageNotAnInteger:
+        users = paginator.page(1)
+        print('second')
+    except EmptyPage:
+        users = paginator.page(paginator.num_pages)
+        print('third')
 
     return render(request,'user/list.html',{'users':users})
 
@@ -46,9 +59,9 @@ class RegisterFormView(FormView):
 
         return super(RegisterFormView, self).form_valid(form)
 
- 
 
-	
+
+
 
 class UserLoginView(LoginView):
     form_class = AuthenticationForm
@@ -67,13 +80,12 @@ class UserLoginView(LoginView):
                 try:
                     User.objects.get(username=username)
                 except User.DoesNotExist:
-                    form.add_error('username',
-                                   mark_safe('Пользователь с таким логином не зарегистрирован'))
-                    del form._errors['password']  # не знаю как ещё оставить только одну ошибку
+                    return HttpResponseRedirect('../../')
+                      # не знаю как ещё оставить только одну ошибку
 
             return self.form_invalid(form)
 
 
 def logout_view(request):
-	logout(request) 
-	return HttpResponseRedirect('../../')           
+	logout(request)
+	return HttpResponseRedirect('../../')

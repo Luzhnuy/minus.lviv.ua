@@ -9,4 +9,5 @@ urlpatterns = [
   	url(r'if-minus-correct/(?P<pk>[0-9]+)/$',views.if_minus_correct, name="if_minus_correct"),
   	url(r'generete_pdf/(?P<pk>[0-9]+)/$',views.pdf_generete, name="generete_pdf"),
   	url(r'letters-filter/(?P<letter>[a-zA-Z0-9А-ЯЄІ]+)/$',views.letters_filter, name="letter_filter"),
+    url(r'give/(?P<author_id>[0-9]+)/$', views.gave, name="gave_minus")
 ]

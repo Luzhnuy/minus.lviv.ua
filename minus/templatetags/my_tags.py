@@ -1,8 +1,7 @@
 from django import template
 from minus.new_minuses import *
 from minus.tops_functions import *
-from minus.new_minuses import *
-from minus.models import UsersUserrating
+from user.models import UsersUserrating
 from main.forms import AuthForm
 from django.views.decorators.cache import cache_page
 

@@ -100,22 +100,7 @@ class AuthPermission(models.Model):
         unique_together = (('content_type_id', 'codename'),)
 
 
-class AuthUser(models.Model):
 
-    username = models.CharField(unique=True, max_length=30)
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    email = models.CharField(max_length=75)
-    password = models.CharField(max_length=128)
-    is_staff = models.IntegerField()
-    is_active = models.IntegerField()
-    is_superuser = models.IntegerField()
-    last_login = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-    date_joined = models.DateTimeField(auto_now_add=True, blank=True)
-
-    class Meta:
-        managed = True
-        db_table = 'auth_user'
 
 
 
@@ -159,47 +144,6 @@ class BannersPlaceholder(models.Model):
         managed = True
         db_table = 'banners_placeholder'
 
-
-class BlurbsBlurb(models.Model):
-    title = models.CharField(max_length=120)
-    description = models.TextField()
-    buysell = models.CharField(max_length=1)
-    user_id = models.IntegerField()
-    category_id = models.IntegerField()
-    pub_date = models.DateTimeField()
-    georegion_id = models.IntegerField(blank=True, null=True)
-    geocity_id = models.IntegerField(blank=True, null=True)
-
-    class Meta:
-        managed = True
-        db_table = 'blurbs_blurb'
-
-
-class BlurbsBlurbcategory(models.Model):
-    title = models.CharField(max_length=60)
-    slug = models.CharField(max_length=60)
-
-    class Meta:
-        managed = True
-        db_table = 'blurbs_blurbcategory'
-
-
-class BlurbsGeocity(models.Model):
-    title = models.CharField(max_length=30)
-    region_id = models.IntegerField()
-    is_city = models.IntegerField()
-
-    class Meta:
-        managed = True
-        db_table = 'blurbs_geocity'
-
-
-class BlurbsGeoregion(models.Model):
-    title = models.CharField(max_length=30)
-
-    class Meta:
-        managed = True
-        db_table = 'blurbs_georegion'
 
 
 class CaptchaCaptchastore(models.Model):
@@ -344,7 +288,7 @@ class DjangoComments(models.Model):
     content_type_id = models.IntegerField()
     object_pk = models.TextField()
     site_id = models.IntegerField()
-    user_id = models.IntegerField(blank=True, null=True)
+    user = models.ForeignKey(User,blank=True, null=True)
     user_name = models.CharField(max_length=50)
     user_email = models.CharField(max_length=75)
     user_url = models.CharField(max_length=200)
@@ -509,7 +453,7 @@ class DjangobbForumForumModerators(models.Model):
 
 class DjangobbForumPost(models.Model):
     topic_id = models.IntegerField()
-    user_id = models.IntegerField()
+    user = models.ForeignKey(User)
     created = models.DateTimeField()
     updated = models.DateTimeField(blank=True, null=True)
     updated_by_id = models.IntegerField(blank=True, null=True)
@@ -735,22 +679,7 @@ class FriendsFriendshiprequest(models.Model):
         unique_together = (('to_user_id', 'from_user_id'),)
 
 
-class FriendsUserblocks(models.Model):
-    user_id = models.IntegerField(unique=True)
 
-    class Meta:
-        managed = True
-        db_table = 'friends_userblocks'
-
-
-class FriendsUserblocksBlocks(models.Model):
-    userblocks_id = models.IntegerField()
-    user_id = models.IntegerField()
-
-    class Meta:
-        managed = True
-        db_table = 'friends_userblocks_blocks'
-        unique_together = (('userblocks_id', 'user_id'),)
 
 
 class HitcountBlacklistIp(models.Model):
@@ -860,157 +789,22 @@ class MessagesMessage(models.Model):
         db_table = 'messages_message'
 
 
-class MinusstoreCommentnotify(models.Model):
-    comment_id = models.IntegerField(unique=True)
+
+
+class Likedislike(models.Model):
     user_id = models.IntegerField()
-    is_seen = models.IntegerField()
+    likes = models.IntegerField()
+    dislikes = models.IntegerField()
     content_type_id = models.IntegerField()
     object_id = models.IntegerField()
 
     class Meta:
         managed = True
-        db_table = 'minusstore_commentnotify'
-
-
-class MinusstoreFiletype(models.Model):
-    type_name = models.CharField(max_length=15)
-    display_name = models.CharField(max_length=20, blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
-    filetype = models.CharField(max_length=30)
-
-    class Meta:
-        managed = True
-        db_table = 'minusstore_filetype'
-
-
-class MinusstoreMinus(models.Model):
-    author = models.CharField(max_length=255)
-    title = models.CharField(max_length=1000)
-
-    class Meta:
-        managed = True
-        db_table = 'minusstore_minus'
 
 
 
 
 
-class MinusstoreMinusauthorFiletypes(models.Model):
-    minusauthor_id = models.IntegerField()
-    filetype_id = models.IntegerField()
-
-    class Meta:
-        managed = True
-        db_table = 'minusstore_minusauthor_filetypes'
-
-
-class MinusstoreMinuscategory(models.Model):
-    name = models.CharField(max_length=15,default='null')
-    display_name = models.CharField(max_length=20, blank=True, null=True)
-
-    class Meta:
-        managed = True
-        db_table = 'minusstore_minuscategory'
-
-
-class MinusstoreMinusplusrecord(models.Model):
-    minus_id = models.IntegerField(unique=True, blank=True, null=True)
-    user_id = models.IntegerField()
-    file = models.CharField(max_length=2048)
-
-    class Meta:
-        managed = True
-        db_table = 'minusstore_minusplusrecord'
-
-
-class MinusstoreMinusrecord(models.Model):
-    user_id = models.IntegerField()
-    file = models.CharField(max_length=2048, blank=True, null=True)
-    title = models.CharField(max_length=255)
-    is_folk = models.IntegerField()
-    author_id = models.IntegerField()
-    arrangeuathor = models.CharField(max_length=50, blank=True, null=True)
-    annotation = models.TextField()
-    thematics = models.CharField(max_length=30, blank=True, null=True)
-    tempo = models.CharField(max_length=10)
-    staff = models.CharField(max_length=10)
-    gender = models.CharField(max_length=10)
-    is_childish = models.IntegerField()
-    is_amateur = models.IntegerField()
-    is_ritual = models.IntegerField()
-    lyrics = models.TextField()
-    plusrecord = models.CharField(max_length=2048, blank=True, null=True)
-    pub_date = models.DateTimeField()
-    length = models.TimeField()
-    bitrate = models.IntegerField()
-    filesize = models.IntegerField()
-    embed_video = models.TextField(blank=True, null=True)
-    type_id = models.IntegerField()
-    rating_votes = models.IntegerField()
-    rating_score = models.IntegerField()
-    alternative = models.IntegerField()
-
-    class Meta:
-        managed = True
-        db_table = 'minusstore_minusrecord'
-
-class MinusstoreMinusauthor(models.Model):
-    name = models.CharField(max_length=255,default='null')
-    # minus = models.ManyToManyField(MinusstoreMinusrecord)
-    class Meta:
-        managed = True
-        db_table = 'minusstore_minusauthor'
-
-
-class MinusstoreMinusrecordCategories(models.Model):
-    minusrecord_id = models.IntegerField()
-    minuscategory_id = models.IntegerField()
-
-    class Meta:
-        managed = True
-        db_table = 'minusstore_minusrecord_categories'
-        unique_together = (('minusrecord_id', 'minuscategory_id'),)
-
-
-class MinusstoreMinusstats(models.Model):
-    date = models.DateField()
-    rate = models.IntegerField()
-    minus_id = models.IntegerField()
-
-    class Meta:
-        managed = True
-        db_table = 'minusstore_minusstats'
-
-
-class MinusstoreMinusstopword(models.Model):
-    word = models.CharField(max_length=30)
-    blocked = models.IntegerField()
-
-    class Meta:
-        managed = True
-        db_table = 'minusstore_minusstopword'
-
-
-class MinusstoreMinusweekstats(models.Model):
-    rate = models.IntegerField()
-    minus_id = models.IntegerField()
-
-    class Meta:
-        managed = True
-        db_table = 'minusstore_minusweekstats'
-
-
-class NewsNewsitem(models.Model):
-    user_id = models.IntegerField()
-    title = models.CharField(max_length=150)
-    body = models.TextField()
-    allow_comments = models.IntegerField()
-    pub_date = models.DateTimeField()
-    preview = models.TextField()
-
-    class Meta:
-        managed = True
-        db_table = 'news_newsitem'
 
 
 class PhotosPhoto(models.Model):
@@ -1133,63 +927,6 @@ class TastypieApikey(models.Model):
         db_table = 'tastypie_apikey'
 
 
-class Userprofile(models.Model):
-    user_id = models.IntegerField(unique=True)
-    gender = models.CharField(max_length=6, blank=True, null=True)
-    city = models.CharField(max_length=128, blank=True, null=True)
-    country = models.CharField(max_length=128, blank=True, null=True)
-    avatar = models.CharField(max_length=128, blank=True, null=True)
-    birthdate = models.DateField(blank=True, null=True)
-    hide_birthdate = models.IntegerField()
-    icq = models.CharField(max_length=10, blank=True, null=True)
-    jabber = models.CharField(max_length=128, blank=True, null=True)
-    skype = models.CharField(max_length=128, blank=True, null=True)
-    website = models.CharField(max_length=128, blank=True, null=True)
-    about = models.TextField(blank=True, null=True)
-    is_admin_subscribed = models.IntegerField()
-    status_title = models.CharField(max_length=20, blank=True, null=True)
-    status_css = models.CharField(max_length=20, blank=True, null=True)
-    banned = models.IntegerField()
-    banned_until = models.DateField(blank=True, null=True)
-    seen_rules = models.IntegerField()
-
-    class Meta:
-        managed = True
-        db_table = 'userprofile'
-
-
-class UsersStaffticket(models.Model):
-    user_id = models.IntegerField()
-    content_type_id = models.IntegerField()
-    object_id = models.IntegerField()
-    url = models.CharField(max_length=200, blank=True, null=True)
-    message = models.TextField(blank=True, null=True)
-    pub_date = models.DateTimeField()
-    is_done = models.IntegerField()
-
-    class Meta:
-        managed = True
-        db_table = 'users_staffticket'
-
-
-class UsersUseractivity(models.Model):
-    last_activity_ip = models.CharField(max_length=15)
-    last_activity_date = models.DateTimeField()
-    user_id = models.IntegerField(primary_key=True)
-
-    class Meta:
-        managed = True
-        db_table = 'users_useractivity'
-
-
-class UsersUserrating(models.Model):
-    user_id = models.IntegerField(unique=True)
-    rating = models.IntegerField()
-    average_minus_rating = models.IntegerField()
-
-    class Meta:
-        managed = True
-        db_table = 'users_userrating'
 
 
 class VideosVideo(models.Model):

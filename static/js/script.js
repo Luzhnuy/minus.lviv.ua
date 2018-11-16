@@ -1,6 +1,6 @@
 // function gavetext(id){
 // 		$.ajax({
-// 			url:'/admin/show_practice.php',						
+// 			url:'/admin/show_practice.php',
 // 			method:'POST',
 // 			dataType:'text',
 // 			statbox:"status",
@@ -23,7 +23,7 @@ function getComment(id){
 		success:function(comments){
 			// comment = JSON.parse(comments)
 			// alert(typeof(comments));
-			M.toast({html: comments[0].fields.comment,  classes: 'green'});	
+			M.toast({html: comments[0].fields.comment,  classes: 'green'});
 		}
 	});
 }
@@ -32,13 +32,13 @@ function getComment(id){
 
 $(document).ready(function(){
 	M.AutoInit();
-	
+
 	  $('.comments').on('click', function(){
-	  		id = $('#k').text()
+	  		id = this.id
 	  		getComment(id);
-	  		
-	  		
-			        
+
+
+
 	  });
 	// $('#like').click(function() {
  //        $('#likes').html(+$('#likes').html()+1);

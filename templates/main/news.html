@@ -9,7 +9,7 @@
 		  <div class="row">
 			<a class="waves-effect waves-light btn-large col s6" href="{% url 'add_minus' %}"><i class="material-icons left">file_download</i>Завантажити мінусовку</a>
 			<a class="waves-effect waves-light btn-large col s6"><i class="material-icons right">star</i>Статут та правила порталу</a>
-		  </div>	
+		  </div>
 		</div>
 	 	<form class="col s12">
       		<div class="row">
@@ -18,11 +18,11 @@
           			<input id="icon_prefix" type="text" class="validate">
           			<label for="icon_prefix">Пошук мінусовок</label>
         		</div>
-      
+
       		</div>
     	</form>
-		
-		<div class="dictionary col s10 offset-s1">
+
+		<!-- <div class="dictionary col s10 offset-s1">
                <a class="waves-effect waves-light btn-small col s1">0-9</a>
 			<a class="waves-effect waves-light btn-small col s1">A</a>
 			<a class="waves-effect waves-light btn-small col s1">B</a>
@@ -81,28 +81,28 @@
 			<a class="waves-effect waves-light btn-small col s1">Ю</a>
 			<a class="waves-effect waves-light btn-small col s1">Я</a>
 			<a class="waves-effect waves-light btn-small col s1">Ь</a>
-		</div>
+		</div> -->
 
 		<div class="main_new col s11 offset-s1">
 			<span>Банер-кнопка.Важлива новина</span>
-			
+
 		</div>
 		<div class="all_news col s11 offset-s1">
 			<div class="row">
 			<div class="new col s12">
 					<div class="row">
-						
+
 						<div class="new_caption col s12">
 							<h2>{{ news.title }}</h2>
 						</div>
 						<div class="new_text col s12">
-							<p>{{ news.body }}</p>
-						</div></a>
+							<p>{% if news.body %}{{ news.body }}{% else %} {{ news.preview }} {% endif %}</p>
+						</div>
 						<div class="authors_and_button col s12">
 							<div class="row">
 <!-- 	data-position="bottom" data-tooltip="" -->
 								<a class="waves-effect waves-light btn-large  " ><i class="material-icons left">perm_identity</i>{{ news.user.first_name }} {{ news.user.last_name }}, {{ news.pub_date }}}</a>
-								
+
 							</div>
 						</div>
 					</div>
@@ -124,12 +124,12 @@
 								<button type="submit" class="waves-effect waves-light btn-small">
 									Відправити
 								</button>
-								 
+
       								<label>
         								<input type="checkbox" />
         								<span>Підписатись на коментарі до цього мінуса</span>
       								</label>
-    							
+
 						</form>
 					</div>
 				</div>

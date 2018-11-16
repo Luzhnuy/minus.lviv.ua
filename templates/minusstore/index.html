@@ -4,6 +4,7 @@
 
 
 {% block content %}
+
 <section class="col s6">
 	<div class="row">
 		<form class="col s12">
@@ -73,29 +74,37 @@
 				<h3>{% if letter %} Всі автори на {{ letter }} {% else %}Всі автори {% endif %}</h3>
 				<ul class="collapsible">
 				{% for a in author %}
-				<li >
-				    <div class="collapsible-header">
+				<li>
+				    <div class="collapsible-header gaveminus" id="{{ a.id }}">
 				      <i class="material-icons">person</i>
 				      <a  style="color:white;text-decoration: underline;">{{ a.name }}</a>
 				      <span class="badge"></span></div>
-				    <div class="collapsible-body">
-						{% for m in a.minus %}
-							<div>
-								<p><a href="{% url 'minus' pk=m.id %}" style="color:black;text-decoration: underline;">{{ m.title }}</a></p>
-								<audio src="{% static 'minus.mp3' %}" controls controlsList="nodownload"></audio>
-								<p>(Аудіо) 8.{{ m.filesize }}мб 320Кбіт/с завантажено burgar {{ m.pubdate}}</p>
-							</div>
-						{% endfor %}
+				    <div class="collapsible-body" id="{{ a.id }}b">
+
+
+
+
 
 
 				    </div>
 				  </li>
 				  {% endfor %}
 				</ul>
+				<div class="pagination">
+					<span class="step-links">
+							{% if author.has_previous %}
+								<a href="?page={{ author.previous_page_number }}">Попередня сторінка</a>
+							{% endif %}
+							<span class="current">
+									Сторінка {{ author.number }} з {{ author.paginator.num_pages }}.
+							</span>
+							{% if author.has_next %}
+								<a href="?page={{ author.next_page_number }}">Наступна сторінка</a>
+							{% endif %}
+					</span>
+				</div>
 			</div>
 		</div>
 </div>
 </section>
-
-
 {% endblock %}

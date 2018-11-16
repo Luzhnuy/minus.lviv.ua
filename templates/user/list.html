@@ -12,15 +12,15 @@
           			<input id="icon_prefix" type="text" class="validate">
           			<label for="icon_prefix">Пошук користувачів</label>
         		</div>
-      
+
       		</div>
     	</form>
-		
-		
+
+
 		<div class="authors col s11 offset-s1">
 			<div class="row">
 				<h3>Користувачі</h3>
-				
+
 				{% for u in users %}
 				<div class="col s12">
 					<ul class="collection">
@@ -32,12 +32,24 @@
 						      </p>
 						      <a href="{% url 'user_page' pk=u.id %}" class="secondary-content"><i class="material-icons">send</i></a>
 						    </li>
-						
+
 						 </ul>
-					
+
 				</div>
-				{% endfor %}	 
-					
+				{% endfor %}
+				<div class="pagination">
+					<span class="step-links">
+							{% if users.has_previous %}
+								<a href="?page={{ users.previous_page_number }}">Попередня сторінка</a>
+							{% endif %}
+							<span class="current">
+									Сторінка {{ users.number }} з {{ users.paginator.num_pages }}.
+							</span>
+							{% if users.has_next %}
+								<a href="?page={{ users.next_page_number }}">Наступна сторінка</a>
+							{% endif %}
+					</span>
+				</div>
 			</div>
 		</div>
 </div>

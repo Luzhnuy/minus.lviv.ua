@@ -43,13 +43,13 @@
 
 		    <div class="nav-content bottom_menu">
 		      <ul class="tabiks tabiks-transparent">
-		        <li class="tabik "><a href="https://www.youtube.com/" class="bmenu_a back_menu">Youtube</a></li>
+		        <li class="tabik "><a target="_blank" href="https://www.youtube.com/channel/UC8ZIZXC1LSM97_cZDMIFJvA" class="bmenu_a back_menu">Youtube</a></li>
 		        <li class="tabik "><a href="#" class="bmenu_a back_menu">Радіо</a></li>
 		        <li class="tabik "><a href="#" class="bmenu_a back_menu">Конкурс вокалістів</a></li>
 		        <li class="tabik "><a href="{% url 'desk_of_respect' %}" class="bmenu_a back_menu" >Дошка пошани</a></li>
 		      <li class="tabik "> <a href="{% url 'desk_of_shame' %}" class="bmenu_a back_menu" >Пауза користувача  <span style="color:red;">4</span></a></li>
 		        <li class="tabik "><a href="#" class="bmenu_a back_menu">FAQ</a></li>
-		        <li class="tabik "><a href="#" class="bmenu_a back_menu">Допомога </a></li>
+		        <!-- <li class="tabik "><a href="#" class="bmenu_a back_menu">Допомога </a></li> -->
 		          <li class="tabik "><a href="{% url 'userlist' %}" class="bmenu_a back_menu">Користувачі</a></li>
 		         <li class="tabik "><a href="{% url 'plusstore_main' %}" class="bmenu_a back_menu">Плюсовки</a></li>
 		        {% if request.user.is_authenticated %}
@@ -419,6 +419,7 @@
   crossorigin="anonymous"></script>
 <!-- materialize_js	 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+<script type="text/javascript" src="{% static 'js/index.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 
 </body>

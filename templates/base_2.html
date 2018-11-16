@@ -5,7 +5,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	
+
 	<title>minus.lviv.ua</title>
 	<!-- Materialize -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
@@ -16,9 +16,9 @@
 <body>
 
 <div class="father_GOD">
-	
+
 	<header>
-		
+
 	<div class="lozung">
 			<h1>Всеукраїнський музичний інформаційний портал</h1>
 		</div>
@@ -31,8 +31,8 @@
 		      	<li><a href="collapsible.html">Події</a></li>
 		      	<li><a href="{% url 'minusstore_main' %}">Мінусовки</a></li>
 		        <li><a href="{% url 'main_shop' %}">Куплю/продам</a></li>
-		        
-		        
+
+
 		        <li><a href="collapsible.html">Чат</a></li>
 		        <li><a href="collapsible.html">Форум</a></li>
 		      </ul>
@@ -40,18 +40,18 @@
 		    <div class="nav-content bottom_menu">
 		      <ul class="tabs tabs-transparent">
 		      <ul class="tabiks tabiks-transparent">
-		        <li class="tabik "><a href="https://www.youtube.com/" class="bmenu_a back_menu">Youtube</a></li>
+		        <li class="tabik "><a target="_blank" href="https://www.youtube.com/channel/UC8ZIZXC1LSM97_cZDMIFJvA" class="bmenu_a back_menu">Youtube</a></li>
 		        <li class="tabik "><a href="#" class="bmenu_a back_menu">Радіо</a></li>
 		        <li class="tabik "><a href="#" class="bmenu_a back_menu">Конкурс вокалістів</a></li>
 		        <li class="tabik "><a href="{% url 'desk_of_respect' %}" class="bmenu_a back_menu" >Дошка пошани</a></li>
 		      <li class="tabik "> <a href="{% url 'desk_of_shame' %}" class="bmenu_a back_menu" >Пауза користувача  <span style="color:red;">4</span></a></li>
 		        <li class="tabik "><a href="#" class="bmenu_a back_menu">FAQ</a></li>
-		        <li class="tabik "><a href="#" class="bmenu_a back_menu">Допомога порталу</a></li>
-		     <li class="tabik green_li" ><a href="{% url 'user_page' %}" class="bmenu_a" style="color:white;">Моя сторінка</a></li>
+		        <!-- <li class="tabik "><a href="#" class="bmenu_a back_menu">Допомога порталу</a></li> -->
+		     <li class="tabik green_li" ><a href="{% url 'userlist' %}" class="bmenu_a" style="color:white;">Моя сторінка</a></li>
 		        <li class="tabik green_li" ><a class="bmenu_a" href="#test2" style="color:white;"><i class="small material-icons">notifications</i></a></li>
 		    <!--     <li class="tab"><a href="#test3" class="bmenu_a"><i class="small material-icons">email</i></a></li>
 		        <li class="tab"><a href="#test4" class="bmenu_a">Партнери</a></li> -->
-		        
+
 		    </div>
 		  </nav>
 
@@ -62,7 +62,7 @@
 		  </ul>
 
 
-        
+
 
 
 	</header>
@@ -73,21 +73,21 @@
 
 
 <!-- Ліва паннель  -->
-		
+
 
 <!-- Центральна панель -->
  {% block content %}
-            
 
 
- 
+
+
 
 
 
  {% endblock %}
 
 <!-- Права панель -->
-		
+
 </div>
 
 

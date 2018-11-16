@@ -97,19 +97,32 @@
 							<h2>{{ new.title }}</h2>
 						</div>
 						<div class="new_text col s12">
-							<p>{{ new.preview }}</p>
+							<p>{% if new.body %}{{ new.body }}{% else %}{{ new.preview }}{% endif %}</p>
 						</div></a>
 						<div class="authors_and_button col s12">
 							<div class="row">
 <!-- 	data-position="bottom" data-tooltip="" -->
-								<a class="waves-effect waves-light btn-large  " ><i class="material-icons left">perm_identity</i>{{ new.user.first_name }} {{ new.user.last_name }}, {{ new.pub_date }}}</a>
-								<a class="waves-effect waves-light btn-large col s3 comments"  ><i class="material-icons left">comment</i>2</a>
-								<span id="k" style="display: none;">{{ new.id }}</span>
+								<a class="waves-effect waves-light btn-large col s9" href="{% url 'user_page' pk=new.user.id %}"><i class="material-icons left">perm_identity</i>{{ new.user.first_name }} {{ new.user.last_name }}, {{ new.pub_date }}}</a>
+								<a class="waves-effect waves-light btn-large col s3 comments" id="{{ new.id }}"  ><i class="material-icons left">comment</i>{{ new.comments_count }}</a>
+								<!-- <span id="k" style="display: none;"></span> -->
 							</div>
 						</div>
 					</div>
 				</div>
 			{% endfor %}
+			<div class="pagination">
+				<span class="step-links">
+						{% if news.has_previous %}
+							<a href="?page={{ news.previous_page_number }}">Попередня сторінка</a>
+						{% endif %}
+						<span class="current">
+								Сторінка {{ news.number }} з {{ news.paginator.num_pages }}.
+						</span>
+						{% if news.has_next %}
+							<a href="?page={{ news.next_page_number }}">Наступна сторінка</a>
+						{% endif %}
+				</span>
+			</div>
 			</div>
 		</div>
 
