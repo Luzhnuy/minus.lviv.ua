@@ -234,11 +234,7 @@
 						<div class="row">
 						{%	if request.user.is_authenticated %}
 							<div class="name_and_status col s7">
-<<<<<<< HEAD
-								<p>Богдан Іванишин</p>
-=======
 								<p>{{ request.user.first_name }} {{ request.user.last_name }}</p>
->>>>>>> messanger
 								<span>Адміністратор</span>
 								<hr>
 
@@ -259,18 +255,7 @@
      							</ul>
 							</div>
 							{% else %}
-<<<<<<< HEAD
-							<form class="auth" method="POST" action="{% url 'signin' %}">
-								{% csrf_token %}
-								<h2>Вхід</h2>
-								{{ form.as_p }}
-								<button type="submit" class="sbm_auth waves-effect waves-light btn-small">Увійти</button>
-
-							</form>
-							<div class="url_to_reg"><a href="{% url 'registration_page' %}">Або ж зараєструйтесь</a></div>
-=======
 							{% login %}
->>>>>>> messanger
 
 							{% endif %}
 						</div>
