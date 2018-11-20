@@ -1,6 +1,6 @@
 // function gavetext(id){
 // 		$.ajax({
-// 			url:'/admin/show_practice.php',						
+// 			url:'/admin/show_practice.php',
 // 			method:'POST',
 // 			dataType:'text',
 // 			statbox:"status",
@@ -14,14 +14,16 @@
 // }
 
 
-function getComment(){
+function getComment(id){
 
 	$.ajax({
-		url:'http://127.0.0.1:8000/comments',
+		url:'http://127.0.0.1:8000/comments/'+id+'/',
 		method:'GET',
-		dataType: 'json',
+		dataType: 'JSON',
 		success:function(comments){
-			alert(comments);
+			// comment = JSON.parse(comments)
+			// alert(typeof(comments));
+			M.toast({html: comments[0].fields.comment,  classes: 'green'});
 		}
 	});
 }
@@ -29,21 +31,25 @@ function getComment(){
 
 
 $(document).ready(function(){
-	
-	 M.AutoInit();
+	M.AutoInit();
+
 	  $('.comments').on('click', function(){
-	  		getComment();
-	  		M.toast({html: 'комент',  classes: 'green'});	
-	  		
-			        
+	  		id = this.id
+	  		getComment(id);
+
+
+
 	  });
-	$('#like').click(function() {
-        $('#likes').html(+$('#likes').html()+1);
+	// $('#like').click(function() {
+ //        $('#likes').html(+$('#likes').html()+1);
 
-    });
-    $('#dislike').click(function() {
-        $('#dislike').html(+$('#dislikes').html()+1);
+ //    });
+ //    $('#dislike').click(function() {
+ //        $('#dislike').html(+$('#dislikes').html()+1);
 
-    });
+ //    });
 
+      $('.dropdown-trigger').dropdown({
+      	constrainWidth: false,
+      });
 });

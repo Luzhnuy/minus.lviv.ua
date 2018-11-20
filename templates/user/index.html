@@ -10,15 +10,35 @@
 			<div class="row">
 				<div class="avatar_mini col s3">
 					<img src="{% static 'avatar_mini.jpg' %}"  class="rectengular responsive-img" alt="">
+					<div>
+						<table>
+							<tr>
+								<td>+</td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>40</td>
+								<td>1</td>
+							</tr>
+						</table>
+					</div>
 				</div>
 				<div class="col s9 name_and_lastname">
-					<p>Богдан Іванишин</p>
+					<p>{{ user.u.first_name }} {{ user.u.last_name }}</p>
 				</div>
+
 				<div class="col s9 status">
-					<p>Адміністратор</p><br>
-					<span>Рейтинг:</span><p>100500</p>
-					<span>    Заслуги:</span><p><i class="material-icons">star</i><i class="material-icons">star</i><i class="material-icons">star</i></p>
+					<p style="color: green;">{{ user.status_title }}</p>
+					<pre><p>Рейтинг:   {{ user.rating.rating }}</p></pre>	
+					<p><pre>Заслуги:    <i class="material-icons">star</i><i class="material-icons">star</i><i class="material-icons">star</i></pre></p>
+					<p>На сайті з: {{ user.u.date_joined }}</p>
+					<p>Востаннє заходив: {{ user.u.last_login }}</p>
+					<div style="display: inline-block;"><a style="text-decoration: none; color: green;" href="#">Товари користувача</a></div><br>
+					<div style="margin-bottom: 10px; margin-top: 0px;" class="right">
+						<input type="button" class="btn" style="color: green; background-color: white;" value="Додати/вилучити друга">
+					</div>
 				</div>
+
 				<div class="col s12 main_btn">
 					<div class="row">
 						<a class="waves-effect waves-light btn-large col s3">Повідомлення</a>
@@ -33,20 +53,70 @@
 						
 						
 						<div class="col s4"><p>Країна</p></div>
-						<div class="col s6"><p>Україна</p></div>
+						<div class="col s6"><p>{% if user.country %}{{ user.country }}{% else %} немає {% endif %}</p></div>
 						<div class="col s4"><p>Місто:</p></div>
-						<div class="col s6"><p>Винники</p></div>
+						<div class="col s6"><p>{% if user.city %}{{ user.city}}{% else %} немає {% endif %}</p></div>
 						<div class="col s4"><p>Стать:</p></div>
-						<div class="col s6"><p>Чоловіча</p></div>
+						<div class="col s6"><p>{% if user.gender %}{{ user.gender}}{% else %} немає {% endif %}</p></div>
 						<div class="col s4"><p>Д/Н:</p></div>
-						<div class="col s6"><p>30.10.1980</p></div>
+						<div class="col s6"><p>{% if user.birthdate %}{{ user.birthdate }}{% else %} немає {% endif %}</p></div>
 						<div class="col s4"><p>На сайті з:</p></div>
-						<div class="col s6"><p>17 лютого 2011</p></div>
+						<div class="col s6"><p>{{ user.u.date_joined }}</p></div>
 						
 					</div>
 				</div>
 				<div class="col s6 about_me">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				<div class="row">
+				
+				<div class="col s12">
+					<h5>Друзі користувача:</h5><br>
+					<ul class="collection">
+						    <li class="collection-item avatar">
+						      <img src="{% static 'avatar_mini.jpg' %}" alt="" class="circle">
+						      <span class="title" style="color:#9ACD32;">{{ user.u.username }}</span>
+						      <p style="font-weight: bold;">{{ user.u.first_name }} {{ user.u.last_name }} <br>
+						        {{ u.email }}
+						      </p>
+						      <a href="{% url 'user_page' pk=user.id %}" class="secondary-content"><i class="material-icons">send</i></a>
+						    </li>
+						    <li class="collection-item avatar">
+						      <img src="{% static 'avatar_mini.jpg' %}" alt="" class="circle">
+						      <span class="title" style="color:#9ACD32;">{{ user.u.username }}</span>
+						      <p style="font-weight: bold;">{{ user.u.first_name }} {{ user.u.last_name }} <br>
+						        {{ u.email }}
+						      </p>
+						      <a href="{% url 'user_page' pk=user.id %}" class="secondary-content"><i class="material-icons">send</i></a>
+						    </li>
+						    <li class="collection-item avatar">
+						      <img src="{% static 'avatar_mini.jpg' %}" alt="" class="circle">
+						      <span class="title" style="color:#9ACD32;">{{ user.u.username }}</span>
+						      <p style="font-weight: bold;">{{ user.u.first_name }} {{ user.u.last_name }} <br>
+						        {{ u.email }}
+						      </p>
+						      <a href="{% url 'user_page' pk=user.id %}" class="secondary-content"><i class="material-icons">send</i></a>
+						    </li>
+						    <li class="collection-item avatar">
+						      <img src="{% static 'avatar_mini.jpg' %}" alt="" class="circle">
+						      <span class="title" style="color:#9ACD32;">{{ user.u.username }}</span>
+						      <p style="font-weight: bold;">{{ user.u.first_name }} {{ user.u.last_name }} <br>
+						        {{ u.email }}
+						      </p>
+						      <a href="{% url 'user_page' pk=user.id %}" class="secondary-content"><i class="material-icons">send</i></a>
+						    </li>
+						    <li class="collection-item avatar">
+						      <img src="{% static 'avatar_mini.jpg' %}" alt="" class="circle">
+						      <span class="title" style="color:#9ACD32;">{{ user.u.username }}</span>
+						      <p style="font-weight: bold;">{{ user.u.first_name }} {{ user.u.last_name }} <br>
+						        {{ u.email }}
+						      </p>
+						      <a href="{% url 'user_page' pk=user.id %}" class="secondary-content"><i class="material-icons">send</i></a>
+						    </li>
+						
+						 </ul>
+					<a href='#' style="color:#9ACD32;font-weight: bold;"> Ще друзі...</a>
+				</div>
+			
+				</div> 
 				</div>
 			</div>
 		</div>

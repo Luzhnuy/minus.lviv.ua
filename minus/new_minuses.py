@@ -1,4 +1,4 @@
-from minus.models import  MinusstoreMinusrecord
+from minusstore.models import  MinusstoreMinusrecord
 
 def new_minuses():
 	new_m = MinusstoreMinusrecord.objects.filter().order_by("-id")[:10]

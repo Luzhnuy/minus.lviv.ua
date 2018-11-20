@@ -5,74 +5,132 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	
+
 	<title>minus.lviv.ua</title>
 	<!-- Materialize -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<!-- mycss -->
+
 	<link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
 
 <div class="father_GOD">
-	
-	<header>
-		
 
+	<header>
+
+		<div class="lozung">
+			<h1>Всеукраїнський музичний інформаційний портал</h1>
+		</div>
 		  <nav class="nav-extended">
 		    <div class="nav-wrapper top_menu">
-		      <a href="{% url 'main' %}" class="brand-logo">Logo</a>
-		      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+		      <a href="{% url 'main' %}" class="brand-logo"><img src="{% static 'img/logo.png' %}"></a>
+		      <a href="#" data-target="mobile-demo" class="sidenav-trigger" style="color:#6baf00;"><i class="material-icons">menu</i></a>
 		      <ul id="nav-mobile" class="right hide-on-med-and-down">
+		      	<li><a href="{% url 'main' %}">Новини</a></li>
+		      	<li><a href="collapsible.html">Події</a></li>
+		      	<li><a href="{% url 'minusstore_main' %}">Мінусовки</a></li>
 		        <li><a href="{% url 'main_shop' %}">Куплю/продам</a></li>
-		        <li><a href="{% url 'minusstore_main' %}">Мінусовки</a></li>
-		        <li><a href="collapsible.html">Події</a></li>
+
+
 		        <li><a href="collapsible.html">Чат</a></li>
 		        <li><a href="collapsible.html">Форум</a></li>
-		        <li><a href="collapsible.html">Новини</a></li>
-		        
+
+
 		      </ul>
 		    </div>
+
 		    <div class="nav-content bottom_menu">
-		      <ul class="tabiks tabiks-transparent">
-		        <li class="tabik "><a href="https://www.youtube.com/" class="bmenu_a back_menu">Youtube</a></li>
+					<a href="#" data-target="mobile" class="sidenav-trigger"  style="color:#6baf00;text-align:center;">Додаткове меню</a>
+		      <ul class="tabiks tabiks-transparent left hide-on-med-and-down" id="nav-mobile">
+		        <li class="tabik "><a target="_blank" href="https://www.youtube.com/channel/UC8ZIZXC1LSM97_cZDMIFJvA" class="bmenu_a back_menu">Youtube</a></li>
 		        <li class="tabik "><a href="#" class="bmenu_a back_menu">Радіо</a></li>
 		        <li class="tabik "><a href="#" class="bmenu_a back_menu">Конкурс вокалістів</a></li>
 		        <li class="tabik "><a href="{% url 'desk_of_respect' %}" class="bmenu_a back_menu" >Дошка пошани</a></li>
 		      <li class="tabik "> <a href="{% url 'desk_of_shame' %}" class="bmenu_a back_menu" >Пауза користувача  <span style="color:red;">4</span></a></li>
 		        <li class="tabik "><a href="#" class="bmenu_a back_menu">FAQ</a></li>
-		        <li class="tabik "><a href="#" class="bmenu_a back_menu">Допомога порталу</a></li>
-		        <li class="tabik " style="background-color: #9ACD32;color:white;"><a href="{% url 'user_page' %}" class="bmenu_a" style="color:white;">Моя сторінка</a></li>
-		        <li class="tabik " style="background-color: #9ACD32;color:white;"><a class="bmenu_a" href="#test2" style="color:white;"><i class="small material-icons">notifications</i></a></li>
+		        <!-- <li class="tabik "><a href="#" class="bmenu_a back_menu">Допомога </a></li> -->
+		          <li class="tabik "><a href="{% url 'userlist' %}" class="bmenu_a back_menu">Користувачі</a></li>
+		         <li class="tabik "><a href="{% url 'plusstore_main' %}" class="bmenu_a back_menu">Плюсовки</a></li>
+		        {% if request.user.is_authenticated %}
+		        <li class="tabik green_li" style="background-color: #6baf00;color:white;"><a href="{% url 'user_page' pk=request.user.id %}" class="bmenu_a" style="color:white;">Моя сторінка</a></li>
+		        <li class="tabik green_li" style="background-color: #6baf00;color:white;"><a class="bmenu_a dropdown-trigger" href="#test2" style="color:white;" name="notifications" data-target='dropdown1' ><i class="small material-icons" >notifications</i></a></li>
+		        <li class="tabik green_li" style="background-color: #6baf00;color:white;"><a class="bmenu_a" href="{% url 'messanger' %}" style="color:white;"><i class="small material-icons">email</i></a></li>
+
 		    <!--     <li class="tab"><a href="#test3" class="bmenu_a"><i class="small material-icons">email</i></a></li>
 		        <li class="tab"><a href="#test4" class="bmenu_a">Партнери</a></li> -->
-		        
+
 		      </ul>
+
+			{% endif %}
+			<ul id='dropdown1' class='dropdown-content' >
+				<li><a href="#!">Вас прокоментував Bulgar</a></li>
+				<li><a href="#!">Ваш мінус оцінили</a></li>
+				<li class="divider" tabindex="-1"></li>
+				<li><a href="#!">three</a></li>
+				<li><a href="#!"></li>
+				<li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
+	</ul>
 		    </div>
 		  </nav>
 
-<!-- 		  <ul class="sidenav" id="mobile-demo">
-		    <li><a href="sass.html">Sass</a></li>
-		    <li><a href="badges.html">Components</a></li>
-		    <li><a href="collapsible.html">JavaScript</a></li>
-		  </ul> -->
+		  <ul class="sidenav" id="mobile-demo">
+				<li><a href="{% url 'main' %}">Новини</a></li>
+				<li><a href="collapsible.html">Події</a></li>
+				<li><a href="{% url 'minusstore_main' %}">Мінусовки</a></li>
+				<li><a href="{% url 'main_shop' %}">Куплю/продам</a></li>
 
 
-        
+				<li><a href="collapsible.html">Чат</a></li>
+				<li><a href="collapsible.html">Форум</a></li>
+		  </ul>
+
+
+			<ul class="sidenav" id="mobile">
+				{% if request.user.is_authenticated %}
+				<li class="tabik green_li" style="background-color: #6baf00;color:white;"><a href="{% url 'user_page' pk=request.user.id %}" class="bmenu_a" style="color:white;">Моя сторінка</a></li>
+				<li class="tabik green_li" style="background-color: #6baf00;color:white;"><a class="bmenu_a dropdown-trigger" href="#test2" style="color:white;" name="notifications" data-target='dropdown2' ><i class="small material-icons" >notifications</i></a></li>
+				<li class="tabik green_li" style="background-color: #6baf00;color:white;"><a class="bmenu_a" href="{% url 'messanger' %}" style="color:white;"><i class="small material-icons">email</i></a></li>
+
+		<!--     <li class="tab"><a href="#test3" class="bmenu_a"><i class="small material-icons">email</i></a></li>
+				<li class="tab"><a href="#test4" class="bmenu_a">Партнери</a></li> -->
+
+
+
+				{% endif %}
+				<li class="tabik "><a target="_blank" href="https://www.youtube.com/channel/UC8ZIZXC1LSM97_cZDMIFJvA" class="bmenu_a back_menu">Youtube</a></li>
+				<li class="tabik "><a href="#" class="bmenu_a back_menu">Радіо</a></li>
+				<li class="tabik "><a href="#" class="bmenu_a back_menu">Конкурс вокалістів</a></li>
+				<li class="tabik "><a href="{% url 'desk_of_respect' %}" class="bmenu_a back_menu" >Дошка пошани</a></li>
+			  <li class="tabik "> <a href="{% url 'desk_of_shame' %}" class="bmenu_a back_menu" >Пауза користувача  <span style="color:red;">4</span></a></li>
+				<li class="tabik "><a href="#" class="bmenu_a back_menu">FAQ</a></li>
+				<!-- <li class="tabik "><a href="#" class="bmenu_a back_menu">Допомога </a></li> -->
+				<li class="tabik "><a href="{% url 'userlist' %}" class="bmenu_a back_menu">Користувачі</a></li>
+				<li class="tabik "><a href="{% url 'plusstore_main' %}" class="bmenu_a back_menu">Плюсовки</a></li>
+
+			</ul>
+
+			<ul id='dropdown2' class='dropdown-content' >
+				<li><a href="#!">Вас прокоментував Bulgar</a></li>
+				<li><a href="#!">Ваш мінус оцінили</a></li>
+				<li class="divider" tabindex="-1"></li>
+				<li><a href="#!">three</a></li>
+				<li><a href="#!"></li>
+				<li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
+		</ul>
 
 
 	</header>
-
 
 <div class="container-fluid">
 	<div class="row">
 
 
 <!-- Ліва паннель  -->
-		<div class="left_block col s3">
+		<div class="left_block col s12 m12 l3">
 			<div class="row">
-				
+
 				<ul class="collapsible">
 				  <li class="active">
 				    <div class="collapsible-header active" >
@@ -83,10 +141,30 @@
 				    	{% minus_per_all_time %}
 		<!-- 		    	{% for m_a in minus_top_all_time %}
 							<div>
-								
+
 								<h6>{{ m_a.title }}</h6>
 							</div>
 				    	{% endfor %} -->
+				    </div>
+				  </li>
+				  <li >
+				    <div class="collapsible-header">
+				      <i class="material-icons">alarm_add</i>
+				     Топ за рік
+				      <span class="badge"></span></div>
+				    <div class="collapsible-body">
+					{% minus_per_week %}
+
+				    </div>
+				  </li>
+				  <li >
+				    <div class="collapsible-header">
+				      <i class="material-icons">alarm</i>
+				     Топ за місяць
+				      <span class="badge"></span></div>
+				    <div class="collapsible-body">
+					{% minus_per_week %}
+
 				    </div>
 				  </li>
 				  <li >
@@ -99,17 +177,21 @@
 
 				    </div>
 				  </li>
-				  
+
 				  <li >
 				    <div class="collapsible-header">
 				      <i class="material-icons">person_pin_circle</i>
 				      Топ користувачів
 				      <span class="badge"></span></div>
 				    <div class="collapsible-body">
-						{% top_u %}			    	
+				    	<div class="row">
+				    		<div class="col s6 header_of_rate"><p>Користувач</p></div>
+				    		<div class="col s6 header_of_rate"><p>Рейтинг</p></div>
+							{% top_u %}
+						</div>
 				    </div>
-				  </li>				  
-				</ul>				
+				  </li>
+				</ul>
 
 				<ul class="collapsible">
 				  <li class="active">
@@ -121,25 +203,25 @@
 						{% last_f %}
 				    </div>
 				  </li>
-				 </ul> 
+				 </ul>
 
 			</div>
-	
+
 		</div>
 
 <!-- Центральна панель -->
  {% block content %}
-            
 
 
- 
+
+
 
 
 
  {% endblock %}
 
 <!-- Права панель -->
-		<div class="right_block col s3">
+		<div class="right_block col col s12 m12 l3">
 			<div class="row">
 				<div class="new-files col s12">
 					<ul class="collapsible">
@@ -152,7 +234,11 @@
 						<div class="row">
 						{%	if request.user.is_authenticated %}
 							<div class="name_and_status col s7">
+<<<<<<< HEAD
 								<p>Богдан Іванишин</p>
+=======
+								<p>{{ request.user.first_name }} {{ request.user.last_name }}</p>
+>>>>>>> messanger
 								<span>Адміністратор</span>
 								<hr>
 
@@ -163,15 +249,17 @@
 							</div>
 							<div class="urls col s12">
 								<ul class="collection with-header">
-        								
+
         							<li class="collection-item"><div>Профіль<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
         							<li class="collection-item"><div>Мінусовки<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
         							<li class="collection-item"><div>Записи<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
         							<li class="collection-item"><div>Фото<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
         							<li class="collection-item"><div>Оголошення<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
-     							</ul>								
+        							<li style="font-size:1.2em;"><div><a href="{% url 'logout' %}" class="secondary-content">Вихід</div></li>
+     							</ul>
 							</div>
 							{% else %}
+<<<<<<< HEAD
 							<form class="auth" method="POST" action="{% url 'signin' %}">
 								{% csrf_token %}
 								<h2>Вхід</h2>
@@ -180,34 +268,150 @@
 
 							</form>
 							<div class="url_to_reg"><a href="{% url 'registration_page' %}">Або ж зараєструйтесь</a></div>
+=======
+							{% login %}
+>>>>>>> messanger
 
 							{% endif %}
-						</div>				    	
+						</div>
 				    </div>
-				  </li>						
-				  <li class="active" >
+				  </li>
+				  <li  >
 				    <div class="collapsible-header active" >
 				      <i class="material-icons left">access_time</i>
 				     	Файли які очікують підтвердження
 				      <span class="badge"></span></div>
 				    <div class="collapsible-body new_minuses">
-						{% new_m %}							    	
+						{% new_m %}
 				    </div>
 				  </li>
+				  <li class="active">
+				    <div class="collapsible-header active" >
+				      <i class="material-icons left">access_time</i>
+				     	Поповнення файлів
+				      <span class="badge"></span></div>
+				    <div class="collapsible-body new_minuses">
+						{% last_minuses %}
+				    </div>
+				   </li>
 				   <li >
 				    <div class="collapsible-header">
 				      <i class="material-icons">person</i>
 				      Користувачі онлайн
 				      <span class="badge"></span></div>
 				    <div class="collapsible-body">
-						{% top_u %}			    	
+						<ul class="collection">
+						    <li class="collection-item avatar">
+						      <img src="images/yuna.jpg" alt="" class="circle">
+						      <span class="title">Title</span>
+						      <p>First Line <br>
+						         Second Line
+						      </p>
+						      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+						    </li>
+						    <li class="collection-item avatar">
+						      <i class="material-icons circle">folder</i>
+						      <span class="title">Title</span>
+						      <p>First Line <br>
+						         Second Line
+						      </p>
+						      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+						    </li>
+						    <li class="collection-item avatar">
+						      <i class="material-icons circle green">insert_chart</i>
+						      <span class="title">Title</span>
+						      <p>First Line <br>
+						         Second Line
+						      </p>
+						      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+						    </li>
+						    <li class="collection-item avatar">
+						      <i class="material-icons circle red">play_arrow</i>
+						      <span class="title">Title</span>
+						      <p>First Line <br>
+						         Second Line
+						      </p>
+						      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+						    </li>
+						 </ul>
+
 				    </div>
-				  </li>	
+				  </li>
 				</ul>
 
-		
-			</div>
-		</div>
+
+    <table class="cal">
+      <caption>
+		Архів мінусовок
+        January 2012
+      </caption>
+      <thead>
+        <tr>
+          <th>Mon</th>
+          <th>Tue</th>
+          <th>Wed</th>
+          <th>Thu</th>
+          <th>Fri</th>
+          <th>Sat</th>
+          <th>Sun</th>
+        </tr>
+      </thead>
+      <tbody>
+
+
+
+        <tr>
+          <td><a href="index.html">1</a></td>
+          <td><a href="index.html">2</a></td>
+          <td><a href="index.html">3</a></td>
+          <td><a href="index.html">4</a></td>
+          <td><a href="index.html">5</a></td>
+          <td><a href="index.html">6</a></td>
+          <td><a href="index.html">7</a></td>
+
+        </tr>
+        <tr>
+          <td><a href="index.html">8</a></td>
+          <td><a href="index.html">9</a></td>
+          <td><a href="index.html">10</a></td>
+          <td><a href="index.html">11</a></td>
+          <td><a href="index.html">12</a></td>
+          <td><a href="index.html">13</a></td>
+          <td><a href="index.html">14</a></td>
+
+        </tr>
+        <tr>
+		  <td><a href="index.html">15</a></td>
+          <td><a href="index.html">16</a></td>
+          <td><a href="index.html">17</a></td>
+          <td><a href="index.html">18</a></td>
+          <td><a href="index.html">19</a></td>
+          <td><a href="index.html">20</a></td>
+          <td><a href="index.html">21</a></td>
+
+        </tr>
+        <tr>
+          <td><a href="index.html">22</a></td>
+          <td><a href="index.html">23</a></td>
+          <td><a href="index.html">24</a></td>
+          <td><a href="index.html">25</a></td>
+          <td><a href="index.html">26</a></td>
+          <td><a href="index.html">27</a></td>
+          <td><a href="index.html">28</a></td>
+
+        </tr>
+        <tr>
+        	<td><a href="index.html">29</a></td>
+          <td><a href="index.html">30</a></td>
+          <td><a href="index.html">31</a></td>
+
+        </tr>
+      </tbody>
+    </table>
+
+  	<a class="waves-effect waves-light btn-large follow"><!-- <i class="material-icons left">add</i> -->Підписатись на оновлення файлів</a>
+	</div>
+</div>
 
 
 
@@ -254,7 +458,7 @@
 </div>
 
 
-
+</div>
 
 
 
@@ -268,6 +472,7 @@
   crossorigin="anonymous"></script>
 <!-- materialize_js	 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+<script type="text/javascript" src="{% static 'js/index.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 
 </body>
