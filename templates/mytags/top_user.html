@@ -1,7 +1,11 @@
 						{% for u in top_users %}
-							<div>	
-								<h6>{{ u.first_name }} {{ u.last_name }}</h6>
-								
+							<div class="users_and_rate">
+
+
+								<div class="name_rate col s6  rating"><p>{{ u.user.username }} </p></div>
+								<div class="user_rating col s6 rating"><p>{{ u.rating }}</p></div>
+
+
 							</div>
 
 				    	{% endfor %}

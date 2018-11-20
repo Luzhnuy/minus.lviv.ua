@@ -1,17 +1,29 @@
 from django import forms
-from minus.models import AuthUser
+from user.models import AuthUser
 from django.contrib.auth.models import User
+
 
 class AuthForm(forms.ModelForm):
 
 	class Meta:
 		model = User
-		fields = ('email', 'password', )
+		fields = ('username', 'password', )
 
 
 
-class RegForm(forms.ModelForm):		
+# class RegisterFormView(FormView):
+#     form_class = UserCreationForm
 
-	class Meta:
-		model = User
-		fields = ('email', 'username', 'first_name', 'last_name', 'password',)
+#     # Ссылка, на которую будет перенаправляться пользователь в случае успешной регистрации.
+#     # В данном случае указана ссылка на страницу входа для зарегистрированных пользователей.
+#     success_url = "http://127.0.0.1:8000"
+
+#     # Шаблон, который будет использоваться при отображении представления.
+#     template_name = "user/registration.html"
+
+#     def form_valid(self, form):
+#         # Создаём пользователя, если данные в форму были введены корректно.
+#         form.save()
+
+#         # Вызываем метод базового класса
+#         return super(RegisterFormView, self).form_valid(form)
