@@ -18,6 +18,38 @@ class AuthUser(models.Model):
         managed = True
         db_table = 'auth_user'
 
+
+class FriendsFriendship(models.Model):
+    user = models.ForeignKey(User)
+
+    class Meta:
+        managed = True
+        db_table = 'friends_friendship'
+
+
+class FriendsFriendshipFriends(models.Model):
+    from_friendship_id = models.ForeignKey(FriendsFriendship)
+    to_friendship_id = models.IntegerField()
+
+    class Meta:
+        managed = True
+        db_table = 'friends_friendship_friends'
+        unique_together = (('from_friendship_id', 'to_friendship_id'),)
+
+
+class FriendsFriendshiprequest(models.Model):
+    from_user_id = models.IntegerField()
+    to_user_id = models.IntegerField()
+    message = models.CharField(max_length=200)
+    created = models.DateTimeField()
+    accepted = models.IntegerField()
+
+    class Meta:
+        managed = True
+        db_table = 'friends_friendshiprequest'
+        unique_together = (('to_user_id', 'from_user_id'),)
+
+
 class FriendsUserblocks(models.Model):
     user = models.ForeignKey(User)
 

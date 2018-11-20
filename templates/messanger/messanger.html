@@ -7,81 +7,89 @@
 		<div class="col s3 l3">
 	    	<ul class="collection">
 
-	    		<li style="padding-top: 0px;" class="collection-item l3">
+	    		<li id="search_field" class="collection-item l3">
 				    
-				<div style="margin-bottom: 0px; " class="row">
-				    <div class="col s12">
-				      <div style="margin-bottom: 0px;" class="row">
-				        <div class="input-field col s12">
-				          <i class="material-icons prefix">search</i>
-				          <input type="text" id="autocomplete-input" class="autocomplete">
-				          <label for="autocomplete-input">Пошук користувача</label>
-				        </div>
-				      </div>
-				    </div>
-			  	</div>
+					<div class="row">
+					    <div class="col s12">
+					      <div class="row">
+					        <div class="input-field col s12">
+					          <i class="material-icons prefix">search</i>
+					          <input type="text" id="autocomplete-input" class="autocomplete">
+					          <label for="autocomplete-input">Пошук користувача</label>
+					        </div>
+					      </div>
+					    </div>
+				  	</div>
 
 		    	</li>
 				
-		    	<li class="collection-item avatar l3">
-		     		<img src="http://forum.gamexp.ru/image.php?u=1167939&dateline=1497791278" alt="" class="circle">
-		      		<span class="title">Username</span>
+		    	<li class="collection-item avatar l3 tab">
+		    		<a class="hidden_a" href="#message1">
+			     		<img src="http://forum.gamexp.ru/image.php?u=1167939&dateline=1497791278" alt="" class="circle">
+			      		<span class="title">Username</span>
 
-		      		<p>Lorem ipsum dolor...
-		      			<span style="font-size: 20px;" class="right new badge">9
-		      			</span>
-		      		</p>
+			      		<p>Lorem ipsum dolor...
+			      			<span id="new_message_count" class="right new badge">9
+			      			</span>
+			      		</p>
+		      		</a>
 
 		    	</li>
 
 		    	<li class="collection-item avatar l3">
-		     		<img src="http://forum.gamexp.ru/image.php?u=1167939&dateline=1497791278" alt="" class="circle">
-		      		<span class="title">Lorem</span>
+		    		<a class="hidden_a" href="#message2">
+			     		<img src="http://forum.gamexp.ru/image.php?u=1167939&dateline=1497791278" alt="" class="circle">
+			      		<span class="title">Nick</span>
 
-		      		<p>Lorem ipsum...
-		      			<span style="font-size: 20px;" class="right new badge">2
-		      			</span>
-		      		</p> 
+			      		<p>Proger...
+			      			<span id="new_message_count" class="right new badge">2
+			      			</span>
+			      		</p>
+			      	</a> 
 		    	</li>
 
 		    	<li class="collection-item avatar l3">
-		     		<img src="http://forum.gamexp.ru/image.php?u=1167939&dateline=1497791278" alt="" class="circle">
-		      		<span class="title">Ded Petro</span>
+		    		<a class="hidden_a" href="#message3">
+			     		<img src="http://forum.gamexp.ru/image.php?u=1167939&dateline=1497791278" alt="" class="circle">
+			      		<span class="title">Ded Petro</span>
 
-		      		<p>Lorem ipsum..
-		      			<span style="font-size: 20px;" class="right new badge">0 <!--Якщо 0 - то display: none -->
-		      			</span>
-		      		</p> 
+			      		<p>Риба сьогодні...
+			      			<span id="new_message_count" class="right new badge">0 <!--Якщо 0 - то display: none -->
+			      			</span>
+			      		</p>
+			      	</a> 
 		    	</li>
 
 		    	<li class="collection-item avatar l3">
-		     		<img src="http://forum.gamexp.ru/image.php?u=1167939&dateline=1497791278" alt="" class="circle">
-		      		<span class="title">Kuzya</span>
+		    		<a class="hidden_a" href="#message4">
+			     		<img src="http://forum.gamexp.ru/image.php?u=1167939&dateline=1497791278" alt="" class="circle">
+			      		<span class="title">Kuzya</span>
 
-		      		<p>Chat top...
-		      			<span style="font-size: 20px;" class="right new badge">0 <!--Якщо 0 - то display: none -->
-		      			</span>
-		      		</p> 
+			      		<p>Chat top...
+			      			<span id="new_message_count" class="right new badge">0 <!--Якщо 0 - то display: none -->
+			      			</span>
+			      		</p>
+			      	</a> 
 		    	</li>
 
 		    </ul>
 		</div>
 
-		<div style=" height: 70vh; padding: 0px 10px 0px 0px; box-sizing: border-box;" class="col l9">
+		<div id="chat_window" class="col l9">
 
-			<div style="margin-top:0px; width:100%; height:75vh; padding: 10px 10px 10px 10px; box-sizing: border-box; " class="grey lighten-4 z-depth-1">
+			<div id="chat_window_messages" class="grey lighten-4 z-depth-1 ">
 
-				<div style="margin-left: 10px;" class="row">
-					<div style="background-color: white; border-radius: 5px;" class="left z-depth-1">
-						<p style="margin-bottom:0px; padding: 10px 10px 10px 10px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis, temporibus.</p>
-						<span style="margin-right: 10px;" class="right">21:39</span>
+				<div class="left_message_row row">
+					<div class="left z-depth-1">
+						<p class="message_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis, temporibus.</p>
+						<span class="message_time right">21:39</span>
 					</div>
 				</div>
 				
-				<div style="margin-right: 10px;" class="row">
-					<div style="background-color: white; border-radius: 5px; background-color: lightgreen;" class="right z-depth-1">
-						<p style="margin-bottom:0px; padding: 10px 10px 10px 10px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis, temporibus.</p>
-						<span style="margin-left: 10px;" class="left">21:39</span>
+				<div class="right_message_row row">
+					<div class="right z-depth-1">
+						<p class="message_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis, temporibus.</p>
+						<span class="message_time left">21:39</span>
 					</div>
 				</div>
 
@@ -91,12 +99,10 @@
 
 
 
-			<div style= "width: 100%; margin-top:0px; height:4.75vh; padding: 0px 5px 0px 5px; box-sizing: border-box;" class="grey lighten-4 z-depth-1">
-        		<div style="margin-top: 0px;" class="input-field">
+			<div id="chat_window_field" class="grey lighten-4 z-depth-1">
+        		<div class="input-field">
 			        <form>
-       					<div style="margin-top: 0px;" class="input-field">
-          					<input placeholder="Введіть повідомлення:" type="text" class="validate">
-        				</div>
+          				<input placeholder="Введіть повідомлення:" type="text" class="validate">
         			</form>
         		</div>
 			</div>
@@ -104,36 +110,5 @@
 		</div>
 	</div>
 </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 {% endblock %}

@@ -178,7 +178,7 @@
 						<div class="avatar_mini col s4">
 								<img src="{% static 'avatar_mini.jpg' %}"  class="circle responsive-img" alt="">
 						</div>
-						<p>Богдан Іванишин</p>
+						<p>{{ c.user.username }}</p>
 						<p style="float:rigth;">{{ c.comment }}</p>
 					</div>
 					{% endfor %}

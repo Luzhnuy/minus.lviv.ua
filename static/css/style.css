@@ -251,14 +251,14 @@ h1{
 /* materialize forms*/
 
 	.input-field{
-		margin-bottom: 1vh;
+		margin-bottom: 1vh !important;
 	}
 
    .input-field label {
-     color: #000;
+     color: #000 !important;
    }
 
- /
+ 
 
     input:not([type]):focus:not([readonly]),
     input[type=text]:not(.browser-default):focus:not([readonly]),
@@ -273,8 +273,8 @@ h1{
     input[type=number]:not(.browser-default):focus:not([readonly]),
     input[type=search]:not(.browser-default):focus:not([readonly]),
     textarea.materialize-textarea:focus:not([readonly]){
-   		border-bottom:1px solid #6baf00;
-		box-shadow: 0 1px 0 0 #6baf00;
+   		border-bottom:1px solid #6baf00  !important;
+		  box-shadow: 0 1px 0 0 #6baf00 !important;
    }
 	input:not([type]):focus:not([readonly])+label,
 	input[type=text]:not(.browser-default):focus:not([readonly])+label,
@@ -289,12 +289,13 @@ h1{
 	input[type=number]:not(.browser-default):focus:not([readonly])+label,
 	input[type=search]:not(.browser-default):focus:not([readonly])+label,
 	textarea.materialize-textarea:focus:not([readonly])+label{
-		color: #6baf00;
+		color: #6baf00 !important;
+
 	}
 
    .input-field .prefix.active  {
 
-     color: #6baf00;
+     color: #6baf00 !important;
    }
 
    /* endmaterialize form*/
@@ -303,7 +304,7 @@ h1{
    /* dictionary */
 
     .dictionary a{
-   		background-color: #6baf00;
+   		background-color: #6baf00 !important;
     }
 
 	.dictionary a:hover{

@@ -648,37 +648,6 @@ class ForumThread(models.Model):
         db_table = 'forum_thread'
 
 
-class FriendsFriendship(models.Model):
-    user_id = models.IntegerField(unique=True)
-
-    class Meta:
-        managed = True
-        db_table = 'friends_friendship'
-
-
-class FriendsFriendshipFriends(models.Model):
-    from_friendship_id = models.IntegerField()
-    to_friendship_id = models.IntegerField()
-
-    class Meta:
-        managed = True
-        db_table = 'friends_friendship_friends'
-        unique_together = (('from_friendship_id', 'to_friendship_id'),)
-
-
-class FriendsFriendshiprequest(models.Model):
-    from_user_id = models.IntegerField()
-    to_user_id = models.IntegerField()
-    message = models.CharField(max_length=200)
-    created = models.DateTimeField()
-    accepted = models.IntegerField()
-
-    class Meta:
-        managed = True
-        db_table = 'friends_friendshiprequest'
-        unique_together = (('to_user_id', 'from_user_id'),)
-
-
 
 
 
