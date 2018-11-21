@@ -8,4 +8,5 @@ urlpatterns = [
 	url(r'^login/', views.UserLoginView.as_view(), name="signin"),
 	url(r'^logout/', views.logout_view, name="logout"),
 	url(r'^userlist/', views.userlist, name="userlist"),
+	url(r'^userminuses/(?P<user_id>[0-9]+)/$', views.userminuses, name="userminuses"),
 ]

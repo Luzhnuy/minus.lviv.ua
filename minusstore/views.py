@@ -1,7 +1,7 @@
 from django.shortcuts import render,get_object_or_404
 from minus.models import DjangoComments,Likedislike
-from user.models import AuthUser
-from minusstore.models import MinusstoreMinusauthor,MinusstoreMinusrecord,MinusstoreMinusrecordCategories,MinusstoreMinuscategory
+# from user.models import AuthUser
+from minusstore.models import MinusstoreMinusauthor,MinusstoreMinusrecord,MinusstoreMinusrecordCategories,MinusstoreMinuscategory,MinusstoreMinusplusrecord
 from django.http import HttpResponse
 from django.core import serializers
 from main.forms import AuthForm
@@ -43,10 +43,14 @@ def minusstore_minus(request,pk):
     author = get_object_or_404(MinusstoreMinusauthor,pk=minus.author_id)
     comments = DjangoComments.objects.filter(object_pk=minus.pk,content_type_id=17)
     try:
+        minus.plusrecord = MinusstoreMinusplusrecord.objects.get(minus_id=minus.id)
+    except MinusstoreMinusplusrecord.DoesNotExist:
+        minus.plusrecord=None
+    try:
         likedislike = Likedislike.objects.get(content_type_id= 17,object_id = minus.pk)
     except:
         likedislike = 0
-    minus_user = get_object_or_404(AuthUser,pk=minus.user_id)
+    minus_user = get_object_or_404(User,pk=minus.user_id)
     upload_minuses_from_user = MinusstoreMinusrecord.objects.filter(user_id=minus_user.id).count()
     minus.filesize = int(minus.filesize/1000000)
     return render(request, 'minusstore/minus.html' , {

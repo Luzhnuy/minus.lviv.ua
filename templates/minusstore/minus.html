@@ -49,17 +49,27 @@
 				</div>
 				<div class="col s12 minus">
 					<div class="audio col s6">
-						<audio src="{% static 'minus.mp3' %}" controls controlsList="nodownload"></audio>
+						<audio src="/static/{{ minus.file }}" controls controlsList="nodownload"></audio>
 					</div>
+					{% if request.user.is_authenticated %}
 					<div class="download_btn col s1 ">
 
 							<a class="waves-effect waves-light btn-small ">Завантажити</a>
 
-					</div>
-					<div class="howmany col s3 offset-s2">
-						<p>Прослухано:800</p>
-						<p>Завантажено: 153</p>
-					</div>
+</div>
+<div class="howmany col s3 offset-s2">
+	<p>Прослухано:800</p>
+	<p>Завантажено: 153</p>
+</div>
+	{% else %}
+	<p style="clear:both;"> Щоб завантажити мінусовку <a href="{% url 'main' %}">увійдіть</a> або <a href="{% url 'registration_page' %}">зареєструйтесь</a></p>
+	<div class="howmany col s3">
+		<p>Прослухано:800</p>
+		<p>Завантажено: 153</p>
+	</div>
+	{% endif %}
+
+
 				</div>
 				<div class="col s12 social_btn">
 				{% if request.user.is_authenticated %}
@@ -109,10 +119,12 @@
 
 					</div>
 				</div>
+				{% if minus.plusrecord %}
 				<div class="col s6 plus">
 					<p>Плюсовий запис</p>
-					<audio src="{% static 'plus.mp3' %}" controls controlsList="nodownload"></audio>
+					<audio src="/static/{{ minus.plusrecord.file }}" controls controlsList="nodownload"></audio>
 				</div>
+				{% endif %}
 				<div class="col s5 offset-s1 social_network">
 					<div class="row">
 					<p>Поділитись:</p>
@@ -176,9 +188,11 @@
 					{% for c in comments %}
 					<div class="comment col s12">
 						<div class="avatar_mini col s4">
+							<a href="{% url 'user_page' pk=c.user.id%}">
 								<img src="{% static 'avatar_mini.jpg' %}"  class="circle responsive-img" alt="">
+							</a>
 						</div>
-						<p>{{ c.user.username }}</p>
+						<p style="font-weight: bold;"><a href="{% url 'user_page' pk=c.user.id%}" style="color:#6baf00;">{{ c.user.username }}</a></p>
 						<p style="float:rigth;">{{ c.comment }}</p>
 					</div>
 					{% endfor %}

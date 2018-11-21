@@ -2,7 +2,7 @@ from django.shortcuts import render,get_object_or_404
 from minus.models import DjangoComments,Likedislike
 from main.models import NewsNewsitem
 from django.contrib.auth.models import User
-from user.models import Userprofile,AuthUser
+from user.models import Userprofile
 from django.http import HttpResponse,HttpResponseRedirect
 from django.core import serializers
 from .forms import AuthForm

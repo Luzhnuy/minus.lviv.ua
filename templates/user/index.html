@@ -29,7 +29,7 @@
 
 				<div class="col s9 status">
 					<p style="color: green;">{{ user.status_title }}</p>
-					<pre><p>Рейтинг:   {{ user.rating.rating }}</p></pre>	
+					<pre><p>Рейтинг:   {{ user.rating.rating }}</p></pre>
 					<p><pre>Заслуги:    <i class="material-icons">star</i><i class="material-icons">star</i><i class="material-icons">star</i></pre></p>
 					<p>На сайті з: {{ user.u.date_joined }}</p>
 					<p>Востаннє заходив: {{ user.u.last_login }}</p>
@@ -42,16 +42,16 @@
 				<div class="col s12 main_btn">
 					<div class="row">
 						<a class="waves-effect waves-light btn-large col s3">Повідомлення</a>
-						<a class="waves-effect waves-light btn-large col s3">Мінусовки</a>
+						<a class="waves-effect waves-light btn-large col s3" href="{% url 'userminuses' user_id=user.u.id %}">Мінусовки</a>
 						<a class="waves-effect waves-light btn-large col s3">Записи</a>
 						<a class="waves-effect waves-light btn-large col s3">Фото і відео</a>
-						
+
 					</div>
 				</div>
 				<div class="col s6 more_about">
 					<div class="row">
-						
-						
+
+
 						<div class="col s4"><p>Країна</p></div>
 						<div class="col s6"><p>{% if user.country %}{{ user.country }}{% else %} немає {% endif %}</p></div>
 						<div class="col s4"><p>Місто:</p></div>
@@ -62,12 +62,29 @@
 						<div class="col s6"><p>{% if user.birthdate %}{{ user.birthdate }}{% else %} немає {% endif %}</p></div>
 						<div class="col s4"><p>На сайті з:</p></div>
 						<div class="col s6"><p>{{ user.u.date_joined }}</p></div>
-						
+						<div class="col s12 user_activity">
+							<h6>Активність користувача</h6>
+							<div class="row">
+
+								<div class="col s12 comments">
+									<h6>Останні коментарі:</h6>
+									{% for c in user.comments %}
+									<div>{{ c.comment|truncatechars:150 }}</div>
+									{% endfor %}
+								</div>
+								<div class="col s12 comments">
+									<h6>Останні повідомлення на форумі:</h6>
+									{% for c in user.forum %}
+									<div>{{ c.body|safe|truncatechars:150 }}</div>
+									{% endfor %}
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="col s6 about_me">
 				<div class="row">
-				
+
 				<div class="col s12">
 					<h5>Друзі користувача:</h5><br>
 					<ul class="collection">
@@ -111,13 +128,14 @@
 						      </p>
 						      <a href="{% url 'user_page' pk=user.id %}" class="secondary-content"><i class="material-icons">send</i></a>
 						    </li>
-						
+
 						 </ul>
 					<a href='#' style="color:#9ACD32;font-weight: bold;"> Ще друзі...</a>
 				</div>
-			
-				</div> 
+
 				</div>
+				</div>
+
 			</div>
 		</div>
 	</div>

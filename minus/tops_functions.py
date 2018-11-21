@@ -1,6 +1,6 @@
 from minus.models import DjangobbForumPost
 from minusstore.models import MinusstoreMinusweekstats,MinusstoreMinusrecord
-from user.models import Userprofile,AuthUser,UsersUserrating
+from user.models import Userprofile,UsersUserrating
 
 def top_minus_per_all_time():
 
@@ -34,7 +34,7 @@ def top_users():
 
 	users = UsersUserrating.objects.order_by('-rating')[:10]
 
-	
+
 
 	return users
 

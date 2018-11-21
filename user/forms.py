@@ -2,14 +2,14 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
 import datetime
-
+from django.contrib.auth.forms import AuthenticationForm
 
 
 class UserCreateForm(UserCreationForm):
     email = forms.EmailField(required=True)
     first_name = forms.CharField(max_length=100)
     last_name = forms.CharField(max_length=100)
-    
+
 
     class Meta:
         model = User
@@ -22,3 +22,27 @@ class UserCreateForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+
+class EmailAuthenticationForm(AuthenticationForm):
+    def clean_username(self):
+        username = self.data['username']
+        if '@' in username:
+            try:
+                username = User.objects.get(email=username).username
+            except User.DoesNotExist:
+                raise ValidationError(
+                    self.error_messages['invalid_login'],
+                    code='invalid_login',
+                    params={'username':self.username_field.verbose_name},
+                )
+        else:
+            try:
+                username = User.objects.get(username=username).username
+            except User.DoesNotExist:
+                raise ValidationError(
+                    self.error_messages['invalid_login'],
+                    code='invalid_login',
+                    params={'username':self.username_field.verbose_name},
+                )
+        return username

@@ -60,10 +60,10 @@
 
 		    <!--     <li class="tab"><a href="#test3" class="bmenu_a"><i class="small material-icons">email</i></a></li>
 		        <li class="tab"><a href="#test4" class="bmenu_a">Партнери</a></li> -->
-
+					{% endif %}
 		      </ul>
 
-			{% endif %}
+
 			<ul id='dropdown1' class='dropdown-content' >
 				<li><a href="#!">Вас прокоментував Bulgar</a></li>
 				<li><a href="#!">Ваш мінус оцінили</a></li>
@@ -227,7 +227,11 @@
 					<ul class="collapsible">
 					<li >
 				    <div class="collapsible-header">
-				      <i class="material-icons">person</i>
+							{%	if request.user.is_authenticated %}
+				      <i class="material-icons"><img src="{% static 'avatar_mini.jpg' %}"  class="circle responsive-img" alt=""></i>
+							{% else %}
+							<i class="material-icons">person</i>
+							{% endif %}
 				      Закуліси
 				      <span class="badge"></span></div>
 				    <div class="collapsible-body">
@@ -393,8 +397,9 @@
         </tr>
       </tbody>
     </table>
-
+{% if request.user.is_authenticated %}
   	<a class="waves-effect waves-light btn-large follow"><!-- <i class="material-icons left">add</i> -->Підписатись на оновлення файлів</a>
+{% endif %}
 	</div>
 </div>
 

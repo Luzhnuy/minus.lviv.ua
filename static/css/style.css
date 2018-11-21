@@ -258,7 +258,7 @@ h1{
      color: #000 !important;
    }
 
- 
+
 
     input:not([type]):focus:not([readonly]),
     input[type=text]:not(.browser-default):focus:not([readonly]),
@@ -634,6 +634,17 @@ h1{
 		color:#6baf00;
 		display:inline-block;
 	}
+.user_activity h6{
+  color:#6baf00;
+
+
+}
+.user_activity .comments div{
+  margin-bottom: 10px;
+  color:black;
+  border:0.5px solid #6baf00;
+  padding:2px 2px 2px 2px;
+}
 
 	.status_and_urls span {
 		color:#000;

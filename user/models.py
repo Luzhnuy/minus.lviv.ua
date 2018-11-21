@@ -1,7 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.auth.models import  AbstractBaseUser
 
-class AuthUser(models.Model):
+
+class User(AbstractBaseUser):
 
     username = models.CharField(unique=True, max_length=30)
     first_name = models.CharField(max_length=30)
@@ -14,6 +16,7 @@ class AuthUser(models.Model):
     last_login = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     date_joined = models.DateTimeField(auto_now_add=True, blank=True)
 
+    USERNAME_FIELD = 'email'
     class Meta:
         managed = True
         db_table = 'auth_user'

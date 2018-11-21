@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from minus.models import DjangoComments
-from user.models import AuthUser
+
 from django.http import HttpResponse
 from django.core import serializers
 from main.forms import AuthForm

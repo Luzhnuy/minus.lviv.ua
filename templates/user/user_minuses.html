@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+<section class="col s6">
+	<div class="row">
+		<form class="col s12">
+      		<div class="row">
+        		<div class="input-field col s12">
+          			<i class="material-icons prefix">search</i>
+          			<input id="icon_prefix" type="text" class="validate">
+          			<label for="icon_prefix">Пошук мінусовок</label>
+        		</div>
+
+      		</div>
+    	</form>
+
+
+		<div class="authors col s8 offset-s3">
+			<div class="row">
+				<h3>Мінусовки користувача</h3>
+
+				{% for m in minus %}
+				<div class="col s12">
+					<a href="{% url 'minus' pk=m.pk %}"><p style="color:#9ACD32;font-weight: bold;">{{ m.title }}</p></a>
+					<audio src="/static/{{ m.file }}" controls controlsList="nodownload"></audio>
+
+				</div>
+				{% endfor %}
+        <div class="pagination">
+          <span class="step-links">
+              {% if minus.has_previous %}
+                <a href="?page={{ minus.previous_page_number }}">Попередня сторінка</a>
+              {% endif %}
+              <span class="current">
+                  Сторінка {{ minus.number }} з {{ minus.paginator.num_pages }}.
+              </span>
+              {% if minus.has_next %}
+                <a href="?page={{ minus.next_page_number }}">Наступна сторінка</a>
+              {% endif %}
+          </span>
+        </div>
+			</div>
+		</div>
+</div>
+</section>
+
+
+{% endblock %}

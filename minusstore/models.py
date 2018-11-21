@@ -64,13 +64,19 @@ class MinusstoreMinusplusrecord(models.Model):
         managed = True
         db_table = 'minusstore_minusplusrecord'
 
+class MinusstoreMinusauthor(models.Model):
+    name = models.CharField(max_length=255,default='null')
+    # minus = models.ManyToManyField(MinusstoreMinusrecord)
+    class Meta:
+        managed = True
+        db_table = 'minusstore_minusauthor'
 
 class MinusstoreMinusrecord(models.Model):
     user = models.ForeignKey(User)
     file = models.FileField(upload_to="static/")
     title = models.CharField(max_length=255)
     is_folk = models.IntegerField()
-    author_id = models.IntegerField()
+    author = models.ForeignKey(MinusstoreMinusauthor)
     arrangeuathor = models.CharField(max_length=50, blank=True, null=True)
     annotation = models.TextField()
     thematics = models.CharField(max_length=30, blank=True, null=True)
@@ -96,12 +102,6 @@ class MinusstoreMinusrecord(models.Model):
         managed = True
         db_table = 'minusstore_minusrecord'
 
-class MinusstoreMinusauthor(models.Model):
-    name = models.CharField(max_length=255,default='null')
-    # minus = models.ManyToManyField(MinusstoreMinusrecord)
-    class Meta:
-        managed = True
-        db_table = 'minusstore_minusauthor'
 
 
 class MinusstoreMinusrecordCategories(models.Model):

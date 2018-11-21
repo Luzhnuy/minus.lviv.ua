@@ -1,5 +1,5 @@
 from django import forms
-from user.models import AuthUser
+# from user.models import AuthUser
 from django.contrib.auth.models import User
 
 
