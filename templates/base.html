@@ -225,14 +225,15 @@
 			<div class="row">
 				<div class="new-files col s12">
 					<ul class="collapsible">
-					<li >
+					<li>
 				    <div class="collapsible-header">
 							{%	if request.user.is_authenticated %}
-				      <i class="material-icons"><img src="{% static 'avatar_mini.jpg' %}"  class="circle responsive-img" alt=""></i>
+				      <i class="material-icons"><img src="{% static 'avatar_mini.jpg' %}"  class="circle responsive-img" alt=""></i>{{ request.user.first_name}} {{ request.user.last_name }}
 							{% else %}
 							<i class="material-icons">person</i>
+							Закуліси
 							{% endif %}
-				      Закуліси
+
 				      <span class="badge"></span></div>
 				    <div class="collapsible-body">
 						<div class="row">
@@ -250,8 +251,8 @@
 							<div class="urls col s12">
 								<ul class="collection with-header">
 
-        							<li class="collection-item"><div>Профіль<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
-        							<li class="collection-item"><div>Мінусовки<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+        							<li class="collection-item"><div>Профіль<a href="{% url 'user_page' pk=request.user.id %}" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+        							<li class="collection-item"><div>Мінусовки<a href="{% url 'userminuses' user_id=request.user.id %}" class="secondary-content"><i class="material-icons">send</i></a></div></li>
         							<li class="collection-item"><div>Записи<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
         							<li class="collection-item"><div>Фото<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
         							<li class="collection-item"><div>Оголошення<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
@@ -464,6 +465,29 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+<script>
+	var loc = window.location;
+	var wsStart = 'ws://';
+	if (loc.protocol == 'https:'){
+		wsStart = 'wss://';
+	}
+	var endpoint = wsStart + loc.host + loc.pathname;
+	var socket = new WebSocket(endpoint);
+
+	socket.onmessage = function(e){
+		console.log('message',e);
+	}
+	socket.onopen = function(e){
+		console.log('open',e);
+	}
+	socket.onerror = function(e){
+		console.log('error',e);
+	}
+	socket.onclose = function(e){
+		console.log('close',e);
+	}
+
+</script>
 
 </body>
 </html>

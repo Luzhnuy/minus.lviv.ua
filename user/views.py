@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from user.models import Userprofile,UsersUserrating
+from user.models import Userprofile,UsersUserrating,FriendsFriendshipFriends
 from minus.models import DjangoComments,DjangobbForumPost
 from minusstore.models import MinusstoreMinusauthor,MinusstoreMinusrecord
 from django.http import HttpResponse,HttpResponseRedirect

@@ -10,6 +10,9 @@ body{
 	box-sizing: border-box;
 
 }*/
+textarea[name="lyrics"] {
+  height: 10rem;
+}
 
 table, caption, tbody, tfoot, thead, tr, th, td,
 {

@@ -13,7 +13,7 @@ class UserCreateForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ("username", "first_name","last_name","email", "last_login","password1", "password2")
+        fields = ("username", "first_name","last_name","email","password1", "password2")
 
     def save(self, commit=True):
         user = super(UserCreateForm, self).save(commit=False)
@@ -29,7 +29,8 @@ class EmailAuthenticationForm(AuthenticationForm):
         username = self.data['username']
         if '@' in username:
             try:
-                username = User.objects.get(email=username).username
+                username = User.objects.get(email=username)
+                username.last_login = datetime.datetime.now()
             except User.DoesNotExist:
                 raise ValidationError(
                     self.error_messages['invalid_login'],
@@ -38,7 +39,8 @@ class EmailAuthenticationForm(AuthenticationForm):
                 )
         else:
             try:
-                username = User.objects.get(username=username).username
+                username = User.objects.get(username=username)
+                username.last_login = datetime.datetime.now()
             except User.DoesNotExist:
                 raise ValidationError(
                     self.error_messages['invalid_login'],

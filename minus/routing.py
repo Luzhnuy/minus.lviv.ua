@@ -6,7 +6,7 @@ from messanger import consumers
 application = ProtocolTypeRouter({
      "websocket": AuthMiddlewareStack(
         URLRouter([
-            url(r"^front(end)/$", consumers.ChatConsumer),
+            url(r"liveusers/^$", consumers.LiveuserConsumer),
         ])
     ),
 })

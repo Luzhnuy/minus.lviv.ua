@@ -1,3 +1,10 @@
 from django.contrib import admin
+from minusstore.models import MinusstoreMinuscategory,MinusstoreMinusplusrecord,MinusstoreMinusauthor,MinusstoreMinusrecord,MinusstoreMinusweekstats,MinusstoreMinusstopword,MinusstoreMinusstats
 
-# Register your models here.
+admin.site.register(MinusstoreMinuscategory)
+admin.site.register(MinusstoreMinusplusrecord)
+admin.site.register(MinusstoreMinusauthor)
+admin.site.register(MinusstoreMinusrecord)
+admin.site.register(MinusstoreMinusweekstats)
+admin.site.register(MinusstoreMinusstopword)
+admin.site.register(MinusstoreMinusstats)

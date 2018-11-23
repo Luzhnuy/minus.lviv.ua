@@ -1,17 +1,16 @@
-from channels.generic.websocket import WebsocketConsumer
+import asyncio
 import json
+from django.contrib.auth import get_user_model
+from channels.consumer import AsyncConsumer
+from channels.db import database_sync_to_async
 
-class ChatConsumer(WebsocketConsumer):
-    def connect(self):
-        self.accept()
 
-    def disconnect(self, close_code):
-        pass
+class LiveuserConsumer(AsyncConsumer):
+    async def websocket_connect(self,event):
+        print('connect',event)
 
-    def receive(self, text_data):
-        text_data_json = json.loads(text_data)
-        message = text_data_json['message']
+    async def websocket_disconnect(self, event):
+        print('disconnect',event)
 
-        self.send(text_data=json.dumps({
-            'message': message
-        }))
+    async def websocket_receive(self, text_data):
+        print('receive',event)

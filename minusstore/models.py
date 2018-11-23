@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.db import models
+import os
 
 class MinusstoreCommentnotify(models.Model):
     comment_id = models.IntegerField(unique=True)
@@ -10,7 +11,7 @@ class MinusstoreCommentnotify(models.Model):
     object_id = models.IntegerField()
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'minusstore_commentnotify'
 
 
@@ -21,7 +22,7 @@ class MinusstoreFiletype(models.Model):
     filetype = models.CharField(max_length=30)
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'minusstore_filetype'
 
 
@@ -30,7 +31,7 @@ class MinusstoreMinus(models.Model):
     title = models.CharField(max_length=1000)
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'minusstore_minus'
 
 
@@ -58,7 +59,7 @@ class MinusstoreMinuscategory(models.Model):
 class MinusstoreMinusplusrecord(models.Model):
     minus_id = models.IntegerField(unique=True, blank=True, null=True)
     user_id = models.IntegerField()
-    file = models.CharField(max_length=2048)
+    file =  models.FileField(upload_to="static/files/pluses/")
 
     class Meta:
         managed = True
@@ -70,13 +71,16 @@ class MinusstoreMinusauthor(models.Model):
     class Meta:
         managed = True
         db_table = 'minusstore_minusauthor'
+    def __str__(self):
+        return self.name    
+
 
 class MinusstoreMinusrecord(models.Model):
     user = models.ForeignKey(User)
-    file = models.FileField(upload_to="static/")
+    file = models.FileField(upload_to="static/files/minuses/")
     title = models.CharField(max_length=255)
     is_folk = models.IntegerField()
-    author = models.ForeignKey(MinusstoreMinusauthor)
+    author = models.ForeignKey(MinusstoreMinusauthor,null=True)
     arrangeuathor = models.CharField(max_length=50, blank=True, null=True)
     annotation = models.TextField()
     thematics = models.CharField(max_length=30, blank=True, null=True)
@@ -87,7 +91,7 @@ class MinusstoreMinusrecord(models.Model):
     is_amateur = models.IntegerField()
     is_ritual = models.IntegerField()
     lyrics = models.TextField()
-    plusrecord = models.CharField(max_length=2048, blank=True, null=True)
+    plusrecord = models.CharField(max_length=255)
     pub_date = models.DateTimeField()
     length = models.TimeField()
     bitrate = models.IntegerField()
@@ -98,20 +102,27 @@ class MinusstoreMinusrecord(models.Model):
     rating_score = models.IntegerField()
     alternative = models.IntegerField()
 
+
     class Meta:
         managed = True
         db_table = 'minusstore_minusrecord'
 
+    def __str__(self):
+        return self.title
+    # def save(self):
+    #     self.filesize = os.path.getsize(self.file)
 
 
 class MinusstoreMinusrecordCategories(models.Model):
-    minusrecord_id = models.IntegerField()
-    minuscategory_id = models.IntegerField()
+    minusrecord = models.ForeignKey(MinusstoreMinusrecord)
+    minuscategory = models.ForeignKey(MinusstoreMinuscategory)
 
     class Meta:
         managed = True
         db_table = 'minusstore_minusrecord_categories'
-        unique_together = (('minusrecord_id', 'minuscategory_id'),)
+        unique_together = (('minusrecord', 'minuscategory'),)
+
+
 
 
 class MinusstoreMinusstats(models.Model):
