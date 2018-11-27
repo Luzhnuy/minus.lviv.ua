@@ -17,55 +17,110 @@
 
 <div class="father_GOD">
 
-	<header>
+		<header>
 
-	<div class="lozung">
-			<h1>Всеукраїнський музичний інформаційний портал</h1>
-		</div>
-		  <nav class="nav-extended">
-		    <div class="nav-wrapper top_menu">
-		      <a href="{% url 'main' %}" class="brand-logo">Logo</a>
-		      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-		      <ul id="nav-mobile" class="right hide-on-med-and-down">
-		      	<li><a href="{% url 'main' %}">Новини</a></li>
-		      	<li><a href="collapsible.html">Події</a></li>
-		      	<li><a href="{% url 'minusstore_main' %}">Мінусовки</a></li>
-		        <li><a href="{% url 'main_shop' %}">Куплю/продам</a></li>
-
-
-		        <li><a href="collapsible.html">Чат</a></li>
-		        <li><a href="collapsible.html">Форум</a></li>
-		      </ul>
-		    </div>
-		    <div class="nav-content bottom_menu">
-		      <ul class="tabs tabs-transparent">
-		      <ul class="tabiks tabiks-transparent">
-		        <li class="tabik "><a target="_blank" href="https://www.youtube.com/channel/UC8ZIZXC1LSM97_cZDMIFJvA" class="bmenu_a back_menu">Youtube</a></li>
-		        <li class="tabik "><a href="#" class="bmenu_a back_menu">Радіо</a></li>
-		        <li class="tabik "><a href="#" class="bmenu_a back_menu">Конкурс вокалістів</a></li>
-		        <li class="tabik "><a href="{% url 'desk_of_respect' %}" class="bmenu_a back_menu" >Дошка пошани</a></li>
-		      <li class="tabik "> <a href="{% url 'desk_of_shame' %}" class="bmenu_a back_menu" >Пауза користувача  <span style="color:red;">4</span></a></li>
-		        <li class="tabik "><a href="#" class="bmenu_a back_menu">FAQ</a></li>
-		        <!-- <li class="tabik "><a href="#" class="bmenu_a back_menu">Допомога порталу</a></li> -->
-		     <li class="tabik green_li" ><a href="{% url 'userlist' %}" class="bmenu_a" style="color:white;">Моя сторінка</a></li>
-		        <li class="tabik green_li" ><a class="bmenu_a" href="#test2" style="color:white;"><i class="small material-icons">notifications</i></a></li>
-		    <!--     <li class="tab"><a href="#test3" class="bmenu_a"><i class="small material-icons">email</i></a></li>
-		        <li class="tab"><a href="#test4" class="bmenu_a">Партнери</a></li> -->
-
-		    </div>
-		  </nav>
-
-		  <ul class="sidenav" id="mobile-demo">
-		    <li><a href="sass.html">Sass</a></li>
-		    <li><a href="badges.html">Components</a></li>
-		    <li><a href="collapsible.html">JavaScript</a></li>
-		  </ul>
+			<div class="lozung">
+				<h1>Всеукраїнський музичний інформаційний портал</h1>
+			</div>
+			  <nav class="nav-extended">
+			    <div class="nav-wrapper top_menu">
+			      <a href="{% url 'main' %}" class="brand-logo"><img src="{% static 'img/logo.png' %}"></a>
+			      <a href="#" data-target="mobile-demo" class="sidenav-trigger" style="color:#6baf00;"><i class="material-icons">menu</i></a>
+			      <ul id="nav-mobile" class="right hide-on-med-and-down">
+			      	<li><a href="{% url 'main' %}">Новини</a></li>
+			      	<li><a href="collapsible.html">Події</a></li>
+			      	<li><a href="{% url 'minusstore_main' %}">Мінусовки</a></li>
+			        <li><a href="{% url 'main_shop' %}">Куплю/продам</a></li>
 
 
+			        <li><a href="collapsible.html">Чат</a></li>
+			        <li><a href="collapsible.html">Форум</a></li>
+
+
+			      </ul>
+			    </div>
+
+			    <div class="nav-content bottom_menu">
+						<a href="#" data-target="mobile" class="sidenav-trigger"  style="color:#6baf00;text-align:center;">Додаткове меню</a>
+			      <ul class="tabiks tabiks-transparent left hide-on-med-and-down" id="nav-mobile">
+			        <li class="tabik "><a target="_blank" href="https://www.youtube.com/channel/UC8ZIZXC1LSM97_cZDMIFJvA" class="bmenu_a back_menu">Youtube</a></li>
+			        <li class="tabik "><a href="#" class="bmenu_a back_menu">Радіо</a></li>
+			        <li class="tabik "><a href="#" class="bmenu_a back_menu">Конкурс вокалістів</a></li>
+			        <li class="tabik "><a href="{% url 'desk_of_respect' %}" class="bmenu_a back_menu" >Дошка пошани</a></li>
+			      <li class="tabik "> <a href="{% url 'desk_of_shame' %}" class="bmenu_a back_menu" >Пауза користувача  <span style="color:red;">4</span></a></li>
+			        <li class="tabik "><a href="#" class="bmenu_a back_menu">FAQ</a></li>
+			        <!-- <li class="tabik "><a href="#" class="bmenu_a back_menu">Допомога </a></li> -->
+			          <li class="tabik "><a href="{% url 'userlist' %}" class="bmenu_a back_menu">Користувачі</a></li>
+			         <li class="tabik "><a href="{% url 'plusstore_main' %}" class="bmenu_a back_menu">Плюсовки</a></li>
+			        {% if request.user.is_authenticated %}
+			        <li class="tabik green_li" style="background-color: #6baf00;color:white;"><a href="{% url 'user_page' pk=request.user.id %}" class="bmenu_a" style="color:white;">Моя сторінка</a></li>
+			        <li class="tabik green_li" style="background-color: #6baf00;color:white;"><a class="bmenu_a dropdown-trigger" href="#test2" style="color:white;" name="notifications" data-target='dropdown1' ><i class="small material-icons" >notifications</i></a></li>
+			        <li class="tabik green_li" style="background-color: #6baf00;color:white;"><a class="bmenu_a" href="{% url 'messanger' %}" style="color:white;"><i class="small material-icons">email</i></a></li>
+
+			    <!--     <li class="tab"><a href="#test3" class="bmenu_a"><i class="small material-icons">email</i></a></li>
+			        <li class="tab"><a href="#test4" class="bmenu_a">Партнери</a></li> -->
+						{% endif %}
+			      </ul>
+
+
+				<ul id='dropdown1' class='dropdown-content' >
+					<li><a href="#!">Вас прокоментував Bulgar</a></li>
+					<li><a href="#!">Ваш мінус оцінили</a></li>
+					<li class="divider" tabindex="-1"></li>
+					<li><a href="#!">three</a></li>
+					<li><a href="#!"></li>
+					<li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
+		</ul>
+			    </div>
+			  </nav>
+
+			  <ul class="sidenav" id="mobile-demo">
+					<li><a href="{% url 'main' %}">Новини</a></li>
+					<li><a href="collapsible.html">Події</a></li>
+					<li><a href="{% url 'minusstore_main' %}">Мінусовки</a></li>
+					<li><a href="{% url 'main_shop' %}">Куплю/продам</a></li>
+
+
+					<li><a href="collapsible.html">Чат</a></li>
+					<li><a href="collapsible.html">Форум</a></li>
+			  </ul>
+
+
+				<ul class="sidenav" id="mobile">
+					{% if request.user.is_authenticated %}
+					<li class="tabik green_li" style="background-color: #6baf00;color:white;"><a href="{% url 'user_page' pk=request.user.id %}" class="bmenu_a" style="color:white;">Моя сторінка</a></li>
+					<li class="tabik green_li" style="background-color: #6baf00;color:white;"><a class="bmenu_a dropdown-trigger" href="#test2" style="color:white;" name="notifications" data-target='dropdown2' ><i class="small material-icons" >notifications</i></a></li>
+					<li class="tabik green_li" style="background-color: #6baf00;color:white;"><a class="bmenu_a" href="{% url 'messanger' %}" style="color:white;"><i class="small material-icons">email</i></a></li>
+
+			<!--     <li class="tab"><a href="#test3" class="bmenu_a"><i class="small material-icons">email</i></a></li>
+					<li class="tab"><a href="#test4" class="bmenu_a">Партнери</a></li> -->
 
 
 
-	</header>
+					{% endif %}
+					<li class="tabik "><a target="_blank" href="https://www.youtube.com/channel/UC8ZIZXC1LSM97_cZDMIFJvA" class="bmenu_a back_menu">Youtube</a></li>
+					<li class="tabik "><a href="#" class="bmenu_a back_menu">Радіо</a></li>
+					<li class="tabik "><a href="#" class="bmenu_a back_menu">Конкурс вокалістів</a></li>
+					<li class="tabik "><a href="{% url 'desk_of_respect' %}" class="bmenu_a back_menu" >Дошка пошани</a></li>
+				  <li class="tabik "> <a href="{% url 'desk_of_shame' %}" class="bmenu_a back_menu" >Пауза користувача  <span style="color:red;">4</span></a></li>
+					<li class="tabik "><a href="#" class="bmenu_a back_menu">FAQ</a></li>
+					<!-- <li class="tabik "><a href="#" class="bmenu_a back_menu">Допомога </a></li> -->
+					<li class="tabik "><a href="{% url 'userlist' %}" class="bmenu_a back_menu">Користувачі</a></li>
+					<li class="tabik "><a href="{% url 'plusstore_main' %}" class="bmenu_a back_menu">Плюсовки</a></li>
+
+				</ul>
+
+				<ul id='dropdown2' class='dropdown-content' >
+					<li><a href="#!">Вас прокоментував Bulgar</a></li>
+					<li><a href="#!">Ваш мінус оцінили</a></li>
+					<li class="divider" tabindex="-1"></li>
+					<li><a href="#!">three</a></li>
+					<li><a href="#!"></li>
+					<li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
+			</ul>
+
+
+		</header>
 
 
 <div class="container-fluid">

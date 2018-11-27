@@ -1,26 +1,35 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.contrib.auth.models import  AbstractBaseUser
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
-
-class User(AbstractBaseUser):
-
-    username = models.CharField(unique=True, max_length=30)
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    email = models.CharField(max_length=75)
-    password = models.CharField(max_length=128)
-    is_staff = models.IntegerField()
-    is_active = models.IntegerField()
-    is_superuser = models.IntegerField()
-    last_login = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-    date_joined = models.DateTimeField(auto_now_add=True, blank=True)
-
-    USERNAME_FIELD = 'email'
-    class Meta:
-        managed = True
-        db_table = 'auth_user'
-
+# class AuthUser(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#     # username = models.CharField(unique=True, max_length=30)
+#     # first_name = models.CharField(max_length=30)
+#     # last_name = models.CharField(max_length=30)
+#     # email = models.CharField(max_length=75)
+#     # password = models.CharField(max_length=128)
+#     # is_staff = models.IntegerField()
+#     # is_active = models.IntegerField()
+#     # is_superuser = models.IntegerField()
+#     # last_login = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+#     # date_joined = models.DateTimeField(auto_now_add=True, blank=True)
+#     is_business = models.BooleanField(default=0)
+#
+#     class Meta:
+#         managed = True
+#         db_table = 'auth_user'
+#
+# @receiver(post_save, sender=User)
+# def create_auth_user(sender, instance, created, **kwargs):
+#     if created:
+#         AuthUser.objects.create(user=instance)
+#
+# @receiver(post_save, sender=User)
+# def save_auth_user(sender, instance, **kwargs):
+#     instance.authuser.save()
+#
 
 class FriendsFriendship(models.Model):
     user = models.ForeignKey(User)
@@ -71,7 +80,7 @@ class FriendsUserblocksBlocks(models.Model):
         unique_together = (('userblocks_id', 'user_id'),)
 
 class Userprofile(models.Model):
-    user = models.ForeignKey(User)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     gender = models.CharField(max_length=6, blank=True, null=True)
     city = models.CharField(max_length=128, blank=True, null=True)
     country = models.CharField(max_length=128, blank=True, null=True)
@@ -89,10 +98,20 @@ class Userprofile(models.Model):
     banned = models.IntegerField()
     banned_until = models.DateField(blank=True, null=True)
     seen_rules = models.IntegerField()
+    is_business = models.BooleanField(default=0)
 
     class Meta:
         managed = True
         db_table = 'userprofile'
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Userprofile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.userprofile.save()
 
 
 class UsersStaffticket(models.Model):

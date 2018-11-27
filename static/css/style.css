@@ -411,6 +411,18 @@ h1{
 		background-color: #6baf00;
 		color: #fff;
 	}
+  .goods{
+    height: 200px;
+    /* margin-right: 0.5%; */
+    margin-bottom:5%;
+  }
+  .goods .title{
+    font-size:1em;
+    font-weight:bold;
+  }
+  .goods a{
+    color:#6baf00;
+  }
 	 .select_region ul li span{
 		color: #6baf00;
 	}

@@ -11,7 +11,7 @@ class BlurbsBlurb(models.Model):
     pub_date = models.DateTimeField()
     georegion_id = models.IntegerField(blank=True, null=True)
     geocity_id = models.IntegerField(blank=True, null=True)
-
+    is_user_business = models.BooleanField(default=0)
     class Meta:
         managed = True
         db_table = 'blurbs_blurb'

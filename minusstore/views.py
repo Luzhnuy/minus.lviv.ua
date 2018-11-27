@@ -5,7 +5,7 @@ from minusstore.models import MinusstoreMinusauthor,MinusstoreMinusrecord,Minuss
 import datetime
 import os
 from mutagen.mp3 import MP3
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from django.core import serializers
 from main.forms import AuthForm
 from minusstore.forms import AddMinusForm
@@ -68,65 +68,71 @@ def minusstore_minus(request,pk):
 
 
 def add_minus(request):
-    form_add_minus = AddMinusForm(request.POST,request.FILES)
-    minuscategory = MinusstoreMinusrecordCategories.objects.all()[:20]
-    print('ololololo')
-    minustype = MinusstoreFiletype.objects.all()
-    if request.method == "POST":
-        print('POST')
-        if form_add_minus.is_valid():
-            print('zbs')
-            minusrecord = form_add_minus.save(commit=False)
-            f = MP3(minusrecord.minus)
-            print(f.info.bitrate/1000)
+    if request.user.is_authenticated:
+        minuscategory = MinusstoreMinusrecordCategories.objects.all()[:20]
+        print('ololololo')
+        minustype = MinusstoreFiletype.objects.all()
+        form_add_minus = AddMinusForm(request.FILES,request.POST)
+
+        if request.method == "POST":
+            print('POST')
+            # form_add_minus = AddMinusForm(request.FILES,request.POST)
+            if form_add_minus.is_valid():
+                print('zbs')
+                minusrecord = form_add_minus.save(commit=False)
+                f = MP3(minusrecord.minus)
+                print(f.info.bitrate/1000)
+
+                print(minusrecord.author)
+                print(f.info.length)
 
 
-            print(f.info.length)
+                z = False
+                for i in MinusstoreMinusauthor.objects.all():
+                    if minusrecord.author.lower() == i.name.lower():
+                        minusrecord.author = i
+                            #Якщо воно стане тру то воно найшло такого автора і записало
+                        print('lol')
+                        z = True
+                    else:
+                        continue
+                    #Якщо фолс то воно не знайшло такого автора і створить нового
+                if z == False:
+                     MinusstoreMinusauthor.objects.create(minusrecord.author)
+                     minusrecord.author = MinusstoreMinusauthor.objects.latest('id')
 
-
-            z = False
-            for i in MinusstoreMinusauthor.objects.all():
-                if minusrecord.author.lower() == i.name.lower():
-                    minusrecord.author = i
-                        #Якщо воно стане тру то воно найшло такого автора і записало
-                    print('lol')
-                    z = True
-                else:
-                    continue
-                #Якщо фолс то воно не знайшло такого автора і створить нового
-            if z == False:
-                 MinusstoreMinusauthor.objects.create(minusrecord.author)
-                 minusrecord.author = MinusstoreMinusauthor.objects.latest('id')
-
-                 print('kek')
-            print('автор',author)
-
-
-
-            minusrcord.bitrate = f.info.bitrate/1000
-            minusrecord.length = f.info.length
-            minusrecord.user=request.user
-            minusrecord.pub_date = datetime.datetime.now()
+                     print('kek')
+                print('автор',author)
 
 
 
+                minusrcord.bitrate = f.info.bitrate/1000
+                minusrecord.length = f.info.length
+                minusrecord.user=request.user
+                minusrecord.pub_date = datetime.datetime.now()
 
 
-            if request.FILES['plus']:
-                MinusstoreMinusplusrecord.objects.create(minus_id = MinusstoreMinusrecord.objects.latest('id'),user_id = request.user.id,file=request.FILES.get('plusrecord'))
-            print('plus')
-            minusrecord.save()
 
 
+
+                if request.FILES['plus']:
+                    MinusstoreMinusplusrecord.objects.create(minus_id = MinusstoreMinusrecord.objects.latest('id'),user_id = request.user.id,file=request.FILES.get('plusrecord'))
+                print('plus')
+                minusrecord.save()
+                return HttpResponseRedirect('add_minus')
+            else:
+                print('форма не валiдна')
+                return HttpResponseRedirect('add_minus')
+        else:
+           form_add_minus = AddMinusForm()
+           print('Хуй вам а не реквест метод')
+           return render(request, 'minusstore/add_minus.html' , {
+                'minuscategory':minuscategory,
+    		    "form_add_minus" : form_add_minus,
+                'minustype' : minustype,
+    	   })
     else:
-       form_add_minus = AddMinusForm()
-       print('Хуй вам а не реквест метод')
-    return render(request, 'minusstore/add_minus.html' , {
-        'minuscategory':minuscategory,
-		"form_add_minus" : form_add_minus,
-        'minustype' : minustype,
-	})
-
+        HttpResponseRedirect('main')
 def if_minus_correct(request,pk):
 		form = AuthForm(request.POST)
 		minus = MinusstoreMinusrecord.objects.get(pk=pk)
