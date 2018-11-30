@@ -48,7 +48,7 @@ def gave_business_or_private(request,bool):
 		    good = paginator.page(page)
 		except PageNotAnInteger:
 			good = paginator.page(1)
-			       # print('second')
+			      
 		except EmptyPage:
 		    good = paginator.page(paginator.num_pages)
 					        #print('third')
@@ -66,5 +66,5 @@ def gave_business_or_private(request,bool):
 			       # print('second')
 		except EmptyPage:
 		    good = paginator.page(paginator.num_pages)
-					        #print('third')		
+					        #print('third')
 		return render(request, 'shop/index.html',{'goods':good,'f':True,})

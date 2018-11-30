@@ -86,7 +86,7 @@ class Userprofile(models.Model):
     country = models.CharField(max_length=128, blank=True, null=True)
     avatar = models.CharField(max_length=128, blank=True, null=True)
     birthdate = models.DateField(blank=True, null=True)
-    hide_birthdate = models.IntegerField()
+    hide_birthdate = models.IntegerField(blank=True, null=True)
     icq = models.CharField(max_length=10, blank=True, null=True)
     jabber = models.CharField(max_length=128, blank=True, null=True)
     skype = models.CharField(max_length=128, blank=True, null=True)
@@ -107,7 +107,7 @@ class Userprofile(models.Model):
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        Userprofile.objects.create(user=instance)
+        Userprofile.objects.create(user=instance,banned = 0,hide_birthdate = 0,is_admin_subscribed = 0,seen_rules = 0)
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):

@@ -13,7 +13,14 @@ from django.contrib.auth import logout
 from django.views.generic.edit import FormView
 from django.contrib.auth.forms import UserCreationForm
 from .forms import UserCreateForm,EmailAuthenticationForm
+from user.tokens import account_activation_token
+from django.template.loader import render_to_string
 import datetime
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.encoding import force_bytes, force_text
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.core.mail import EmailMessage
+
 
 
 def user_page(request,pk):
@@ -54,10 +61,40 @@ class RegisterFormView(FormView):
     # Шаблон, который будет использоваться при отображении представления.
     template_name = "user/registration.html"
 
+
+
     def form_valid(self, form):
         # Создаём пользователя, если данные в форму были введены корректно.
+
         self.last_login = datetime.datetime.now()
-        form.save()
+        self.is_active = 0
+        print('hello every_body1')
+        form_data=form.save()
+        print('hello every_body2')
+        print(form_data)
+        current_site = get_current_site(self.request)
+        print('hello every_body3')
+        print(current_site.domain)
+        mail_subject = 'Активація акаунту minus.lviv.ua'
+        message = render_to_string('user/sucees_registration.html', {
+                'user' : form_data,
+                'domain': current_site.domain,
+                'uid':urlsafe_base64_encode(force_bytes(form_data.id)),
+                'token':account_activation_token.make_token(form_data),
+        })
+        print('hello every_body4')
+
+        to_email = form_data.email
+        print('hello5')
+        print(to_email)
+        email = EmailMessage(
+                mail_subject, message, to=[to_email]
+        )
+        print(email)
+        print('hello6')
+        print(form_data.id)
+        email.send()
+
 
         return super(RegisterFormView, self).form_valid(form)
 
@@ -111,3 +148,19 @@ def userminuses(request,user_id):
         print('third')
 
     return render(request,'user/user_minuses.html', {'minus':minuses})
+
+
+def activate(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        login(request, user)
+        # return redirect('home')
+        return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+    else:
+        return HttpResponse('Activation link is invalid!')

@@ -17,12 +17,16 @@ class UserCreateForm(UserCreationForm):
 
     def save(self, commit=True):
         user = super(UserCreateForm, self).save(commit=False)
+        print('G')
         user.email = self.cleaned_data["email"]
+        print('Z')
         user.last_login = datetime.datetime.now()
+        print('F')
         if commit:
+            print('Q')
             user.save()
+        print('W')
         return user
-
 
 class EmailAuthenticationForm(AuthenticationForm):
     def clean_username(self):

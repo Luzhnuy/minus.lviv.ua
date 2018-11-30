@@ -48,6 +48,9 @@ INSTALLED_APPS = [
     'messanger',
 ]
 
+ACCOUNT_ACTIVATION_DAYS = 2 # кол-во дней для хранения кода активации
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -163,11 +166,12 @@ PASSWORD_HASHERS = [
 ]
 LOGIN_REDIRECT_URL = '/'
 
-
+# для отправки кода активации
+AUTH_USER_EMAIL_UNIQUE = True
 EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
+EMAIL_USE_TLS = False
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
 EMAIL_HOST_USER = 'minuslviv@gmail.com'
 EMAIL_HOST_PASSWORD = 'RenaultMegane20072'
 DEFAULT_FROM_EMAIL = 'Minus'
