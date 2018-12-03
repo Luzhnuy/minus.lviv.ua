@@ -116,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
+LOGIN_URL = '/'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -166,12 +166,10 @@ PASSWORD_HASHERS = [
 ]
 LOGIN_REDIRECT_URL = '/'
 
-# для отправки кода активации
-AUTH_USER_EMAIL_UNIQUE = True
-EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
-EMAIL_USE_TLS = False
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'minuslviv@gmail.com'
-EMAIL_HOST_PASSWORD = 'RenaultMegane20072'
-DEFAULT_FROM_EMAIL = 'Minus'
+EMAIL_HOST_PASSWORD = 'audi801987'
+DEFAULT_FROM_EMAIL = 'minuslviv@gmail.com'

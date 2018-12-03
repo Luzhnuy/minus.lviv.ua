@@ -18,6 +18,7 @@ class UserCreateForm(UserCreationForm):
     def save(self, commit=True):
         user = super(UserCreateForm, self).save(commit=False)
         print('G')
+        user.is_active = 0
         user.email = self.cleaned_data["email"]
         print('Z')
         user.last_login = datetime.datetime.now()

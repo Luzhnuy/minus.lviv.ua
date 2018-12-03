@@ -118,6 +118,7 @@
 						</div>
 						<p style="font-weight: bold;"><a href="{% url 'user_page' pk=c.user.id%}" style="color:#6baf00;">{{ c.user.username }}</a></p>
 						<p style="float:rigth;">{{ c.comment }}</p>
+						<a href="#" class=""waves-effect waves-light btn-small" style="float:right;color:#6baf00">Відповісти</a>
 					</div>
 					{% endfor %}
 					<div class="add_comment">
@@ -129,7 +130,7 @@
 
       								<label>
         								<input type="checkbox" />
-        								<span>Підписатись на коментарі до цього мінуса</span>
+        								<span>Підписатись на коментарі до цієї новини</span>
       								</label>
 
 						</form>

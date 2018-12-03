@@ -9,7 +9,7 @@ from django.contrib.auth.views import LoginView
 from django.template import RequestContext
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.contrib.auth import logout
+from django.contrib.auth import logout,login
 from django.views.generic.edit import FormView
 from django.contrib.auth.forms import UserCreationForm
 from .forms import UserCreateForm,EmailAuthenticationForm
@@ -28,7 +28,10 @@ def user_page(request,pk):
     user.comments = DjangoComments.objects.filter(user_id = user.user_id).order_by('-id')[:3]
     user.forum = DjangobbForumPost.objects.filter(user_id = user.user_id).order_by('-id')[:3]
     user.u = User.objects.get(pk = user.user_id)
-    user.rating = UsersUserrating.objects.get(user_id = user.u.id)
+    try:
+        user.rating = UsersUserrating.objects.get(user_id = user.u.id)
+    except UsersUserrating:
+        user.rating = 0
     return render(request, 'user/index.html', {
         'user':user,
 	})
@@ -67,11 +70,12 @@ class RegisterFormView(FormView):
         # Создаём пользователя, если данные в форму были введены корректно.
 
         self.last_login = datetime.datetime.now()
-        self.is_active = 0
+        # self.is_active = False
         print('hello every_body1')
         form_data=form.save()
         print('hello every_body2')
         print(form_data)
+        # form_data.is_active = 0
         current_site = get_current_site(self.request)
         print('hello every_body3')
         print(current_site.domain)
@@ -94,7 +98,6 @@ class RegisterFormView(FormView):
         print('hello6')
         print(form_data.id)
         email.send()
-
 
         return super(RegisterFormView, self).form_valid(form)
 
@@ -161,6 +164,6 @@ def activate(request, uidb64, token):
         user.save()
         login(request, user)
         # return redirect('home')
-        return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+        return render(request, 'user/succes_reg_true.html',{})
     else:
-        return HttpResponse('Activation link is invalid!')
+        return HttpResponse('Вибачте але лінк активації якийсь поганий(')

@@ -146,3 +146,12 @@ class UsersUserrating(models.Model):
     class Meta:
         managed = True
         db_table = 'users_userrating'
+
+@receiver(post_save, sender=User)
+def create_user_rating(sender, instance, created, **kwargs):
+    if created:
+        UsersUserrating.objects.create(user=instance,rating = 0,average_minus_rating = 0)
+
+# @receiver(post_save, sender=User)
+# def save_user_rating(sender, instance, **kwargs):
+#     instance.users_userrating.save()

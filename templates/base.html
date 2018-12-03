@@ -240,7 +240,7 @@
 						{%	if request.user.is_authenticated %}
 							<div class="name_and_status col s7">
 								<p>{{ request.user.first_name }} {{ request.user.last_name }}</p>
-								<span>Адміністратор</span>
+								<span>{% if request.user.is_staff %}Адміністратор {% else %} Користувач {% endif %}</span>
 								<hr>
 
 

@@ -68,12 +68,14 @@ def minusstore_minus(request,pk):
 
 
 def add_minus(request):
+    print('lol')
     if request.user.is_authenticated:
         minuscategory = MinusstoreMinusrecordCategories.objects.all()[:20]
         print('ololololo')
         minustype = MinusstoreFiletype.objects.all()
+        print('filetype')
         form_add_minus = AddMinusForm(request.FILES,request.POST)
-
+        print('hello')
         if request.method == "POST":
             print('POST')
             # form_add_minus = AddMinusForm(request.FILES,request.POST)
@@ -126,27 +128,39 @@ def add_minus(request):
         else:
            form_add_minus = AddMinusForm()
            print('Хуй вам а не реквест метод')
+          # print(minuscategory)
+           #print(minustype)
+
+
            return render(request, 'minusstore/add_minus.html' , {
                 'minuscategory':minuscategory,
     		    "form_add_minus" : form_add_minus,
                 'minustype' : minustype,
     	   })
     else:
-        HttpResponseRedirect('main')
+        print('yobanuy')
+        return HttpResponseRedirect('../../')
+
+
+
 def if_minus_correct(request,pk):
-		form = AuthForm(request.POST)
-		minus = MinusstoreMinusrecord.objects.get(pk=pk)
-		category_id = MinusstoreMinusrecordCategories.objects.get(minusrecord_id=minus.pk)
-		сategory_id = category_id.minuscategory_id
-		minus.author = MinusstoreMinusauthor.objects.get(pk = minus.author_id)
+    form = AuthForm(request.POST)
+    minus = MinusstoreMinusrecord.objects.get(pk=pk)
+    try:
+        category_id = MinusstoreMinusrecordCategories.objects.get(minusrecord_id=minus.pk)
+        сategory_id = category_id.minuscategory_id
+    except MinusstoreMinusrecordCategories.DoesNotExist:
+        category_id = None
+
+    minus.author = MinusstoreMinusauthor.objects.get(pk = minus.author_id)
 		# category = MinusstoreMinuscategory.objects.get(pk=category_id)
 
-		return render(request, 'minusstore/look_on_minus_correct.html' , {
+    return render(request, 'minusstore/look_on_minus_correct.html' , {
 
 		'minus':minus,
 		# 'category':category,
 
-		})
+	})
 
 
 def pdf_generete(request,pk):
