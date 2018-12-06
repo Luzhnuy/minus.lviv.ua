@@ -68,7 +68,7 @@ def minusstore_minus(request,pk):
 
 #
 class MinusrecordView(FormView):
-    form_class = AddMinusForm()
+    form_class = AddMinusForm
     # fields = ['file','title','author','lyrics','plusrecord','embed_video']
     # exclude = ['user']
     template_name = 'minusstore/add_minus.html'
