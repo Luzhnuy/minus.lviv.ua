@@ -7,39 +7,43 @@
 	<div class="row">
 		<div class="header col s11 offset-s1">
 			<div class="row">
-				<form class="col s11 offset-s1 reg" method="POST" enctype="multipart/form-data">
+				<form class="col s11 offset-s1 reg"  method="POST" enctype="multipart/form-data">
 								{% csrf_token %}
-									{{ form_add_minus.file.errors }}
-									{{ form_add_minus.bitrate.errors }}
-									{{ form_add_minus.title.errors }}
-									{{ form_add_minus.author.errors }}
-									{{ form_add_minus.lyrics.errors }}
-									{{ form_add_minus.embed_video.errors }}
-									{{ form_add_minus.length.errors }}
-									{{ form_add_minus.user.errors }}
-									{{ form_add_minus.errors }}
+
+									<!-- {{ form_add_minus.file.errors }} -->
+									<!-- {{ form_add_minus.bitrate.errors }} -->
+									<!-- {{ form_add_minus.title.errors }} -->
+									<!-- {{ form_add_minus.author.errors }} -->
+									<!-- {{ form_add_minus.lyrics.errors }} -->
+									<!-- {{ form_add_minus.embed_video.errors }} -->
+									<!-- {{ form_add_minus.length.errors }} -->
+									<!-- {{ form_add_minus.user.errors }} -->
+									<!-- {{ form_add_minus.errors }} -->
 
 								<h2>Залийте мінусовку</h2>
-								<label for="minus">Залийте мінус</label>
+								<!-- {{ form_add_minus.as_p }} -->
+								 <label for="minus">Залийте мінус</label>
 								<!-- <input type="file" name="minus" ><br> -->
-								{{ form_add_minus.file }}<br>
+								{{ form.file }}<br>
 								<br>
 								<label for="title">Назва мінусу</label>
 								<!-- <input type="text" name="title" > -->
-								{{ form_add_minus.title }}
+								{{ form.title }}
 								<label for="author">Виконавець</label>
 								<!-- <input type="text" name="author" > -->
-								 {{ form_add_minus.author }}
+								 {{ form.author }}
 								<label for="lyrics">Текст пісні</label>
-							 {{ form_add_minus.lyrics }}
+								<!-- <textarea name="lyrics" rows="8" cols="80"></textarea> -->
+							 {{ form.lyrics }}
 
-
+							 <!-- {{ form.as_p }} -->
 							  <label for="plusrecord">Залийте плюс</label>
-								{{ form_add_minus.plusrecord }}<br>
+								<!-- <input type="file" name="pluses" ><br> -->
+								{{ form.plusrecord }}<br>
 								<br>
 							  <label for="embed_video">Посилання на відео</label>
-							  {{ form_add_minus.embed_video }}
-
+							  {{ form.embed_video }}
+								<!-- <input type="text" name="embed_video"  -->
 							  <button type="submit" class="sbm_auth waves-effect waves-light btn-large col s12">Залити мінусовку</button>
 
 							</form>

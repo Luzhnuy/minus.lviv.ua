@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db import models
 import os
 
+
 class MinusstoreCommentnotify(models.Model):
     comment_id = models.IntegerField(unique=True)
     user_id = models.IntegerField()
@@ -72,13 +73,13 @@ class MinusstoreMinusauthor(models.Model):
         managed = True
         db_table = 'minusstore_minusauthor'
     def __str__(self):
-        return self.name    
+        return self.name
 
 
 class MinusstoreMinusrecord(models.Model):
     user = models.ForeignKey(User)
-    file = models.FileField(upload_to="static/files/minuses/")
-    title = models.CharField(max_length=255)
+    file = models.FileField("Мінусовка",upload_to="static/files/minuses/",null=True,blank=True)
+    title = models.CharField("Назва мінусовки",max_length=255)
     is_folk = models.IntegerField()
     author = models.ForeignKey(MinusstoreMinusauthor,null=True)
     arrangeuathor = models.CharField(max_length=50, blank=True, null=True)
@@ -87,11 +88,11 @@ class MinusstoreMinusrecord(models.Model):
     tempo = models.CharField(max_length=10)
     staff = models.CharField(max_length=10)
     gender = models.CharField(max_length=10)
-    is_childish = models.IntegerField()
-    is_amateur = models.IntegerField()
-    is_ritual = models.IntegerField()
-    lyrics = models.TextField()
-    plusrecord = models.CharField(max_length=255)
+    is_childish = models.IntegerField(default=0)
+    is_amateur = models.IntegerField(default=0)
+    is_ritual = models.IntegerField(default=0)
+    lyrics = models.TextField("Текст пісні")
+    plusrecord = models.FileField(upload_to="static/files/pluses/", blank=True, null=True)
     pub_date = models.DateTimeField()
     length = models.TimeField()
     bitrate = models.IntegerField()
@@ -109,8 +110,7 @@ class MinusstoreMinusrecord(models.Model):
 
     def __str__(self):
         return self.title
-    # def save(self):
-    #     self.filesize = os.path.getsize(self.file)
+
 
 
 class MinusstoreMinusrecordCategories(models.Model):

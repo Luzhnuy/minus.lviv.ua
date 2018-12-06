@@ -5,99 +5,15 @@
 {% block content %}
 <section class="col s6">
 	<div class="row">
-		<div class="header col s11 offset-s1">
-			<div class="row">
-				<form class="col s11 offset-s1 reg" method="POST" enctype="multipart/form-data">
-								{% csrf_token %}
-									{{ form_add_minus.file.errors }}
-									{{ form_add_minus.bitrate.errors }}
-									{{ form_add_minus.title.errors }}
-									{{ form_add_minus.author.errors }}
-									{{ form_add_minus.lyrics.errors }}
-									{{ form_add_minus.embed_video.errors }}
-									{{ form_add_minus.length.errors }}
-									{{ form_add_minus.user.errors }}
-									{{ form_add_minus.errors }}
-									{{ form_add_minus.as_p }}
-								<h2>Залийте мінусовку</h2>
-								<label for="minus">Залийте мінус</label>
-								<!-- <input type="file" name="minus" ><br> -->
-								{{ form_add_minus.file }}<br>
-								<br>
-								<label for="title">Назва мінусу</label>
-								<!-- <input type="text" name="title" > -->
-								{{ form_add_minus.title }}
-								<label for="author">Виконавець</label>
-								<!-- <input type="text" name="author" > -->
-								 {{ form_add_minus.author }}
-								<label for="lyrics">Текст пісні</label>
-							 {{ form_add_minus.lyrics }}
-								 <!-- <div class="input-field col s12">
-							    <select multiple>
-							      <option value="" disabled selected>Тип</option>
-										{% for type in minustype %}
-									  <option value="{{ type.id }}">{{ type.display_name }}</option>
-										{% endfor %}
-							    </select>
-							  </div> -->
-							  <!-- <div class="input-field col s12">
-							    <select multiple>
-							      <option value="" disabled selected>Жанр</option>
-										{% for category in minuscategory %}
-											<option value="{{ category.minuscategory.id }}">{{  category.minuscategory.display_name }}</option>
-										{% endfor %}
-							    </select>
-							  </div>
-								<div class="input-field col s12">
-									<select multiple>
-										<option value="" disabled selected>Вибір за призначенням</option>
-										{% for category in minuscategory %}
-											<option value="{{ category.minuscategory.id }}">{{  category.minuscategory.display_name }}</option>
-										{% endfor %}
-									</select>
-								</div>
-								  <div class="input-field col s12">
-											 <select multiple>
-												 <option value="" disabled selected>Виберіть каталог</option>
-												 <optgroup label="Українські мінусовки">
-													 <option value="1">Авторські</option>
-													 <option value="2">Оригінал</option>
-													 <option value="3">Оригінал + Бек</option>
-													 <option value="4">Студійні копії</option>
-													 <option value="5">Задавки-нарізки</option>
-													 <option value="6">Українські народні</option>
-													 <option value="7">Комутація</option>
-													 <option value="8">Інше звукове начиння</option>
-												 </optgroup>
-													<optgroup label="Інструменталки">
-														<option value="7">Інструментальні твори</option>
-														<option value="8">Лаунч музика</option>
-													 <option value="9">Мінуси для інструментів(сакс,гітара,труба,акордеон та ін.)</option>
-												 </optgroup>
-													<optgroup label="Інші записи">
-														<option value="10">Білоруські</option>
-														<option value="11">Польські</option>
-														<option value="12">Угорські</option>
-														<option value="13">Чешські</option>
-														<option value="14">Молдавські</option>
-														<option value="15">Румунські</option>
-												 </optgroup>
-											 </select>
-							</div> -->
+		<form class="col s11 offset-s1 reg" method="POST">
+			{% csrf_token %}
+			<h2>Додайте товар</h2>
+			{{ form }}
+			{{ category_form }}
+			<button type="submit" class="sbm_auth waves-effect waves-light btn-large col s12">Увійти</button>
 
-							  <label for="plusrecord">Залийте плюс</label>
-								{{ form_add_minus.plusrecord }}<br>
-								<br>
-							  <label for="embed_video">Посилання на відео</label>
-							  {{ form_add_minus.embed_video }}
-							  <button type="submit" class="sbm_auth waves-effect waves-light btn-large col s12">Залити мінусовку</button>
-
-							</form>
-			</div>
-		</div>
-
+		</form>
 
 	</div>
 </section>
-
 {% endblock %}
