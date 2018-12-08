@@ -1,7 +1,8 @@
 from django import template
 from minus.new_minuses import *
 from minus.tops_functions import *
-from user.models import UsersUserrating
+import datetime
+from user.models import UsersUserrating,Userprofile
 from main.forms import AuthForm
 from django.views.decorators.cache import cache_page
 
@@ -46,3 +47,12 @@ def login():
 @register.inclusion_tag('mytags/letters.html')
 def letters():
 	pass
+
+@register.inclusion_tag('mytags/len_shame.html')
+def count_shame():
+	banned_users = []
+	users = Userprofile.objects.filter(banned=1)
+	for u in users:
+		if u.banned_until>datetime.date.today():
+			banned_users.append(u)
+	return {'len':len(banned_users)}

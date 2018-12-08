@@ -1,7 +1,9 @@
 from django.shortcuts import render,get_object_or_404,redirect
-from minus.models import DjangoComments,Likedislike
+from minus.models import DjangoComments,Likedislike,DeliverySubscriber
 from minusstore.models import MinusstoreMinusauthor,MinusstoreMinusrecord,MinusstoreMinusrecordCategories,MinusstoreMinuscategory,MinusstoreMinusplusrecord,MinusstoreMinusrecordCategories,MinusstoreFiletype
 import os
+import pdfkit
+import datetime
 from mutagen.mp3 import MP3
 from django.http import HttpResponse,HttpResponseRedirect
 from django.core import serializers
@@ -9,7 +11,6 @@ from main.forms import AuthForm
 from minusstore.forms import AddMinusForm
 from django.contrib.auth.models import User
 from django.views.generic.edit import FormView
-import pdfkit
 from django.views.decorators.cache import cache_page
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core import serializers
@@ -50,15 +51,17 @@ def minusstore_minus(request,pk):
         minus.plusrecord = MinusstoreMinusplusrecord.objects.get(minus_id=minus.id)
     except MinusstoreMinusplusrecord.DoesNotExist:
         minus.plusrecord=None
-    try:
-        likedislike = Likedislike.objects.get(content_type_id= 17,object_id = minus.pk)
-    except:
-        likedislike = 0
+    print('lol')
+    likes = Likedislike.objects.filter(type_id= 17,object_id = minus.pk,likes=1).count()
+    print('kek')
+    dislikes = Likedislike.objects.filter(type_id= 17,object_id = minus.pk,likes=0).count()
+
     minus_user = get_object_or_404(User,pk=minus.user_id)
     upload_minuses_from_user = MinusstoreMinusrecord.objects.filter(user_id=minus_user.id).count()
     minus.filesize = int(minus.filesize/1000000)
     return render(request, 'minusstore/minus.html' , {
-        'likedislike' : likedislike,
+        'likes' : likes,
+        'dislikes' : dislikes,
         'minus' : minus,
         'author' : author,
         'comments' : comments,
@@ -163,6 +166,32 @@ def gave(request,author_id):
     return HttpResponse(minuss)
 
 
+
+def subscribe(request):
+    if request.user.is_authenticated:
+        subscriber = DeliverySubscriber.objects.create(email = request.user.email,is_subscribed=1,frequency='weekly',hash="214213a",date=datetime.datetime.now())
+        subscriber.save()
+        z = "Вітаємо ви підписались на оновлення мінусовок!!"
+        k = "Тепер кожного тижня вам на пошту будуть приходити списки нових мінусовок"
+        return render(request,'minusstore/subscribed.html',{'z':z,'k':k})
+    else:
+        z = "Вибачте шоб підписати на оновлення вам потрібно увійти"
+        k = "Щоб увійти перейдіть у 'Закуліси'"
+
+        return render(request,'minusstore/subscribed.html',{
+            'z':z,
+            'k':k
+        })
+
+
+
+
+
+
+
+
+
+#Інші варіанти заливання мінусів (З багами)
 
 # def add_minus1(request):
 #     minuscategory = MinusstoreMinusrecordCategories.objects.all()[:20]

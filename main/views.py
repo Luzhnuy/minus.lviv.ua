@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from user.models import Userprofile
 from django.http import HttpResponse,HttpResponseRedirect
 from django.core import serializers
+import json
 from .forms import AuthForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # from minus.autentification import *
@@ -82,24 +83,43 @@ def comments(request,pk):
 
 def likedislike(request, user_id, object_id, content_type_id,likeordislike):
 	try:
-		likeanddislike = Likedislike.objects.get(content_type_id= 17,object_id = object_id)
-		print(likeanddislike.likes)
-		if likeordislike=='1':
-			likeanddislike.likes=likeanddislike.likes+1
-			print(likeanddislike.likes)
-			likeanddislike.save()
+		likeorodislike = Likedislike.objects.get(object_id=object_id,type_id=content_type_id,user_id=user_id)
+		print(likeorodislike.likes)
+
+		if likeordislike == '1' and likeorodislike.likes==False:
+			likeorodislike.likes = 1
+			likeorodislike.save()
+			try:
+				likes = Likedislike.objects.filter(type_id= content_type_id,object_id=object_id,likes=1).count()
+			except:
+				likes=0
+			dislikes =  Likedislike.objects.filter(type_id= content_type_id,object_id=object_id,likes=0).count()
+			likeanddislike = json.dumps({'likes':likes,'dislikes':dislikes})
+			return HttpResponse(likeanddislike)
+		elif likeordislike == '0' and likeorodislike.likes==True:
+			likeorodislike.likes = 0
+			likeorodislike.save()
+			likes = Likedislike.objects.filter(type_id= content_type_id,object_id=object_id,likes=1).count()
+			dislikes =  Likedislike.objects.filter(type_id= content_type_id,object_id=object_id,likes=0).count()
+			likeanddislike = json.dumps({'likes':likes,'dislikes':dislikes})
+			return HttpResponse(likeanddislike)
 		else:
-			likeanddislike.dislikes=likeanddislike.dislikes+1
-			print(likeanddislike.dislikes)
-			likeanddislike.save()
-		likeanddislike=serializers.serialize("json",likeanddislike)
-		return HttpResponse(likeanddislike);
+			return HttpResponse('figovo')
+
+		#return HttpResponse(likeanddislike)
 	except Likedislike.DoesNotExist:
-		print("ERORROROROROROROROOROROROOROROROROROROORORORROORORORORORORrororororoo")
-		likeanddislike=0
-		if likeordislike=='1':
-	 		Likedislike(user_id=user_id,object_id=object_id,content_type_id=content_type_id,likes = likeanddislike+1,dislikes=likeanddislike)
-		else:
-	 		Likedislike(user_id=user_id,object_id=object_id,content_type_id=content_type_id,likes=likeanddislike,dislikes=likeanddislike+1)
-		# likeanddislike=serializers.serialize("json",likeanddislike)
-		return HttpResponse(likeanddislike);
+		print('zbs')
+		likedislike = Likedislike.objects.create(user_id = user_id,object_id = object_id, type_id = content_type_id, likes = likeordislike )
+		likedislike.save()
+		likes = Likedislike.objects.filter(type_id= content_type_id,object_id=object_id,likes=1).count()
+		dislikes =  Likedislike.objects.filter(type_id= content_type_id,object_id=object_id,likes=0).count()
+		# likes = serializers.serialize('json',likes)
+		# dislikes = serializers.serialize('json',dislikes)
+		print(likes)
+		print(dislikes)
+		print('zbc2')
+		likeanddislike = {'likes':likes,'dislikes':dislikes}
+		print('zbc3')
+		likeanddislike = json.dumps(likeanddislike)
+		print('zbc4')
+		return HttpResponse(likeanddislike)

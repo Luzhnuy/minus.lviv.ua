@@ -11,10 +11,44 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import djcelery
 
+# указываем на то, что расписание будет задаваться посредством django-ORM
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+# указываем брокер сообщений
+BROKER_URL = 'redis://127.0.0.1:6379/0'
+
+# формат хранения задач (можете не указывать)
+# CELERY_TASK_SERIALIZER = 'json'
+# формат хранения результатов (можете не указывать)
+# CELERY_RESULT_SERIALIZER = 'json'
+# если настроены джанговские параметры уведомлений по почте
+# и данный параметр True, то исключения в задачах будут
+# фиксироваться на почте администраторов приложения
+CELERY_SEND_TASK_ERROR_EMAILS = True
+# инициализация django-celery
+djcelery.setup_loader()
+CELERY_IMPORTS=('minusstore.tasks',)
+
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django_redis.cache.RedisCache',
+#         'LOCATION': 'redis://127.0.0.1:6379/0',
+#         'OPTIONS': {
+#             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+#         }
+#     }
+# }
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+
+# CELERYBEAT_SCHEDULE = {
+#     'add-every-30-seconds': {
+#         'task': 'minusstore.tasks.minus_send_new',
+#         'schedule': 30.0, # Execute on the first day of every month.
+#     },
+# }
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -31,7 +65,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'djcelery',
     "djcelery_email",
+    "django_celery_results",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,6 +86,7 @@ INSTALLED_APPS = [
 
 ACCOUNT_ACTIVATION_DAYS = 2 # кол-во дней для хранения кода активации
 
+CELERY_RESULT_BACKEND = 'django-cache'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -95,6 +132,9 @@ DATABASES = {
         'USER': 'minus',
         'PASSWORD' : 'minuselita',
         'HOST':'localhost',
+        'OPTIONS': {
+            'sql_mode': 'traditional',
+        }
     }
 }
 

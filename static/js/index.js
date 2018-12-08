@@ -23,6 +23,12 @@ function likedislike(user_id,object_id,likeordislike){
 		      dataType: 'JSON',
 		        success:function(likeanddislike){
 			          console.log(likeanddislike);
+                $('.like').empty();
+                $('.like').append('<i class="material-icons left">mood</i>'+likeanddislike.likes);
+                $('.dislike').empty();
+                $('.dislike').append('<i class="material-icons left">mood_bad</i>'+likeanddislike.dislikes);
+                console.log(likeanddislike.likes);
+                console.log(likeanddislike.dislikes);
 
             }
 

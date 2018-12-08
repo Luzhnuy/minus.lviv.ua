@@ -202,6 +202,12 @@ class DeliverySubscriber(models.Model):
         managed = True
         db_table = 'delivery_subscriber'
 
+# @receiver(post_save, sender=User)
+# def create_user_subscribed(sender, instance, created, **kwargs):
+#     if created:
+#         UsersUserrating.objects.create(user=instance,rating = 0,average_minus_rating = 0)
+
+
 
 class DeliverySubscribersmailsettings(models.Model):
     daily_title = models.CharField(max_length=256)
@@ -762,9 +768,8 @@ class MessagesMessage(models.Model):
 
 class Likedislike(models.Model):
     user_id = models.IntegerField()
-    likes = models.IntegerField()
-    dislikes = models.IntegerField()
-    content_type_id = models.IntegerField()
+    likes = models.BooleanField()
+    type_id = models.IntegerField()
     object_id = models.IntegerField()
 
     class Meta:
