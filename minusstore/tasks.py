@@ -9,6 +9,8 @@ from celery.decorators import periodic_task
 
 
 
+
+
 @app.task
 def minus_send_new():
     m = []
@@ -47,4 +49,3 @@ def setup_periodic_tasks(sender, **kwargs):
     # sender.add_periodic_task(
     #     crontab(hour=7, minute=30, day_of_week=1),
     #     test.s('Happy Mondays!'),
-    
