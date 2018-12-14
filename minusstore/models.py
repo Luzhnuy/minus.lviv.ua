@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.db import models
 import os
 
-
+ 
 class MinusstoreCommentnotify(models.Model):
     comment_id = models.IntegerField(unique=True)
     user_id = models.IntegerField()

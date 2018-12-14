@@ -17,7 +17,7 @@
 				</div>
 				<div class="col s6 minus_main_btn">
 					<div class="row">
-						{% if request.user.is_authenticated %}<a class="waves-effect waves-light btn-large col s12">Редагувати</a> {% endif %}
+						{% if request.user.is_staff %}<a class="waves-effect waves-light btn-large col s12">Редагувати</a> {% endif %}
 						<a class="waves-effect waves-light btn-large col s12">Повідомити модератора</a>
 					</div>
 				</div>

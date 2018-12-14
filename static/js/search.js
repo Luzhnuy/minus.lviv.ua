@@ -19,7 +19,6 @@ function usersearch(search){
 
 
 
-
 jQuery(document).ready(function(){
   $('.validate .user_search').keyup(function(){
     var search = $('.user_search').text();

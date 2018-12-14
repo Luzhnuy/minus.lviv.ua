@@ -4,7 +4,7 @@ from django import forms
 from mutagen.mp3 import MP3
 import datetime
 
-
+ 
 
 class AddMinusForm(forms.ModelForm):
 	# plusrecord = forms.FileField()
@@ -14,7 +14,7 @@ class AddMinusForm(forms.ModelForm):
 		# fields = ['title']
 		fields = ['file','title','author','lyrics','plusrecord','embed_video']
 
-	
+
 
 	def save(self,commit=True):
 		minus = super(AddMinusForm, self).save(commit=False)
