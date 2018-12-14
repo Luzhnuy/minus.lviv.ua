@@ -20,9 +20,9 @@ app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 
 
 app.conf.beat_schedule = {
-    'add-every-30-seconds': {
+    'send_new_minuses': {
         'task': 'minusstore.tasks.minus_send_new',
-        'schedule': datetime.timedelta(seconds=10),  # change to `crontab(minute=0, hour=0)` if you want it to run daily at midnightd
+        'schedule': crontab(day_of_week=1),  # change to `crontab(minute=0, hour=0)` if you want it to run daily at midnightd
     },
 }
 app.conf.timezone = 'UTC'

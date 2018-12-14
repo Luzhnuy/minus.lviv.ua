@@ -15,12 +15,14 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import UserCreateForm,EmailAuthenticationForm
 from user.tokens import account_activation_token
 from django.template.loader import render_to_string
-import datetime
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.core.mail import EmailMessage
-
+from user.filter import UserFilter
+from django.core import serializers
+import datetime
+import json
 
 
 def user_page(request,pk):
@@ -167,3 +169,14 @@ def activate(request, uidb64, token):
         return render(request, 'user/succes_reg_true.html',{})
     else:
         return HttpResponse('Вибачте але лінк активації якийсь поганий(')
+
+
+
+def user_search(request):
+    users_all = User.objects.all()
+    users = UserFilter(request.GET,queryset=users_all)
+    print(users.qs)
+    user = serializers.serialize('json',users.qs)
+    print('gello')
+    print(user)
+    return HttpResponse(user)

@@ -82,6 +82,7 @@ INSTALLED_APPS = [
     'minusstore',
     'desks',
     'messanger',
+    'django_filters',
 ]
 
 ACCOUNT_ACTIVATION_DAYS = 2 # кол-во дней для хранения кода активации

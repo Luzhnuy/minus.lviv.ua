@@ -36,11 +36,10 @@ def minus_send_new():
 
 
 
-
-@app.on_after_configure.connect
-def setup_periodic_tasks(sender, **kwargs):
-    # Calls test('hello') every 10 seconds.
-    sender.add_periodic_task(10.0, minus_send_new.s(), name='add every 10')
+#
+# @app.on_after_configure.connect
+# def setup_periodic_tasks(sender, **kwargs):
+    # sender.add_periodic_task(10.0, minus_send_new.s(), name='add every 10')
 
     # Calls test('world') every 30 seconds
     # sender.add_periodic_task(30.0, test.s('world'), expires=10)

@@ -25,6 +25,7 @@ def main(request):
 
 
 	news_objects = NewsNewsitem.objects.all().order_by('-id')
+	# comments_count = DjangoComments.objects.filter(content_type_id = 51,object_pk = pk).count()
 
 	paginator = Paginator(news_objects, 10)
 	page = request.GET.get('page')
@@ -61,9 +62,9 @@ def news_index(request,pk):
 
 	# new.user = User.objects.get(pk = new.user_id)
 	new.comments = DjangoComments.objects.filter(content_type_id = 51,object_pk = pk)
-
+	count =   DjangoComments.objects.filter(content_type_id = 51,object_pk = pk).count()
 	return render(request, 'main/news.html' , {
-
+		'count': count,
 
 
 		'news' : new,
@@ -75,6 +76,7 @@ def comments(request,pk):
 
 
 	comments = DjangoComments.objects.filter(content_type_id = 51,object_pk = pk)
+
 	comments = serializers.serialize("json",comments)
 
 

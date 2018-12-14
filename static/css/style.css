@@ -640,6 +640,9 @@ h1{
 		font-weight: bold;
 		font-size:1.3em;
 	}
+  .comments_in_minusstore .comment{
+    margin-bottom: 10vh;
+  }
 
 	/* endminus  */
 
