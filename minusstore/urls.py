@@ -11,5 +11,6 @@ urlpatterns = [
   	url(r'^letters-filter/(?P<letter>[a-zA-Z0-9А-ЯЄІ]+)/$',views.letters_filter, name="letter_filter"),
     url(r'^give/(?P<author_id>[0-9]+)/$', views.gave, name="gave_minus"),
     url(r'^subscribe/', views.subscribe, name="subscribe"),
+    url(r'^minus-archiv/(?P<day>[0-9]+)/$', views.archiv_of_minuses, name="archiv_of_minuses"),
 
 ]

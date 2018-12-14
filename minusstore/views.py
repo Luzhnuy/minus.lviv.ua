@@ -166,6 +166,23 @@ def gave(request,author_id):
     return HttpResponse(minuss)
 
 
+def archiv_of_minuses(request,day):
+    date = datetime.date.today()
+    print(date.year)
+    minuses = MinusstoreMinusrecord.objects.filter(pub_date__year=date.year,pub_date__month=date.month,pub_date__day=day)
+    paginator = Paginator(minuses, 10)
+    page = request.GET.get('page')
+    try:
+        minuses = paginator.page(page)
+        print('first')
+    except PageNotAnInteger:
+        minuses = paginator.page(1)
+        print('second')
+    except EmptyPage:
+        minuses = paginator.page(paginator.num_pages)
+        print('third')
+    # minus = MinusstoreMinusrecord.objects.filter(pub_date__year='2015',pub_date__month='6'.month,pub_date__day=day)
+    return render(request,'user/user_minuses.html',{'minus':minuses,})
 
 def subscribe(request):
     if request.user.is_authenticated:
