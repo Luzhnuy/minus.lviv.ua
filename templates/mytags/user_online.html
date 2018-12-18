@@ -1,0 +1,14 @@
+<ul class="collection">
+    {% for online in users_online %}
+    <li class="collection-item avatar">
+        <a href="{% url 'user_page' pk=online.user_id %} " style="color:#6baf00;"><img src="images/yuna.jpg" alt="" class="circle">
+      <span class="title">{{ online.user.username }}</span>
+      <p style="color:black;">{{ online.user.first_name }} <br>
+          {{ online.user.last_name }}
+      </p>
+      </a>
+      <a href="{% url 'user_page' pk=online.user_id %}" class="secondary-content"><i class="material-icons">send</i></a>
+    </li>
+
+    {% endfor %}
+ </ul>

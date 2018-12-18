@@ -290,41 +290,8 @@
 				      Користувачі онлайн
 				      <span class="badge"></span></div>
 				    <div class="collapsible-body">
-						<ul class="collection">
-						    <li class="collection-item avatar">
-						      <img src="images/yuna.jpg" alt="" class="circle">
-						      <span class="title">Title</span>
-						      <p>First Line <br>
-						         Second Line
-						      </p>
-						      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-						    </li>
-						    <li class="collection-item avatar">
-						      <i class="material-icons circle">folder</i>
-						      <span class="title">Title</span>
-						      <p>First Line <br>
-						         Second Line
-						      </p>
-						      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-						    </li>
-						    <li class="collection-item avatar">
-						      <i class="material-icons circle green">insert_chart</i>
-						      <span class="title">Title</span>
-						      <p>First Line <br>
-						         Second Line
-						      </p>
-						      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-						    </li>
-						    <li class="collection-item avatar">
-						      <i class="material-icons circle red">play_arrow</i>
-						      <span class="title">Title</span>
-						      <p>First Line <br>
-						         Second Line
-						      </p>
-						      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-						    </li>
-						 </ul>
-
+						<!-- Користувачі онлайн  -->
+						{% user_online %}
 				    </div>
 				  </li>
 				</ul>
@@ -471,9 +438,10 @@
 	if (loc.protocol == 'https:'){
 		wsStart = 'wss://';
 	}
-	var endpoint = wsStart + loc.host + loc.pathname;
+	var endpoint = wsStart + '127.0.0.1:8000/';
+	console.log(endpoint);
 	var socket = new WebSocket(endpoint);
-
+	console.log(socket);
 	socket.onmessage = function(e){
 		console.log('message',e);
 	}
@@ -491,6 +459,8 @@
 	}
 
 </script>
+{% block script %}
+{% endblock %}
 <script src="{% static 'js/search.js' %}"></script>
 
 </body>

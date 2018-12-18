@@ -99,6 +99,7 @@ class Userprofile(models.Model):
     banned_until = models.DateField(blank=True, null=True)
     seen_rules = models.IntegerField()
     is_business = models.BooleanField(default=0)
+    is_user_online = models.BooleanField(default=0)
 
     class Meta:
         managed = True

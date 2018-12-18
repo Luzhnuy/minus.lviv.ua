@@ -5,6 +5,7 @@ UPDATE blurbs_blurb SET is_user_business = 0;
 ALTER TABLE userprofile MODIFY hide_birthdate date DEFAULT 0;
 ALTER TABLE userprofile MODIFY is_admin_subscribed INT DEFAULT 0;
 ALTER DATABASE minus CHARACTER SET utf8;
+ALTER TABLE userprofile ADD COLUMN is_user_online TINYINT(1) default 0;
 
 
 

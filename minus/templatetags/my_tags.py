@@ -56,3 +56,10 @@ def count_shame():
 		if u.banned_until>datetime.date.today():
 			banned_users.append(u)
 	return {'len':len(banned_users)}
+
+
+
+@register.inclusion_tag('mytags/user_online.html')
+def user_online():
+	users = Userprofile.objects.filter(is_user_online=1)
+	return {'users_online':users,'len':0,}
