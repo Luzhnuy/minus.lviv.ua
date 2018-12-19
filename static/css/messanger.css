@@ -1,35 +1,47 @@
 #chat_window{
-	height: 80vh; 
-	padding: 0px 10px 0px 0px; 
+	height: 100vh;
+	/* position:relative; */
+	padding: 0px 10px 0px 0px;
 	box-sizing: border-box;
 }
-
-#chat_window_messages{ 
-	margin-top: 0px; 
-	width: 100%; 
-	height: 75vh; 
-	padding: 10px 10px 10px 10px; 
+.sender {
+	height: 100vh;
+	overflow-y: scroll;
+}
+#chat_window_messages{
+	margin-top: 0px;
+	width: 100%;
+	height:100vh;
+	padding: 10px 10px 10px 10px;
 	box-sizing: border-box;
+
+	overflow-y: scroll;
 }
 
 #chat_window_field{
-	width: 100%; 
+	/* width: 100%; */
 	margin-top: 0px;
-	height: 4.75vh;
-	padding: 0px 5px 0px 5px;
+
+	/* height: 4.75vh;
+	padding: 0px 5px 0px 5px; */
 	box-sizing: border-box;
+	/* position: fixed; */
+	/* bottom:0; */
+	/* right:0; */
 }
 
 .left_message_row{
 	margin-left: 10px;
+	margin-bottom: 5%;
 }
 
 .right_message_row{
+	margin-bottom: 5%;
 	margin-right: 10px;
 }
 
 .left_message_row div{
-	background-color: white; 
+	background-color: white;
 	border-radius: 5px;
 }
 
@@ -39,7 +51,7 @@
 }
 
 .message_text{
-	margin-bottom:0px; 
+	margin-bottom:0px;
 	padding: 10px 10px 10px 10px;
 }
 
@@ -68,6 +80,7 @@
 	text-decoration: none;
 }
 
+/* #chat_window
 #chat_window
 #chat_window
 #chat_window
@@ -75,5 +88,4 @@
 #chat_window
 #chat_window
 #chat_window
-#chat_window
-#chat_window
+#chat_window */

@@ -19,8 +19,11 @@
 
 		<div class="authors col s8 offset-s3">
 			<div class="row">
-				<h3>Мінусовки користувача</h3>
-
+				{% if z %}
+					<h3>Мінусовки за {{ z }} </h3>
+				{% else %}
+					<h3>Мінусовки користувача</h3>
+				{% endif %}
 				{% for m in minus %}
 				<div class="col s12">
 					<a href="{% url 'minus' pk=m.pk %}"><p style="color:#9ACD32;font-weight: bold;">{{ m.title }}</p></a>

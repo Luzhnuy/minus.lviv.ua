@@ -182,7 +182,7 @@ def archiv_of_minuses(request,day):
         minuses = paginator.page(paginator.num_pages)
         print('third')
     # minus = MinusstoreMinusrecord.objects.filter(pub_date__year='2015',pub_date__month='6'.month,pub_date__day=day)
-    return render(request,'user/user_minuses.html',{'minus':minuses,})
+    return render(request,'user/user_minuses.html',{'minus':minuses,'z':day,})
 
 def subscribe(request):
     if request.user.is_authenticated:

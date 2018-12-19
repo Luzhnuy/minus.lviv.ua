@@ -130,6 +130,79 @@
 
 <!-- Ліва паннель  -->
 
+<section class="col s12">
+	<div class="row">
+		<div class="col s3 l3 sender">
+	    	<ul class="collection">
+
+	    		<li id="search_field" class="collection-item l3">
+
+					<div class="row">
+					    <div class="col s12">
+					      <div class="row">
+					        <div class="input-field col s12">
+					          <i class="material-icons prefix">search</i>
+					          <input type="text" id="autocomplete-input" class="autocomplete">
+					          <label for="autocomplete-input">Пошук користувача</label>
+					        </div>
+					      </div>
+					    </div>
+				  	</div>
+
+		    	</li>
+					{% for s in sender %}
+		    	<li class="collection-item avatar l3 tab">
+		    		<a class="hidden_a" href="{% url 'message_user' pk=s.id %}">
+			     		<img src="http://forum.gamexp.ru/image.php?u=1167939&dateline=1497791278" alt="" class="circle">
+			      		<span class="title">{{ s.username }}</span>
+						</a>
+			      		<!-- <p>Lorem ipsum dolor... -->
+			      			<!-- <span id="new_message_count" class="right new badge">9 -->
+			      			<!-- </span> -->
+			      		<!-- </p> -->
+		      		<!-- </a> -->
+
+		    	</li>
+					{% endfor %}
+<!--
+		    	<li class="collection-item avatar l3">
+		    		<a class="hidden_a" href="#message2">
+			     		<img src="http://forum.gamexp.ru/image.php?u=1167939&dateline=1497791278" alt="" class="circle">
+			      		<span class="title">Nick</span>
+
+			      		<p>Proger...
+			      			<span id="new_message_count" class="right new badge">2
+			      			</span>
+			      		</p>
+			      	</a>
+		    	</li>
+
+		    	<li class="collection-item avatar l3">
+		    		<a class="hidden_a" href="#message3">
+			     		<img src="http://forum.gamexp.ru/image.php?u=1167939&dateline=1497791278" alt="" class="circle">
+			      		<span class="title">Ded Petro</span>
+
+			      		<p>Риба сьогодні...
+			      			<span id="new_message_count" class="right new badge">0 <Якщо 0 - то display: none -->
+			      			<!-- </span>
+			      		</p>
+			      	</a>
+		    	</li> -->
+
+		    	<!-- <li class="collection-item avatar l3"> -->
+		    		<!-- <a class="hidden_a" href="#message4"> -->
+			     		<!-- <img src="http://forum.gamexp.ru/image.php?u=1167939&dateline=1497791278" alt="" class="circle"> -->
+			      		<!-- <span class="title">Kuzya</span> -->
+
+			      		<!-- <p>Chat top... -->
+			      			<!-- <span id="new_message_count" class="right new badge">0 <Якщо 0 - то display: none -->
+			      			<!-- </span> -->
+			      		<!-- </p> -->
+			      	<!-- </a> -->
+		    	<!-- </li> -->
+
+		    </ul>
+		</div>
 
 <!-- Центральна панель -->
  {% block content %}
@@ -141,7 +214,8 @@
 
 
  {% endblock %}
-
+</div>
+</section>
 <!-- Права панель -->
 
 <script
