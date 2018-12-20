@@ -3,20 +3,20 @@
 {% block content %}
 
 
-		<div id="chat_window" class="col l9">
+		<div class="chat_window">
 
-		<div id="chat_window_messages" class="grey lighten-4 z-depth-1 ">
-				{% if messages %}
+		<div  class="grey lighten-4 z-depth-1 row chat_window_messages">
+			{% if messages %}
 				{% for m in messages %}
-			{% if m.sender_id == request.user.id %}
-					<div class="left_message_row row">
-						<div class="left z-depth-1">
+			{% if m.recipient_id == request.user.id %}
+					<div class="left_message_row col md12 ">
+						<div class="left z-depth-1 col md4">
 							<p class="message_text">{{ m.body|safe }}</p>
 							<span class="message_time right">{{ m.send_at }}</span>
 						</div>
 					</div>
-			{% else %}
-				<div class="right_message_row row">
+			{% elif m.sender_id == request.user.id %}
+				<div class="right_message_row col md3 offset-md4">
 					<div class="right z-depth-1">
 						<p class="message_text">{{ m.body|safe }}</p>
 						<span class="message_time left">{{ m.send_at }}</span>
@@ -27,24 +27,30 @@
 			{% endif %}
 			{% endfor %}
 
+			<script type="text/javascript">
+				var block = document.getElementByClass("chat_window_messages");
+				block.scrollTop = block.scrollHeight;
+				console.log('zbc');
+			</script>
 
 
-
-			<div id="chat_window_field" class="grey lighten-4 z-depth-1">
+			<div  class="grey lighten-4 z-depth-1 chat_window_field">
         		<div class="input-field">
-			        <form>
-          				<input placeholder="Введіть повідомлення:" type="text" class="validate">
-        			</form>
+			        <!-- <form id="message"> -->
+          				<input placeholder="Введіть повідомлення:" type="text" class="validate message">
+									<!-- <button id="submit" style="opacity:0;"></button> -->
+        			<!-- </form> -->
         		</div>
 			</div>
 
 		</div>
 
-		{% else %}
+	{% else %}
 		<!-- <div id="chat_window_messages" class="grey lighten-4 z-depth-1 "> -->
 			<h1 class="col offset-s2">Вас вітає наш месенджер!!! </h1>
 		<!-- </div> -->
-		{% endif %}
+	{% endif %}
+
 	</div>
 </div>
 

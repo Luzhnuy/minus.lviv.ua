@@ -56,7 +56,7 @@
 		        {% if request.user.is_authenticated %}
 		        <li class="tabik green_li" style="background-color: #6baf00;color:white;"><a href="{% url 'user_page' pk=request.user.id %}" class="bmenu_a" style="color:white;">Моя сторінка</a></li>
 		        <li class="tabik green_li" style="background-color: #6baf00;color:white;"><a class="bmenu_a dropdown-trigger" href="#test2" style="color:white;" name="notifications" data-target='dropdown1' ><i class="small material-icons" >notifications</i></a></li>
-		        <li class="tabik green_li" style="background-color: #6baf00;color:white;"><a class="bmenu_a" href="{% url 'messanger' %}" style="color:white;"><i class="small material-icons">email</i></a></li>
+		        <li class="tabik green_li" style="background-color: #6baf00;color:white;"><a class="bmenu_a" target="_blank" href="{% url 'messanger' %}" style="color:white;"><i class="small material-icons">email</i></a></li>
 
 		    <!--     <li class="tab"><a href="#test3" class="bmenu_a"><i class="small material-icons">email</i></a></li>
 		        <li class="tab"><a href="#test4" class="bmenu_a">Партнери</a></li> -->
