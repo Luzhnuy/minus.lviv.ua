@@ -205,7 +205,8 @@
 	if (loc.protocol == 'https:'){
 		wsStart = 'wss://';
 	}
-	var endpoint = wsStart + '127.0.0.1:8000/';
+	var request_user = {{ request.user.id }};
+	var endpoint = wsStart + '127.0.0.1:8000/'+ request_user + '/';
 	console.log(endpoint);
 	var socket = new WebSocket(endpoint);
 	console.log(socket);

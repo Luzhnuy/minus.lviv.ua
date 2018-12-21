@@ -5,6 +5,7 @@ import datetime
 from user.models import UsersUserrating,Userprofile
 from main.forms import AuthForm
 from django.views.decorators.cache import cache_page
+from messanger.models import Channels
 
 register = template.Library()
 
@@ -61,5 +62,6 @@ def count_shame():
 
 @register.inclusion_tag('mytags/user_online.html')
 def user_online():
-	users = Userprofile.objects.filter(is_user_online=1)
+	users = Channels.objects.filter(is_active=1)
+	users = Userprofile.objects.filter(user_id__in=users.values_list('user_id'))
 	return {'users_online':users,'len':0,}

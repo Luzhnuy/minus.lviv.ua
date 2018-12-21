@@ -13,7 +13,7 @@ from messanger import consumers
 application = ProtocolTypeRouter({
      "websocket": AuthMiddlewareStack(
         URLRouter([
-            url(r"^$", consumers.LiveuserConsumer),
+            url(r"^(?P<pk>[0-9]+)/$", consumers.LiveuserConsumer),
             url(r'^messanger/(?P<pk>[0-9]+)/$', consumers.MessangerConsumer),
         ])
     ),

@@ -131,7 +131,7 @@
 
 <section class="col s12">
 	<div class="row">
-		<div class="col s3 l3 sender">
+		<div class="col s3 l3 sender col s3">
 	    	<ul class="collection">
 
 	    		<li id="search_field" class="collection-item l3">
@@ -150,10 +150,16 @@
 
 		    	</li>
 					{% for s in sender %}
-		    	<li class="collection-item avatar l3 tab">
-		    		<a class="hidden_a" href="{% url 'message_user' pk=s.id %}">
-			     		<img src="http://forum.gamexp.ru/image.php?u=1167939&dateline=1497791278" alt="" class="circle">
-			      		<span class="title">{{ s.first_name }} {{ s.last_name }}</span>
+
+						{% if s.id == pk %}
+						<li class="collection-item avatar l3 tab" style="background-color:red;">
+		    		<a class="hidden_a" href="{% url 'message_user' pk=s.id %}"  style='background-color:#66baf00;' >
+						{% else %}
+						<li class="collection-item avatar l3 tab">
+							<a class="hidden_a" href="{% url 'message_user' pk=s.id %}" >
+						{% endif %}
+			     		<img src="http://forum.gamexp.ru/image.php?u=1167939&dateline=1497791278"   alt="" class="circle">
+			      		<span class="title">{% if s.first_name %}{{ s.first_name }} {{ s.last_name }}{% else %} {{ s.username }} {% endif %}</span>
 						</a>
 			      		<!-- <p>Lorem ipsum dolor... -->
 			      			<!-- <span id="new_message_count" class="right new badge">9 -->
@@ -230,12 +236,22 @@
 	if (loc.protocol == 'https:'){
 		wsStart = 'wss://';
 	}
-	var endpoint = wsStart + '127.0.0.1:8000/';
+	var request_user = {{ request.user.id }};
+	var endpoint = wsStart + '127.0.0.1:8000/'+ request_user + '/';
 	console.log(endpoint);
 	var liveuser_socket = new WebSocket(endpoint);
 	console.log(liveuser_socket);
 	liveuser_socket.onmessage = function(e){
-		console.log('message',e);
+		var data = JSON.parse(e.data);
+    var message = data['message'];
+		var user = data['user'];
+		if (user == {{ request.user.id }}){
+			$('.chat_window_messages').append('<div class="right_message col m12"><div class="right z-depth-1 col m6 offset-m6"><p class="message_text">'+ message.text+'</p></div></div>');
+		} else {
+			$('.chat_window_messages').append('<div class="left_message col m12"><div class="right z-depth-1 col m6"><p class="message_text">'+ message.text+'</p></div></div>')
+		}
+		console.log('messanger_message',user,message['text']);
+		// console.log('message',e);
 	}
 
 	liveuser_socket.onopen = function(e){
@@ -256,9 +272,11 @@
 
 
 	var room_pk = {{ pk }};
-	console.log(room_pk);
-	var messanger_endpoint = wsStart + '127.0.0.1:8000/messanger/'+room_pk + '/';
+
+	// console.log(room_pk);
+	var messanger_endpoint = wsStart + '127.0.0.1:8000/messanger/'+room_pk + '/' ;
 	var messanger_websocket = new WebSocket(messanger_endpoint);
+	console.log(messanger_endpoint);
 
 
 	var message;
@@ -266,10 +284,11 @@
 	    if(event.keyCode == 13){
 	        event.preventDefault();
 					message = $('.message').val();
-					console.log(message);
+					console.log(JSON.stringify(toString(message)));
 					// message = {'message':message}
 					// console.log(typeof(JSON.stringify(message)));
 					messanger_websocket.send(message);
+					liveuser_socket.send(message);
 					$('.message').val('');
 	    }
 	});
@@ -277,7 +296,13 @@
 	messanger_websocket.onmessage = function(e){
 		var data = JSON.parse(e.data);
     var message = data['message'];
-		console.log('messanger_message',e,message);
+		var user = data['user'];
+		if (user == {{ request.user.id}}){
+			$('.chat_window_messages').append('<div class="right_message col m12"><div class="right z-depth-1 col m6 offset-m6"><p class="message_text">'+ message.text+'</p></div></div>');
+		} else {
+			$('.chat_window_messages').append('<div class="left_message col m12"><div class="right z-depth-1 col m6"><p class="message_text">'+ message.text+'</p></div></div>')
+		}
+		console.log('messanger_message',user,message['text']);
 	}
 
 	messanger_websocket.onopen = function(e){
