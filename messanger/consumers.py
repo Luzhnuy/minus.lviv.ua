@@ -1,18 +1,20 @@
 import asyncio
 import json
 import datetime
+from django.core import serializers
 from django.contrib.auth import get_user_model
 from channels.consumer import AsyncConsumer
 from channels.generic.websocket import WebsocketConsumer,AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 from asgiref.sync import async_to_sync
 from user.models import Userprofile
-from messanger.models import Channels
+from messanger.models import Channels,NewMessagesChannels
 from django.contrib.auth.models import User
 from minus.models import MessagesMessage
 
 
 class LiveuserConsumer(AsyncWebsocketConsumer):
+
     @database_sync_to_async
     def update_user_status(self, user, status):
         print('lol')
@@ -26,6 +28,22 @@ class LiveuserConsumer(AsyncWebsocketConsumer):
             # Channels.objects.create(user=user,is_active = status)
         else:
             Channels.objects.create(user=user,is_active = status)
+
+    @database_sync_to_async
+    def update_newmessages(self,frm_user,to_user):
+        print('kek')
+        new_message = NewMessagesChannels.objects.filter(frm_user=frm_user,to_user=to_user)
+        if new_message:
+            print('life is good')
+        else:
+            NewMessagesChannels.objects.create(frm_user = frm_user,to_user=to_user)
+
+
+    @database_sync_to_async
+    def get_newmessages(self,to_user):
+        print('fuck the shit and super my mind')
+        return NewMessagesChannels.objects.filter(to_user=to_user)
+
 
     async def websocket_connect(self,event):
         print('connect',event)
@@ -59,21 +77,43 @@ class LiveuserConsumer(AsyncWebsocketConsumer):
         self.accept()
 
     async def websocket_receive(self, text_data):
+
+        # json_data = serializers.serialize('json',new_messages)
+        # await self.channel_layer.group_send(
+        #     self.room_group_name,
+        #     {
+        #         'type': 'chat_message',
+        #         'message': json_data
+        #     }
+        # )
         # self.accept()
         print('wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww')
 
     async def chat_message(self, event):
+        # self.user = self.scope['user']
+        print('livemessage')
         message = event['message']
-        user = self.scope['user']
+        to_user = self.scope['url_route']['kwargs']['pk']
+        # print('connect')
+        frm_user = self.scope['user']
+        print(frm_user)
+        print(to_user)
+        await self.update_newmessages(frm_user,to_user)
+        new_messages = await self.get_newmessages(to_user)
         print('live')
+        # print(user)
+        json_data = serializers.serialize('json',new_messages)
         # Send message to WebSocket
+        print(json_data)
         await self.send(text_data=json.dumps({
             'message': message,
-            'user':user.id
+            'user':frm_user.id,
+            'json_data':json_data
         }))
 
 
 class MessangerConsumer(AsyncWebsocketConsumer):
+
 
 
     @database_sync_to_async
@@ -139,6 +179,7 @@ class MessangerConsumer(AsyncWebsocketConsumer):
         message = event['message']
         user = self.scope['user']
         # Send message to WebSocket
+        print(user)
         await self.send(text_data=json.dumps({
             'message': message,
             'user':user.id

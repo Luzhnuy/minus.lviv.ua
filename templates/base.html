@@ -56,7 +56,7 @@
 		        {% if request.user.is_authenticated %}
 		        <li class="tabik green_li" style="background-color: #6baf00;color:white;"><a href="{% url 'user_page' pk=request.user.id %}" class="bmenu_a" style="color:white;">Моя сторінка</a></li>
 		        <li class="tabik green_li" style="background-color: #6baf00;color:white;"><a class="bmenu_a dropdown-trigger" href="#test2" style="color:white;" name="notifications" data-target='dropdown1' ><i class="small material-icons" >notifications</i></a></li>
-		        <li class="tabik green_li" style="background-color: #6baf00;color:white;"><a class="bmenu_a" target="_blank" href="{% url 'messanger' %}" style="color:white;"><i class="small material-icons">email</i></a></li>
+		        <li class="tabik green_li" style="background-color: #6baf00;color:white;"><a class="bmenu_a alarm_m" target="_blank" href="{% url 'messanger' %}" style="color:white;"><i class="small material-icons">email</i></a></li>
 
 		    <!--     <li class="tab"><a href="#test3" class="bmenu_a"><i class="small material-icons">email</i></a></li>
 		        <li class="tab"><a href="#test4" class="bmenu_a">Партнери</a></li> -->
@@ -91,7 +91,7 @@
 				{% if request.user.is_authenticated %}
 				<li class="tabik green_li" style="background-color: #6baf00;color:white;"><a href="{% url 'user_page' pk=request.user.id %}" class="bmenu_a" style="color:white;">Моя сторінка</a></li>
 				<li class="tabik green_li" style="background-color: #6baf00;color:white;"><a class="bmenu_a dropdown-trigger" href="#test2" style="color:white;" name="notifications" data-target='dropdown2' ><i class="small material-icons" >notifications</i></a></li>
-				<li class="tabik green_li" style="background-color: #6baf00;color:white;"><a class="bmenu_a" href="{% url 'messanger' %}" style="color:white;"><i class="small material-icons">email</i></a></li>
+				<li class="tabik green_li" style="background-color: #6baf00;color:white;"><a class="bmenu_a alarm_m" href="{% url 'messanger' %}" style="color:white;"><i class="small material-icons">email</i></a></li>
 
 		<!--     <li class="tab"><a href="#test3" class="bmenu_a"><i class="small material-icons">email</i></a></li>
 				<li class="tab"><a href="#test4" class="bmenu_a">Партнери</a></li> -->
@@ -433,31 +433,54 @@
 <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 <script>
-	var loc = window.location;
-	var wsStart = 'ws://';
-	if (loc.protocol == 'https:'){
-		wsStart = 'wss://';
-	}
-	var request_user = {{ request.user.id }};
-	var endpoint = wsStart + '127.0.0.1:8000/'+ request_user + '/';
-	console.log(endpoint);
-	var socket = new WebSocket(endpoint);
-	console.log(socket);
-	socket.onmessage = function(e){
-		console.log('message',e);
-	}
+var loc = window.location;
+var wsStart = 'ws://';
+if (loc.protocol === 'https:'){
+	wsStart = 'wss://';
+}
+// var request_user = {{ request.user.id }};
+var endpoint = wsStart + '127.0.0.1:8000/'+ {{ request.user.id }} + '/';
+console.log(endpoint);
+var liveuser_socket = new WebSocket(endpoint);
+console.log(liveuser_socket);
+liveuser_socket.onmessage = function(e){
+	console.log('jej');
+	var data = JSON.parse(e.data);
+	console.log(JSON.parse(data['json_data'])[0]);
+	json_data = JSON.parse(data['json_data']);
+	if (json_data){
+		console.log(e.data);
 
-	socket.onopen = function(e){
-		console.log('open',e);
-	}
 
-	socket.onerror = function(e){
-		console.log('error',e);
-	}
+		var from_user = json_data[0]['fields']['frm_user'];
+		console.log('kl');
+		$('.alarm_m').empty();
+		$('.alarm_m').append('<span style="color:red;font-weight:bold;font-size:1.5em;">!</span>');
 
-	socket.onclose = function(e){
-		console.log('close',e);
+
+
+	} else {
+		var message = data['message'];
+		var user = data['user'];
+
+		$('#chat_window_messages').append('<div class="left_message col m12"><div class="left z-depth-1 col m6"><p class="message_text">'+ message.text+'</p></div></div>');
 	}
+}
+liveuser_socket.onopen = function(e){
+	console.log('open',e);
+}
+
+liveuser_socket.onerror = function(e){
+	console.log('error',e);
+	var liveuser_socket = new WebSocket(endpoint);
+}
+
+liveuser_socket.onclose = function(e){
+	console.log('close',e);
+	var liveuser_socket = new WebSocket(endpoint);
+}
+
+
 
 </script>
 {% block script %}
