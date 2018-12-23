@@ -25,7 +25,6 @@ class LiveuserConsumer(AsyncWebsocketConsumer):
         channel =Channels.objects.filter(user_id=user.pk).update(is_active=status)
         if channel:
             print('qqqqqqq')
-            # Channels.objects.create(user=user,is_active = status)
         else:
             Channels.objects.create(user=user,is_active = status)
 
@@ -41,28 +40,26 @@ class LiveuserConsumer(AsyncWebsocketConsumer):
 
     @database_sync_to_async
     def get_newmessages(self,to_user):
-        print('fuck the shit and super my mind')
+        print('fuck the shit and super my mind live message')
         return NewMessagesChannels.objects.filter(to_user=to_user)
-
-    # @database_sync_to_async
-    # def read_message(self,to_user):
-    #     pass
 
 
     async def websocket_connect(self,event):
         print('connect',event)
-        print('lol')
+        print('lol live')
         self.user = self.scope["user"]
-        print('kek')
+        print('kek live')
         print(self.user)
-        print('zbc')
+        print('zbc live')
         print(event)
         await self.accept()
-        print('hello')
+        print('hello live')
         await self.update_user_status(self.user, 1)
         print('g')
 
         self.room_group_name = str(self.user.id)
+        print(self.room_group_name)
+        print('self.room_group_name live')
         # self.channel_name =
         await self.channel_layer.group_add(
             self.room_group_name,
@@ -82,39 +79,28 @@ class LiveuserConsumer(AsyncWebsocketConsumer):
 
     async def websocket_receive(self, text_data):
 
-        # json_data = serializers.serialize('json',new_messages)
-        # await self.channel_layer.group_send(
-        #     self.room_group_name,
-        #     {
-        #         'type': 'chat_message',
-        #         'message': json_data
-        #     }
-        # )
-        # self.accept()
         print('livemessage')
-        message = event['message']
+        # message = text_data['message']
         to_user = self.scope['url_route']['kwargs']['pk']
-            # print('connect')
         frm_user = self.scope['user']
-        print(frm_user)
-        print(to_user)
+        print(frm_user )
+        print('live')
+        print(to_user )
+        print('live')
         await self.update_newmessages(frm_user,to_user)
         print('wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww')
 
     async def chat_message(self, event):
         # self.user = self.scope['user']
-        print('livemessage')
+        print('live chat message')
         message = event['message']
         to_user = self.scope['url_route']['kwargs']['pk']
-        # print('connect')
         frm_user = self.scope['user']
         print(frm_user)
         print(to_user)
-        await self.update_newmessages(frm_user,to_user)
         new_messages = await self.get_newmessages(to_user)
         print('live')
-        print('i want to be a rockstart')
-        # print(user)
+        print('i want to be a rockstart live chat_message')
         json_data = serializers.serialize('json',new_messages)
         # Send message to WebSocket
         print(json_data)
@@ -134,18 +120,18 @@ class MessangerConsumer(AsyncWebsocketConsumer):
         print('Life is good')
         user = User.objects.get(id = recipient_id)
         message = MessagesMessage.objects.create(sender_id=sender_id.id,recipient_id = user.id,body=message['text'],sent_at = datetime.datetime.now())
-        print('life is better then drug')
+        print('life is better then drug' + ' message')
 
-    # @database_sync_to_async
-    # def get_last_message(self)
+
 
     async def websocket_connect(self,event):
         # pass
         self.room_name = self.scope['url_route']['kwargs']['pk']
         # print('connect')
-        print(self.room_name+'kek')
+        print(self.room_name+'kek message')
         self.room_group_name = self.room_name
-
+        print(self.room_group_name)
+        print('self.room_group_name message')
         # Join room group
         await self.channel_layer.group_add(
             self.room_group_name,
@@ -160,15 +146,15 @@ class MessangerConsumer(AsyncWebsocketConsumer):
         self.recipient_id = self.scope['url_route']['kwargs']['pk']
         self.sender_id = self.scope['user']
         # print(self.sender_id.id)
-        print('ploxo')
+        print('ploxo live kek')
         print(text_data)
         # text_data_json = json.loads(text_data)
-        print('zbc')
+        print('zbc recieve message')
         message = text_data
         await self.create_user_message(self.sender_id, self.recipient_id, message)
         # print(z)
         print(message)
-        print('fuck')
+        print('fuck message')
         # text_data_json = json.loads(text_data)
 
         # message = text_data_json['message']

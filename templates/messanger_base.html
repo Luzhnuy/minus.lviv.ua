@@ -245,9 +245,12 @@
 		var data = JSON.parse(e.data);
 		var message = data['message'];
 		var user = data['user'];
-
-		$('#chat_window_messages').append('<div class="left_message col m12"><div class="left z-depth-1 col m6"><p class="message_text">'+ message.text+'</p></div></div>');
-
+		console.log(message);
+		console.log(message.text);
+	$('#chat_window_messages').append('<div class="left_message col m12"><div class="left z-depth-1 col m6"><p class="message_text">'+ message.text+'</p></div></div>');
+		console.log('vono proxodit');
+		var block = document.getElementById("chat_window_messages");
+		block.scrollTop = block.scrollHeight;
 		// console.log(JSON.parse(data['json_data'])[0]);
 		json_data = JSON.parse(data['json_data']);
 		if (json_data){
@@ -256,8 +259,8 @@
 			for (let i = 0; i < ids.length; i++ ) {
 				var id = ids[i].getAttribute('data-id');
 				var from_user = json_data[0]['fields']['frm_user'];
-				console.log(from_user);
-				console.log(id);
+				// console.log(from_user);
+				// console.log(id);
 				if (id==from_user){
 					console.log('kl');
 					$('.l'+id).append('<p><span id="new_message_count" class="right new badge">!</span></p>');
@@ -279,7 +282,7 @@
 
 	liveuser_socket.onclose = function(e){
 		console.log('close',e);
-		var liveuser_socket = new WebSocket(endpoint);
+		// var liveuser_socket = new WebSocket(endpoint);
 	}
 
 
@@ -300,7 +303,7 @@
 		var user = data['user'];
 		console.log({{ request.user.id }});
 
-		$('#chat_window_messages').append('<div class="right_message col m12"><div class="right z-depth-1 col m6 offset-m6"><p class="message_text">'+ message.text+'</p></div></div>');
+
 		console.log('first2');
 
 		var block = document.getElementById("chat_window_messages");
@@ -331,6 +334,10 @@
 					liveuser_socket.send(message);
 					$('.message').val('');
 					console.log('kek');
+					$('#chat_window_messages').append('<div class="right_message col m12"><div class="right z-depth-1 col m6 offset-m6"><p class="message_text">'+ message+'</p></div></div>');
+					var block = document.getElementById("chat_window_messages");
+					block.scrollTop = block.scrollHeight;
+					console.log('zbc');
 			}
 	});
 </script>
