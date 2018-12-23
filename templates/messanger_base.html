@@ -243,7 +243,12 @@
 	liveuser_socket.onmessage = function(e){
 		console.log('jej');
 		var data = JSON.parse(e.data);
-		console.log(JSON.parse(data['json_data'])[0]);
+		var message = data['message'];
+		var user = data['user'];
+
+		$('#chat_window_messages').append('<div class="left_message col m12"><div class="left z-depth-1 col m6"><p class="message_text">'+ message.text+'</p></div></div>');
+
+		// console.log(JSON.parse(data['json_data'])[0]);
 		json_data = JSON.parse(data['json_data']);
 		if (json_data){
 			console.log(e.data);
@@ -258,17 +263,11 @@
 					$('.l'+id).append('<p><span id="new_message_count" class="right new badge">!</span></p>');
 				}
 
-			}
 
-
-		} else {
-    	var message = data['message'];
-			var user = data['user'];
-
-			$('#chat_window_messages').append('<div class="left_message col m12"><div class="left z-depth-1 col m6"><p class="message_text">'+ message.text+'</p></div></div>');
 		}
-	}
+}
 
+}
 	liveuser_socket.onopen = function(e){
 		console.log('open',e);
 	}
@@ -331,6 +330,7 @@
 					messanger_websocket.send(message);
 					liveuser_socket.send(message);
 					$('.message').val('');
+					console.log('kek');
 			}
 	});
 </script>

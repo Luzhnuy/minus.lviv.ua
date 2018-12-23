@@ -44,6 +44,10 @@ class LiveuserConsumer(AsyncWebsocketConsumer):
         print('fuck the shit and super my mind')
         return NewMessagesChannels.objects.filter(to_user=to_user)
 
+    # @database_sync_to_async
+    # def read_message(self,to_user):
+    #     pass
+
 
     async def websocket_connect(self,event):
         print('connect',event)
@@ -87,6 +91,14 @@ class LiveuserConsumer(AsyncWebsocketConsumer):
         #     }
         # )
         # self.accept()
+        print('livemessage')
+        message = event['message']
+        to_user = self.scope['url_route']['kwargs']['pk']
+            # print('connect')
+        frm_user = self.scope['user']
+        print(frm_user)
+        print(to_user)
+        await self.update_newmessages(frm_user,to_user)
         print('wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww')
 
     async def chat_message(self, event):
@@ -101,6 +113,7 @@ class LiveuserConsumer(AsyncWebsocketConsumer):
         await self.update_newmessages(frm_user,to_user)
         new_messages = await self.get_newmessages(to_user)
         print('live')
+        print('i want to be a rockstart')
         # print(user)
         json_data = serializers.serialize('json',new_messages)
         # Send message to WebSocket
@@ -178,6 +191,7 @@ class MessangerConsumer(AsyncWebsocketConsumer):
     async def chat_message(self, event):
         message = event['message']
         user = self.scope['user']
+        print("yow yow yow")
         # Send message to WebSocket
         print(user)
         await self.send(text_data=json.dumps({

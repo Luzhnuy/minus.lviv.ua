@@ -5,7 +5,7 @@ import datetime
 from user.models import UsersUserrating,Userprofile
 from main.forms import AuthForm
 from django.views.decorators.cache import cache_page
-from messanger.models import Channels
+from messanger.models import Channels,NewMessagesChannels
 
 register = template.Library()
 
@@ -65,3 +65,11 @@ def user_online():
 	users = Channels.objects.filter(is_active=1)
 	users = Userprofile.objects.filter(user_id__in=users.values_list('user_id'))
 	return {'users_online':users,'len':0,}
+
+
+@register.inclusion_tag('mytags/users_menu.html')
+def user_menu(user_id):
+	new_messages = NewMessagesChannels.objects.filter(to_user=user_id).count()
+	print(new_messages)
+	print('yakbu vse bulo')
+	return {'count_new_messages': new_messages,}
