@@ -79,6 +79,24 @@ class FriendsUserblocksBlocks(models.Model):
         db_table = 'friends_userblocks_blocks'
         unique_together = (('userblocks_id', 'user_id'),)
 
+
+class UserActivitys(models.Model):
+    activity_type = (
+        ('l','like'),
+        ('d','dislike'),
+        ('c', 'comment'),
+    )
+
+    type = models.CharField(choices=activity_type,null=True,max_length=255)
+    from_user = models.ForeignKey(User)
+    to_user_id = models.IntegerField()
+    activity_to = models.IntegerField()
+
+    class Meta:
+        managed = True
+        db_table = 'useractivitys'
+
+
 class Userprofile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     gender = models.CharField(max_length=6, blank=True, null=True)
@@ -148,11 +166,13 @@ class UsersUserrating(models.Model):
         managed = True
         db_table = 'users_userrating'
 
+
+
+
+
+
+
 @receiver(post_save, sender=User)
 def create_user_rating(sender, instance, created, **kwargs):
     if created:
         UsersUserrating.objects.create(user=instance,rating = 0,average_minus_rating = 0)
-
-# @receiver(post_save, sender=User)
-# def save_user_rating(sender, instance, **kwargs):
-#     instance.users_userrating.save()

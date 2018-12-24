@@ -2,7 +2,7 @@ from django import template
 from minus.new_minuses import *
 from minus.tops_functions import *
 import datetime
-from user.models import UsersUserrating,Userprofile
+from user.models import UsersUserrating,Userprofile,UserActivitys
 from main.forms import AuthForm
 from django.views.decorators.cache import cache_page
 from messanger.models import Channels,NewMessagesChannels
@@ -73,3 +73,9 @@ def user_menu(user_id):
 	print(new_messages)
 	print('yakbu vse bulo')
 	return {'count_new_messages': new_messages,}
+
+
+@register.inclusion_tag('mytags/get_activitys.html')
+def get_activitys(user_id):
+	activitys = UserActivitys.objects.filter(to_user_id = user_id)
+	return {'activitys':activitys}

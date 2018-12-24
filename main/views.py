@@ -1,8 +1,9 @@
 from django.shortcuts import render,get_object_or_404
 from minus.models import DjangoComments,Likedislike
 from main.models import NewsNewsitem
+from minusstore.models import MinusstoreMinusrecord
 from django.contrib.auth.models import User
-from user.models import Userprofile
+from user.models import Userprofile,UserActivitys
 from django.http import HttpResponse,HttpResponseRedirect
 from django.core import serializers
 import json
@@ -87,7 +88,8 @@ def likedislike(request, user_id, object_id, content_type_id,likeordislike):
 	try:
 		likeorodislike = Likedislike.objects.get(object_id=object_id,type_id=content_type_id,user_id=user_id)
 		print(likeorodislike.likes)
-
+		user = User.objects.get(pk=user_id)
+		minus = MinusstoreMinusrecord.objects.get(pk = object_id)
 		if likeordislike == '1' and likeorodislike.likes==False:
 			likeorodislike.likes = 1
 			likeorodislike.save()
@@ -97,11 +99,13 @@ def likedislike(request, user_id, object_id, content_type_id,likeordislike):
 				likes=0
 			dislikes =  Likedislike.objects.filter(type_id= content_type_id,object_id=object_id,likes=0).count()
 			likeanddislike = json.dumps({'likes':likes,'dislikes':dislikes})
+			UserActivitys.objects.filter(from_user=user,to_user_id=minus.user.id,type='d',activity_to = object_id).update(type='l')
 			return HttpResponse(likeanddislike)
 		elif likeordislike == '0' and likeorodislike.likes==True:
 			likeorodislike.likes = 0
 			likeorodislike.save()
 			likes = Likedislike.objects.filter(type_id= content_type_id,object_id=object_id,likes=1).count()
+			UserActivitys.objects.filter(from_user=user,to_user_id=minus.user.id,type='l',activity_to = object_id).update(type='d')
 			dislikes =  Likedislike.objects.filter(type_id= content_type_id,object_id=object_id,likes=0).count()
 			likeanddislike = json.dumps({'likes':likes,'dislikes':dislikes})
 			return HttpResponse(likeanddislike)
@@ -112,7 +116,12 @@ def likedislike(request, user_id, object_id, content_type_id,likeordislike):
 	except Likedislike.DoesNotExist:
 		print('zbs')
 		likedislike = Likedislike.objects.create(user_id = user_id,object_id = object_id, type_id = content_type_id, likes = likeordislike )
-		likedislike.save()
+		minus = MinusstoreMinusrecord.objects.get(pk = object_id)
+		user = User.objects.get(pk=user_id)
+		if likeordislike== '1':
+			UserActivitys.objects.create(from_user=user,to_user_id=minus.user.id,type='l',activity_to = object_id)
+		else:
+			UserActivitys.objects.create(from_user=user,to_user_id=minus.user.id,type='d',activity_to = object_id)
 		likes = Likedislike.objects.filter(type_id= content_type_id,object_id=object_id,likes=1).count()
 		dislikes =  Likedislike.objects.filter(type_id= content_type_id,object_id=object_id,likes=0).count()
 		# likes = serializers.serialize('json',likes)

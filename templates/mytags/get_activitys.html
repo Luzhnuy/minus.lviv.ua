@@ -1,0 +1,11 @@
+<ul id='dropdown1' class='dropdown-content' >
+  {% for a in activitys %}
+    {% if a.type == "l" %}
+      <li style="background-color: white;color:#6baf00;"><a href="{% url 'minus'  pk=a.activity_to %}">Ваш запис сподобався користувачу {{ a.from_user.username }}</a></li>
+    {% elif a.type == "d" %}
+      <li style="background-color: white;color:#6baf00;"><a href="{% url 'minus'  pk=a.activity_to %}">Ваш запис не сподобався користувачу {{ a.from_user.username }}</a></li>
+    {% elif a.type == "c" %}
+      <li style="background-color: white;color:#6baf00;"><a href="{% url 'minus'  pk=a.activity_to %}">Ваш запис прокоментував користувач {{ a.from_user.username }}</a></li>
+    {% endif %}
+  {% endfor %}
+</ul>

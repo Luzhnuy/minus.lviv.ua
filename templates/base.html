@@ -61,14 +61,7 @@
 		      </ul>
 
 
-			<ul id='dropdown1' class='dropdown-content' >
-				<li><a href="#!">Вас прокоментував Bulgar</a></li>
-				<li><a href="#!">Ваш мінус оцінили</a></li>
-				<li class="divider" tabindex="-1"></li>
-				<li><a href="#!">three</a></li>
-				<li><a href="#!"></li>
-				<li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
-	</ul>
+
 		    </div>
 		  </nav>
 
@@ -93,6 +86,7 @@
 		<!--     <li class="tab"><a href="#test3" class="bmenu_a"><i class="small material-icons">email</i></a></li>
 				<li class="tab"><a href="#test4" class="bmenu_a">Партнери</a></li> -->
 
+					{% get_activitys user_id=request.user.id %}
 
 
 				{% endif %}
@@ -109,12 +103,10 @@
 			</ul>
 
 			<ul id='dropdown2' class='dropdown-content' >
-				<li><a href="#!">Вас прокоментував Bulgar</a></li>
-				<li><a href="#!">Ваш мінус оцінили</a></li>
-				<li class="divider" tabindex="-1"></li>
-				<li><a href="#!">three</a></li>
-				<li><a href="#!"></li>
-				<li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
+				<li style="background-color: white;color:#6baf00;"><a href="#!">Вас прокоментував Bulgar</a></li>
+				<li style="background-color: white;color:#6baf00;"><a href="#!">Ваш мінус оцінили</a></li>
+				<li style="background-color: white;color:#6baf00;"><a href="#!">three</a></li>
+
 		</ul>
 
 

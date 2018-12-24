@@ -163,7 +163,7 @@
 			     		<img src="http://forum.gamexp.ru/image.php?u=1167939&dateline=1497791278"   alt="" class="circle">
 			      		<span class="title">{% if s.first_name %}{{ s.first_name }} {{ s.last_name }}{% else %} {{ s.username }} {% endif %}</span>
 						<!-- </a> -->
-
+								{% if s.new %}<p><span id="new_message_count" class="right new badge">!</span></p>{% endif %}
 		      		</a>
 
 		    	</li>

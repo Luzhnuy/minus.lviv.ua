@@ -121,10 +121,10 @@ nav ul a:hover{
 	font-weight: bold;
 	color: #6baf00;
 }
-.bottom_menu li:hover {
+.bottom_menu>ul>li:hover {
 	background-color: #6baf00;
 }
-.bottom_menu li:hover a{
+.bottom_menu>ul>li:hover a{
 	color:#fff;
 }
 .back_menu {
@@ -137,6 +137,19 @@ nav ul a:hover{
 	float: right;
 	margin-right: 5px;
 }
+/* .activitis {
+  background-color:#fff;
+  color:black;
+}
+
+.activitis:hover li{
+  background-color:#fff;
+  color:black;
+}
+.activitis li:hover{
+  background-color:#6baf00;
+  color:#fff;
+} */
 .add_comment button{
 	background-color: #6baf00;
 	color:#fff;
