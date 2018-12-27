@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.utils import timezone
 
 
 class BlurbsBlurbcategory(models.Model):
@@ -10,6 +10,10 @@ class BlurbsBlurbcategory(models.Model):
     class Meta:
         managed = True
         db_table = 'blurbs_blurbcategory'
+
+
+    def __str__(self):
+        return self.title
 
 
 class BlurbsGeocity(models.Model):
@@ -29,16 +33,22 @@ class BlurbsGeoregion(models.Model):
         managed = True
         db_table = 'blurbs_georegion'
 
+    def __str__(self):
+        return self.title
+
 class BlurbsBlurb(models.Model):
-    title = models.CharField(max_length=120)
-    description = models.TextField()
-    buysell = models.CharField(max_length=1)
+    title = models.CharField('Назва',max_length=120)
+    description = models.TextField('Опис товару')
+    buysell = models.CharField('Ціна',max_length=255)
     user = models.ForeignKey(User)
     category = models.ForeignKey(BlurbsBlurbcategory)
-    pub_date = models.DateTimeField()
-    georegion_id = models.IntegerField(blank=True, null=True)
-    geocity_id = models.IntegerField(blank=True, null=True)
+    pub_date = models.DateTimeField(auto_now_add=True)
+    georegion = models.ForeignKey(BlurbsGeoregion)
     is_user_business = models.BooleanField(default=0)
     class Meta:
         managed = True
         db_table = 'blurbs_blurb'
+        # fields = '__all__'
+
+    def __str__(self):
+        return self.title

@@ -1,17 +1,18 @@
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
 from django.core import serializers
-from shop.models import BlurbsBlurb
+from shop.models import BlurbsBlurb,BlurbsGeoregion
 from user.models import Userprofile
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic.edit import FormView
-from shop.forms import BlurbForm,BlurbCategoryForm
+from shop.forms import BlurbForm
 
 
 
 def main_shop(request):
 	good = BlurbsBlurb.objects.all().order_by('-id')
+	georegion = BlurbsGeoregion.objects.all()
 	paginator = Paginator(good, 40)
 	page = request.GET.get('page')
 	try:
@@ -27,6 +28,7 @@ def main_shop(request):
 
 	return render(request, 'shop/index.html' , {
 		'goods':good,
+		'georegion':georegion,
 
 	})
 def goods(request,pk):
@@ -76,15 +78,22 @@ def gave_business_or_private(request,bool):
 def add_blurb(request):
 	if request.user.is_authenticated:
 		blurb_form = BlurbForm()
-		blurb_category_form = BlurbCategoryForm()
 		if request.method == 'POST':
-			if blurb_form.is_valid() and blurb_category_form.is_valid():
+			print('method POST')
+			if blurb_form.is_valid():
+				print('form valid')
 				blurb_form_s = blurb_form.save(commit=False)
-				blurb_category_form_s = blurb_category_form.save()
-		else:
-			return render(request,'shop/add_blurb.html',{
-				'form':blurb_form,
-				'category_form':blurb_category_form,
-			})
+				blurb_form_s.user = request.user
+				print('user')
+				# blurb_form_s.category_id = request.POST['category']
+				print('category')
+				blurb_form_s.is_user_business = Userprofile.objects.get(user_id = request.user.id).is_business
+				print('business')
+				blurb_form_s.save()
+			else:
+				print('form invalid')
+		return render(request, 'shop/add_blurb.html', {
+			'form':blurb_form,
+		})
 	else:
 		return HttpResponseRedirect('../')

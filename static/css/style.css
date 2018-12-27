@@ -116,7 +116,7 @@ nav ul a:hover{
 	background-color: transparent;
 }
 
-.bottom_menu .tabik a{
+.bottom_menu .tabik>a{
 	font-size: 1em;
 	font-weight: bold;
 	color: #6baf00;
@@ -137,19 +137,26 @@ nav ul a:hover{
 	float: right;
 	margin-right: 5px;
 }
-/* .activitis {
+.activitis>li,.activitis a {
   background-color:#fff;
-  color:black;
+  color:#6baf00;
+}
+.dropdown-content li>a, .dropdown-content li>span {
+  color:#6bad00 !important;
 }
 
-.activitis:hover li{
+/* .activitis:hover .activitis>li{
   background-color:#fff;
-  color:black;
-}
-.activitis li:hover{
-  background-color:#6baf00;
   color:#fff;
 } */
+.activitis>li:hover .activitis>li{
+  background-color:#6baf00;
+  color:#fff;
+}
+.activitis li:hover a{
+  background-color:#6baf00;
+  color:#fff !important;
+}
 .add_comment button{
 	background-color: #6baf00;
 	color:#fff;

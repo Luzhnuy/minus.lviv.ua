@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from user.models import Userprofile,UsersUserrating,FriendsFriendshipFriends
+from user.models import Userprofile,UsersUserrating,FriendsFriendshipFriends,UserActivitys
 from minus.models import DjangoComments,DjangobbForumPost
 from minusstore.models import MinusstoreMinusauthor,MinusstoreMinusrecord
 from django.http import HttpResponse,HttpResponseRedirect
@@ -180,3 +180,20 @@ def user_search(request):
     print('gello')
     print(user)
     return HttpResponse(user)
+
+
+def activities(request):
+    last_forum = DjangobbForumPost.objects.order_by('-id')[:10]
+    last_comments =  DjangoComments.objects.order_by('-id')[:30]
+    if request.user.is_authenticated:
+        activities = UserActivitys.objects.filter(to_user_id=request.user.id)
+        z= True
+    else:
+        activities = UserActivitys.objects.all()
+        z = False
+    return render(request,'user/activities.html',{
+        'activities' : activities,
+        'z':z,
+        'last_forum':last_forum,
+        'last_comments':last_comments,
+    })

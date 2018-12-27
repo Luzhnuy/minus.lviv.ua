@@ -655,8 +655,6 @@ class ForumThread(models.Model):
 
 
 
-
-
 class HitcountBlacklistIp(models.Model):
     ip = models.CharField(unique=True, max_length=40)
 
@@ -781,21 +779,11 @@ class Likedislike(models.Model):
 
 
 
-class PhotosPhoto(models.Model):
-    title = models.CharField(max_length=256)
-    description = models.TextField(blank=True, null=True)
-    date_created = models.DateTimeField()
-    image = models.CharField(max_length=256)
-    album_id = models.IntegerField()
-    is_cover = models.IntegerField()
 
-    class Meta:
-        managed = True
-        db_table = 'photos_photo'
 
 
 class PhotosPhotoalbum(models.Model):
-    user_id = models.IntegerField()
+    user = models.ForeignKey(User)
     name = models.CharField(max_length=128,default='null')
     slug = models.CharField(unique=True, max_length=150)
     description = models.TextField(blank=True, null=True)
@@ -807,6 +795,18 @@ class PhotosPhotoalbum(models.Model):
     class Meta:
         managed = True
         db_table = 'photos_photoalbum'
+
+class PhotosPhoto(models.Model):
+    title = models.CharField(max_length=256)
+    description = models.TextField(blank=True, null=True)
+    date_created = models.DateTimeField()
+    image = models.ImageField(upload_to="static/files/userphotos/")
+    album = models.ForeignKey(PhotosPhotoalbum)
+    is_cover = models.IntegerField()
+
+    class Meta:
+        managed = True
+        db_table = 'photos_photo'
 
 
 class RadioRadiojingle(models.Model):

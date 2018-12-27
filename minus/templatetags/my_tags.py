@@ -70,6 +70,7 @@ def user_online():
 @register.inclusion_tag('mytags/users_menu.html')
 def user_menu(user_id):
 	new_messages = NewMessagesChannels.objects.filter(to_user=user_id).count()
+	# activitys = UserActivitys.objects.filter(to_user_id = user_id)
 	print(new_messages)
 	print('yakbu vse bulo')
 	return {'count_new_messages': new_messages,}
@@ -77,5 +78,5 @@ def user_menu(user_id):
 
 @register.inclusion_tag('mytags/get_activitys.html')
 def get_activitys(user_id):
-	activitys = UserActivitys.objects.filter(to_user_id = user_id)
+	activitys = UserActivitys.objects.filter(to_user_id = user_id)[:20]
 	return {'activitys':activitys}
