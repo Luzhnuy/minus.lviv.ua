@@ -32,7 +32,7 @@ from django.db.models.signals import post_save
 #
 
 class FriendsFriendship(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User,on_delete="CASCADE")
 
     class Meta:
         managed = True
@@ -40,7 +40,7 @@ class FriendsFriendship(models.Model):
 
 
 class FriendsFriendshipFriends(models.Model):
-    from_friendship_id = models.ForeignKey(FriendsFriendship)
+    from_friendship_id = models.IntegerField()
     to_friendship_id = models.IntegerField()
 
     class Meta:
@@ -63,7 +63,8 @@ class FriendsFriendshiprequest(models.Model):
 
 
 class FriendsUserblocks(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User,on_delete="CASCADE")
+
 
     class Meta:
         managed = True
@@ -88,7 +89,7 @@ class UserActivitys(models.Model):
     )
 
     type = models.CharField(choices=activity_type,null=True,max_length=255)
-    from_user = models.ForeignKey(User)
+    from_user = models.ForeignKey(User,on_delete="PROTECT")
     to_user_id = models.IntegerField()
     activity_to = models.IntegerField()
 
@@ -134,7 +135,7 @@ def save_user_profile(sender, instance, **kwargs):
 
 
 class UsersStaffticket(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User,on_delete="PROTECT")
     content_type_id = models.IntegerField()
     object_id = models.IntegerField()
     url = models.CharField(max_length=200, blank=True, null=True)
@@ -158,7 +159,7 @@ class UsersUseractivity(models.Model):
 
 
 class UsersUserrating(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User,on_delete="PROTECT")
     rating = models.IntegerField()
     average_minus_rating = models.IntegerField()
 

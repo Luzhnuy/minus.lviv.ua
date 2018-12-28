@@ -133,6 +133,11 @@ class UserLoginView(LoginView):
             return self.form_invalid(form)
 
 
+
+
+def false_auth(request):
+    return render(request, 'user/false_auth.html',{})
+
 def logout_view(request):
 	logout(request)
 	return HttpResponseRedirect('../../')

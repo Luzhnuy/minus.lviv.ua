@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 
 class NewsNewsitem(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User,on_delete="CASCADE")
     title = models.CharField(max_length=150)
     body = models.TextField()
     allow_comments = models.IntegerField()

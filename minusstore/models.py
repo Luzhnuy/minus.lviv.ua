@@ -77,11 +77,11 @@ class MinusstoreMinusauthor(models.Model):
 
 
 class MinusstoreMinusrecord(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User,on_delete="PROTECT")
     file = models.FileField("Мінусовка",upload_to="static/files/minuses/",null=True,blank=True)
     title = models.CharField("Назва мінусовки",max_length=255)
     is_folk = models.IntegerField()
-    author = models.ForeignKey(MinusstoreMinusauthor,null=True)
+    author = models.ForeignKey(MinusstoreMinusauthor,on_delete="PROTECT")
     arrangeuathor = models.CharField(max_length=50, blank=True, null=True)
     annotation = models.TextField()
     thematics = models.CharField(max_length=30, blank=True, null=True)
@@ -114,8 +114,8 @@ class MinusstoreMinusrecord(models.Model):
 
 
 class MinusstoreMinusrecordCategories(models.Model):
-    minusrecord = models.ForeignKey(MinusstoreMinusrecord)
-    minuscategory = models.ForeignKey(MinusstoreMinuscategory)
+    minusrecord = models.ForeignKey(MinusstoreMinusrecord,on_delete="CASCADE")
+    minuscategory = models.ForeignKey(MinusstoreMinuscategory,on_delete="CASCADE")
 
     class Meta:
         managed = True

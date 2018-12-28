@@ -40,10 +40,10 @@ class BlurbsBlurb(models.Model):
     title = models.CharField('Назва',max_length=120)
     description = models.TextField('Опис товару')
     buysell = models.CharField('Ціна',max_length=255)
-    user = models.ForeignKey(User)
-    category = models.ForeignKey(BlurbsBlurbcategory)
+    user = models.ForeignKey(User,on_delete="CASCADE")
+    category = models.ForeignKey(BlurbsBlurbcategory,on_delete="PROTECT")
     pub_date = models.DateTimeField(auto_now_add=True)
-    georegion = models.ForeignKey(BlurbsGeoregion)
+    georegion = models.ForeignKey(BlurbsGeoregion,on_delete="PROTECT")
     is_user_business = models.BooleanField(default=0)
     class Meta:
         managed = True

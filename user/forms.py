@@ -1,8 +1,10 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
+from django.shortcuts import render
 import datetime
 from django.contrib.auth.forms import AuthenticationForm
+from django.http import HttpResponse,HttpResponseRedirect
 
 
 class UserCreateForm(UserCreationForm):
@@ -37,19 +39,12 @@ class EmailAuthenticationForm(AuthenticationForm):
                 username = User.objects.get(email=username)
                 username.last_login = datetime.datetime.now()
             except User.DoesNotExist:
-                raise ValidationError(
-                    self.error_messages['invalid_login'],
-                    code='invalid_login',
-                    params={'username':self.username_field.verbose_name},
-                )
+                return HttpResponseRedirect('false_auth')
         else:
             try:
                 username = User.objects.get(username=username)
                 username.last_login = datetime.datetime.now()
             except User.DoesNotExist:
-                raise ValidationError(
-                    self.error_messages['invalid_login'],
-                    code='invalid_login',
-                    params={'username':self.username_field.verbose_name},
-                )
+                return HttpResponseRedirect('false_auth')
+
         return username

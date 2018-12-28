@@ -294,7 +294,7 @@ class DjangoComments(models.Model):
     content_type_id = models.IntegerField()
     object_pk = models.TextField()
     site_id = models.IntegerField()
-    user = models.ForeignKey(User,blank=True, null=True)
+    user = models.ForeignKey(User,on_delete="CASCADE")
     user_name = models.CharField(max_length=50)
     user_email = models.CharField(max_length=75)
     user_url = models.CharField(max_length=200)
@@ -459,7 +459,7 @@ class DjangobbForumForumModerators(models.Model):
 
 class DjangobbForumPost(models.Model):
     topic_id = models.IntegerField()
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User,on_delete="PROTECT")
     created = models.DateTimeField()
     updated = models.DateTimeField(blank=True, null=True)
     updated_by_id = models.IntegerField(blank=True, null=True)
@@ -783,7 +783,7 @@ class Likedislike(models.Model):
 
 
 class PhotosPhotoalbum(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User,on_delete="PROTECT")
     name = models.CharField(max_length=128,default='null')
     slug = models.CharField(unique=True, max_length=150)
     description = models.TextField(blank=True, null=True)
@@ -801,7 +801,7 @@ class PhotosPhoto(models.Model):
     description = models.TextField(blank=True, null=True)
     date_created = models.DateTimeField()
     image = models.ImageField(upload_to="static/files/userphotos/")
-    album = models.ForeignKey(PhotosPhotoalbum)
+    album = models.ForeignKey(PhotosPhotoalbum,on_delete="CASCADE")
     is_cover = models.IntegerField()
 
     class Meta:
