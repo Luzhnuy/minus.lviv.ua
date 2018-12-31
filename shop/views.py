@@ -43,9 +43,6 @@ def gave_business_or_private(request,bool):
 	good = None
 	if bool == '1':
 		good = BlurbsBlurb.objects.filter(is_user_business=1)
-		# for g in a_goods:
-		# 	if g.user.userprofile.is_business==1:
-		# 		goods.append(g)
 		paginator = Paginator(good, 40)
 		page = request.GET.get('page')
 		try:
@@ -55,7 +52,6 @@ def gave_business_or_private(request,bool):
 
 		except EmptyPage:
 		    good = paginator.page(paginator.num_pages)
-					        #print('third')
 
 		return render(request, 'shop/index.html',{'goods':good,'z':True,})
 
@@ -67,31 +63,51 @@ def gave_business_or_private(request,bool):
 		    good = paginator.page(page)
 		except PageNotAnInteger:
 			good = paginator.page(1)
-			       # print('second')
 		except EmptyPage:
 		    good = paginator.page(paginator.num_pages)
-					        #print('third')
 		return render(request, 'shop/index.html',{'goods':good,'f':True,})
 
 
 
 def add_blurb(request):
 	if request.user.is_authenticated:
-		blurb_form = BlurbForm()
+		blurb_form = BlurbForm(request.POST or None,request.FILES or None)
 		if request.method == 'POST':
 			print('method POST')
+			# blurb_form.is_valid = True
+
+			# blurb_form.errors= False
 			if blurb_form.is_valid():
-				print('form valid')
 				blurb_form_s = blurb_form.save(commit=False)
+				print('form valid kostul zbc')
 				blurb_form_s.user = request.user
-				print('user')
-				# blurb_form_s.category_id = request.POST['category']
-				print('category')
 				blurb_form_s.is_user_business = Userprofile.objects.get(user_id = request.user.id).is_business
-				print('business')
+				blurb_form_s.category_id = request.POST.get('category')
+				blurb_form_s.title = request.POST.get('title')
+				blurb_form_s.buysell = request.POST.get('buysell')
+				blurb_form_s.description = request.POST.get('description')
+				blurb_form_s.georegion_id = request.POST.get('georegion')
+				blurb_form_s.cost = request.POST.get('cost')
+				try:
+					blurb_form_s.first_photo = request.FILES.get('first_photo')
+					blurb_form_s.second_photo = request.FILES.get('second_photo')
+					blurb_form_s.third_photo = request.FILES.get('third_photo')
+				except:
+					print('error with files')
+
 				blurb_form_s.save()
-			else:
-				print('form invalid')
+				#
+				# print('form valid')
+				# # blurb_form_s = blurb_form.save(commit=False)
+				# # blurb_form_s.user = request.user
+				# print('user')
+				# # blurb_form_s.category_id = request.POST['category']
+				# print('category')
+				#
+				# print('business')
+
+			# else:
+				# print('form invalid')
 		return render(request, 'shop/add_blurb.html', {
 			'form':blurb_form,
 		})

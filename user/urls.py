@@ -13,4 +13,6 @@ urlpatterns = [
 	url(r'^search/$',views.user_search,name="user_search"),
 	url(r'^activities/$',views.activities,name="activities"),
 	url(r'^false_auth/$',views.false_auth,name="false_auth"),
+	url(r'^moderator-messages/$', views.moderator_messages,name="moderator_messages"),
+	url(r'^add_moderator_message/(?P<object_pk>[0-9]+)/(?P<content_id>[0-9]+)/$',views.add_moderator_message,name="add_moderator_message"),
 ]

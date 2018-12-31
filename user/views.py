@@ -1,18 +1,19 @@
 from django.shortcuts import render
-from user.models import Userprofile,UsersUserrating,FriendsFriendshipFriends,UserActivitys
-from minus.models import DjangoComments,DjangobbForumPost
-from minusstore.models import MinusstoreMinusauthor,MinusstoreMinusrecord
-from django.http import HttpResponse,HttpResponseRedirect
+from user.models import Userprofile, UsersUserrating, FriendsFriendshipFriends, UserActivitys
+from minus.models import DjangoComments, DjangobbForumPost
+from minusstore.models import MinusstoreMinusauthor, MinusstoreMinusrecord
+from main.models import ModeratorMessages
+from django.http import HttpResponse, HttpResponseRedirect
 from django.core import serializers
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
 from django.template import RequestContext
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.contrib.auth import logout,login
+from django.contrib.auth import logout, login
 from django.views.generic.edit import FormView
 from django.contrib.auth.forms import UserCreationForm
-from .forms import UserCreateForm,EmailAuthenticationForm
+from .forms import UserCreateForm, EmailAuthenticationForm
 from user.tokens import account_activation_token
 from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
@@ -25,19 +26,18 @@ import datetime
 import json
 
 
-def user_page(request,pk):
-    user = Userprofile.objects.get(user_id = pk)
-    user.comments = DjangoComments.objects.filter(user_id = user.user_id).order_by('-id')[:3]
-    user.forum = DjangobbForumPost.objects.filter(user_id = user.user_id).order_by('-id')[:3]
-    user.u = User.objects.get(pk = user.user_id)
+def user_page(request, pk):
+    user = Userprofile.objects.get(user_id=pk)
+    user.comments = DjangoComments.objects.filter(user_id=user.user_id).order_by('-id')[:3]
+    user.forum = DjangobbForumPost.objects.filter(user_id=user.user_id).order_by('-id')[:3]
+    user.u = User.objects.get(pk=user.user_id)
     try:
-        user.rating = UsersUserrating.objects.get(user_id = user.u.id)
+        user.rating = UsersUserrating.objects.get(user_id=user.u.id)
     except UsersUserrating:
         user.rating = 0
     return render(request, 'user/index.html', {
-        'user':user,
-	})
-
+        'user': user,
+    })
 
 
 def userlist(request):
@@ -54,7 +54,8 @@ def userlist(request):
         users = paginator.page(paginator.num_pages)
         print('third')
 
-    return render(request,'user/list.html',{'users':users})
+    return render(request, 'user/list.html', {'users': users})
+
 
 class RegisterFormView(FormView):
     form_class = UserCreateForm
@@ -66,15 +67,13 @@ class RegisterFormView(FormView):
     # Шаблон, который будет использоваться при отображении представления.
     template_name = "user/registration.html"
 
-
-
     def form_valid(self, form):
         # Создаём пользователя, если данные в форму были введены корректно.
 
         self.last_login = datetime.datetime.now()
         # self.is_active = False
         print('hello every_body1')
-        form_data=form.save()
+        form_data = form.save()
         print('hello every_body2')
         print(form_data)
         # form_data.is_active = 0
@@ -83,10 +82,10 @@ class RegisterFormView(FormView):
         print(current_site.domain)
         mail_subject = 'Активація акаунту minus.lviv.ua'
         message = render_to_string('user/sucees_registration.html', {
-                'user' : form_data,
-                'domain': current_site.domain,
-                'uid':urlsafe_base64_encode(force_bytes(form_data.id)),
-                'token':account_activation_token.make_token(form_data),
+            'user': form_data,
+            'domain': current_site.domain,
+            'uid': urlsafe_base64_encode(force_bytes(form_data.id)),
+            'token': account_activation_token.make_token(form_data),
         })
         print('hello every_body4')
 
@@ -94,7 +93,7 @@ class RegisterFormView(FormView):
         print('hello5')
         print(to_email)
         email = EmailMessage(
-                mail_subject, message, to=[to_email]
+            mail_subject, message, to=[to_email]
         )
         print(email)
         print('hello6')
@@ -102,9 +101,6 @@ class RegisterFormView(FormView):
         email.send()
 
         return super(RegisterFormView, self).form_valid(form)
-
-
-
 
 
 class UserLoginView(LoginView):
@@ -133,17 +129,16 @@ class UserLoginView(LoginView):
             return self.form_invalid(form)
 
 
-
-
 def false_auth(request):
-    return render(request, 'user/false_auth.html',{})
+    return render(request, 'user/false_auth.html', {})
+
 
 def logout_view(request):
-	logout(request)
-	return HttpResponseRedirect('../../')
+    logout(request)
+    return HttpResponseRedirect('../../')
 
 
-def userminuses(request,user_id):
+def userminuses(request, user_id):
     minuses = MinusstoreMinusrecord.objects.filter(user_id=user_id).order_by('-id')
     paginator = Paginator(minuses, 10)
     page = request.GET.get('page')
@@ -157,7 +152,7 @@ def userminuses(request,user_id):
         minuses = paginator.page(paginator.num_pages)
         print('third')
 
-    return render(request,'user/user_minuses.html', {'minus':minuses})
+    return render(request, 'user/user_minuses.html', {'minus': minuses})
 
 
 def activate(request, uidb64, token):
@@ -171,17 +166,16 @@ def activate(request, uidb64, token):
         user.save()
         login(request, user)
         # return redirect('home')
-        return render(request, 'user/succes_reg_true.html',{})
+        return render(request, 'user/succes_reg_true.html', {})
     else:
         return HttpResponse('Вибачте але лінк активації якийсь поганий(')
 
 
-
 def user_search(request):
     users_all = User.objects.all()
-    users = UserFilter(request.GET,queryset=users_all)
+    users = UserFilter(request.GET, queryset=users_all)
     print(users.qs)
-    user = serializers.serialize('json',users.qs)
+    user = serializers.serialize('json', users.qs)
     print('gello')
     print(user)
     return HttpResponse(user)
@@ -189,16 +183,33 @@ def user_search(request):
 
 def activities(request):
     last_forum = DjangobbForumPost.objects.order_by('-id')[:10]
-    last_comments =  DjangoComments.objects.order_by('-id')[:30]
+    last_comments = DjangoComments.objects.order_by('-id')[:30]
     if request.user.is_authenticated:
         activities = UserActivitys.objects.filter(to_user_id=request.user.id)
-        z= True
+        z = True
     else:
         activities = UserActivitys.objects.all()
         z = False
-    return render(request,'user/activities.html',{
-        'activities' : activities,
-        'z':z,
-        'last_forum':last_forum,
-        'last_comments':last_comments,
+    return render(request, 'user/activities.html', {
+        'activities': activities,
+        'z': z,
+        'last_forum': last_forum,
+        'last_comments': last_comments,
     })
+
+def moderator_messages(request):
+    if request.user.is_authenticated:
+        if request.user.is_staff:
+            moderator_messages = ModeratorMessages.objects.all().order_by('-id')
+            return render(request,'user/moderator_messages.html',{'moderator_messages':moderator_messages,})
+
+
+
+def add_moderator_message(request,object_pk,content_id):
+    if request.user.is_authenticated:
+        if content_id == '17':
+            minus = MinusstoreMinusrecord.objects.get(id = object_pk)
+            print(minus.author)
+            print(minus.title)
+            ModeratorMessages.objects.create(object_pk=object_pk,content_id=content_id,user=request.user,attention_message="Повідомлення про мінусовку"+minus.title)
+            return HttpResponseRedirect('/minusstore/minus/'+object_pk+'/')

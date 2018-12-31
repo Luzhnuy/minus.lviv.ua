@@ -44,19 +44,23 @@
 		    <div class="nav-content bottom_menu">
 					<a href="#" data-target="mobile" class="sidenav-trigger"  style="color:#6baf00;text-align:center;">Додаткове меню</a>
 		      <ul class="tabiks tabiks-transparent left hide-on-med-and-down" id="nav-mobile">
-		        <li class="tabik "><a target="_blank" href="https://www.youtube.com/channel/UC8ZIZXC1LSM97_cZDMIFJvA" class="bmenu_a back_menu">Youtube</a></li>
-		        <li class="tabik "><a href="#" class="bmenu_a back_menu">Радіо</a></li>
-		        <li class="tabik "><a href="#" class="bmenu_a back_menu">Конкурс вокалістів</a></li>
-		        <li class="tabik "><a href="{% url 'desk_of_respect' %}" class="bmenu_a back_menu" >Дошка пошани</a></li>
-		      <li class="tabik "> <a href="{% url 'desk_of_shame' %}" class="bmenu_a back_menu" >Пауза користувача  <span style="color:red;">{% count_shame %}</span></a></li>
-		        <li class="tabik "><a href="#" class="bmenu_a back_menu">FAQ</a></li>
+
+						     <li class="tabik "><a target="_blank" href="https://www.youtube.com/channel/UC8ZIZXC1LSM97_cZDMIFJvA" class="bmenu_a back_menu">Youtube</a></li>
+						  	 <li class="tabik "><a href="#" class="bmenu_a back_menu">Радіо</a></li>
+						  	 <li class="tabik "><a href="#" class="bmenu_a back_menu">Конкурс вокалістів</a></li>
+						  	 <li class="tabik "><a href="{% url 'desk_of_respect' %}" class="bmenu_a back_menu" >Дошка пошани</a></li>
+						     <li class="tabik "> <a href="{% url 'desk_of_shame' %}" class="bmenu_a back_menu" >Пауза користувача  <span style="color:red;">{% count_shame %}</span></a></li>
+						     <!--<li class="tabik "><a href="#" class="bmenu_a back_menu">FAQ</a></li>-->
 		        <!-- <li class="tabik "><a href="#" class="bmenu_a back_menu">Допомога </a></li> -->
-		          <li class="tabik "><a href="{% url 'userlist' %}" class="bmenu_a back_menu">Користувачі</a></li>
-		         <li class="tabik "><a href="{% url 'plusstore_main' %}" class="bmenu_a back_menu">Плюсовки</a></li>
+						  	 <li class="tabik "><a href="{% url 'userlist' %}" class="bmenu_a back_menu">Користувачі</a></li>
+		        			 <li class="tabik "><a href="{% url 'plusstore_main' %}" class="bmenu_a back_menu">Плюсовки</a></li>
+
 						 {% if request.user.is_authenticated %}
+
 						 <li class="tabik green_li" style="background-color: #6baf00;color:white;"><a href="{% url 'user_page' pk=request.user.id %}" class="bmenu_a" style="color:white;">Моя сторінка</a></li>
 						 <li class="tabik green_li" style="background-color: #6baf00;color:white;"><a class="bmenu_a dropdown-trigger" href="#test2" style="color:white;" name="notifications" data-target='dropdown1' ><i class="small material-icons" >notifications</i></a></li>
-					 			{% user_menu user_id=request.user.id %}
+							{% user_menu user_id=request.user.id %}
+
 						{% endif %}
 		      </ul>
 

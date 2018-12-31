@@ -37,14 +37,19 @@ class BlurbsGeoregion(models.Model):
         return self.title
 
 class BlurbsBlurb(models.Model):
+    buy_or_sell = (
+    ('B', 'Куплю'),
+    ('S','Продам')
+    )
     title = models.CharField('Назва',max_length=120)
     description = models.TextField('Опис товару')
-    buysell = models.CharField('Ціна',max_length=255)
+    buysell = models.CharField('Куплю/Продам',choices=buy_or_sell,max_length=1)
     user = models.ForeignKey(User,on_delete="CASCADE")
     category = models.ForeignKey(BlurbsBlurbcategory,on_delete="PROTECT")
     pub_date = models.DateTimeField(auto_now_add=True)
     georegion = models.ForeignKey(BlurbsGeoregion,on_delete="PROTECT")
     is_user_business = models.BooleanField(default=0)
+    cost = models.CharField('Ціна',max_length=255,default="Договірна")
     class Meta:
         managed = True
         db_table = 'blurbs_blurb'

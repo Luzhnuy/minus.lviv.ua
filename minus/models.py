@@ -787,7 +787,7 @@ class PhotosPhotoalbum(models.Model):
     name = models.CharField(max_length=128,default='null')
     slug = models.CharField(unique=True, max_length=150)
     description = models.TextField(blank=True, null=True)
-    pub_date = models.DateTimeField()
+    pub_date = models.DateTimeField(auto_now_add=True)
     size = models.IntegerField()
     content_type_id = models.IntegerField(blank=True, null=True)
     object_pk = models.IntegerField(blank=True, null=True)
@@ -799,7 +799,7 @@ class PhotosPhotoalbum(models.Model):
 class PhotosPhoto(models.Model):
     title = models.CharField(max_length=256)
     description = models.TextField(blank=True, null=True)
-    date_created = models.DateTimeField()
+    date_created = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to="static/files/userphotos/")
     album = models.ForeignKey(PhotosPhotoalbum,on_delete="CASCADE")
     is_cover = models.IntegerField()

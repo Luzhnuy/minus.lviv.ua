@@ -4,4 +4,5 @@ from . import views
 urlpatterns = [
 	url(r'^$', views.messanger,name='messanger'),
 	url(r'^(?P<pk>[0-9]+)/$',views.messages, name="message_user"),
+	url(r'^users-search/$',views.users_search,name="search"),
 ]
