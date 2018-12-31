@@ -11,11 +11,11 @@
 			<a class="waves-effect waves-light btn-large col s6 "><i class="material-icons right" style="color:red;">star</i>Статут та правила порталу</a>
 		  </div>
 		</div>
-	 	<form class="col s12">
+	 	<form class="col s12" action="{% url  'minus-search' %}" method="GET">
       		<div class="row">
         		<div class="input-field col s12">
           			<i class="material-icons prefix">search</i>
-          			<input id="icon_prefix" type="text" class="validate">
+          			<input id="icon_prefix" name="search" type="text" class="validate">
           			<label for="icon_prefix">Пошук мінусовок</label>
         		</div>
 

@@ -5,6 +5,7 @@ from minusstore.models import MinusstoreMinusauthor, MinusstoreMinusrecord
 from main.models import ModeratorMessages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core import serializers
+from django.db.models import Q
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
 from django.template import RequestContext
@@ -172,13 +173,27 @@ def activate(request, uidb64, token):
 
 
 def user_search(request):
-    users_all = User.objects.all()
-    users = UserFilter(request.GET, queryset=users_all)
-    print(users.qs)
-    user = serializers.serialize('json', users.qs)
+    # users_all = User.objects.all(
+    # users = UserFilter(request.GET, queryset=users_all)
+    users = User.objects.filter(Q(first_name__startswith=request.GET['search']) | Q(last_name__startswith=request.GET['search'])| Q(username__startswith=request.GET['search'])| Q(email__startswith=request.GET['search']))
+    print('---------------------------------------------')
+    print(users)
+    print('-----------------------------------------')
+    # users = users.qs
     print('gello')
-    print(user)
-    return HttpResponse(user)
+    print(users)
+    paginator = Paginator(users, 25)
+    page = request.GET.get('page')
+    try:
+        users = paginator.page(page)
+        print('first')
+    except PageNotAnInteger:
+        users = paginator.page(1)
+        print('second')
+    except EmptyPage:
+        users = paginator.page(paginator.num_pages)
+
+    return render(request, 'user/list.html', {'users': users})
 
 
 def activities(request):

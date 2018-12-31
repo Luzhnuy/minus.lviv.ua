@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.db import models
 import os
 
- 
+
 class MinusstoreCommentnotify(models.Model):
     comment_id = models.IntegerField(unique=True)
     user_id = models.IntegerField()
@@ -150,3 +150,14 @@ class MinusstoreMinusweekstats(models.Model):
     class Meta:
         managed = True
         db_table = 'minusstore_minusweekstats'
+
+
+class MinusstoreMinusrecordScore(models.Model):
+    minus = models.ForeignKey(MinusstoreMinusrecord,on_delete="CASCADE")
+    user = models.ForeignKey(User,on_delete="CASCADE")
+    type = models.IntegerField()
+    score = models.IntegerField()
+
+    class Meta:
+        managed = True
+        db_table = 'minusstore_minusrecord_score'

@@ -15,6 +15,10 @@ from django.views.decorators.cache import cache_page
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core import serializers
 from django.core.files.storage import default_storage
+from django.db.models import Q
+
+
+
 
 # @cache_page(60 * 15)
 def minusstore_main(request):
@@ -336,3 +340,21 @@ def add_minus(request):
     else:
         print('yobanuy')
         return HttpResponseRedirect('../../')
+
+
+
+def minus_search(request):
+    minuses = MinusstoreMinusrecord.objects.filter(title__startswith = request.GET['search'])
+    paginator = Paginator(minuses, 40)
+    page = request.GET.get('page')
+    try:
+        minuses = paginator.page(page)
+        print('first')
+    except PageNotAnInteger:
+        minuses = paginator.page(1)
+        print('second')
+    except EmptyPage:
+        minuses = paginator.page(paginator.num_pages)
+        print('third')
+
+    return render(request,'user/user_minuses.html',{'minus':minuses,'k':True})
