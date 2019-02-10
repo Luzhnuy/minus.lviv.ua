@@ -277,18 +277,12 @@
 						{% last_minuses %}
 				    </div>
 				   </li>
-				   <li >
-				    <div class="collapsible-header">
-				      <i class="material-icons">person</i>
-				      Користувачі онлайн
-				      <span class="badge"></span></div>
-				    <div class="collapsible-body">
-						<!-- Користувачі онлайн  -->
-						{% user_online %}
-				    </div>
-				  </li>
-				</ul>
 
+				</ul>
+					{% if request.user.is_authenticated %}
+  					<a class="waves-effect waves-light btn-large follow" href="{% url 'subscribe' %}"><!-- <i class="material-icons left">add</i> -->Підписатись на оновлення файлів</a>
+					{% endif %}
+					<br>	<br>
 
     <table class="cal">
       <caption>
@@ -358,9 +352,18 @@
         </tr>
       </tbody>
     </table>
-{% if request.user.is_authenticated %}
-  	<a class="waves-effect waves-light btn-large follow" href="{% url 'subscribe' %}"><!-- <i class="material-icons left">add</i> -->Підписатись на оновлення файлів</a>
-{% endif %}
+	<ul class="collapsible">
+			   <li class="active">
+				    <div class="collapsible-header">
+				      <i class="material-icons">person</i>
+				      Користувачі онлайн
+				      <span class="badge"></span></div>
+				    <div class="collapsible-body">
+						<!-- Користувачі онлайн  -->
+						{% user_online %}
+				    </div>
+				  </li>
+	</ul>
 	</div>
 </div>
 
