@@ -1,4 +1,4 @@
-from minus.models import DjangobbForumPost
+from minus.models import ForumPost
 from minusstore.models import MinusstoreMinusweekstats,MinusstoreMinusrecord
 from user.models import Userprofile,UsersUserrating
 
@@ -43,7 +43,7 @@ def top_users():
 
 def last_forum():
 
-	post = DjangobbForumPost.objects.order_by('-id')[:4]
+	post = ForumPost.objects.order_by('-id')[:4]
 
 	for i in post:
 		# i.user =  AuthUser.objects.get(pk= i.user_id)

@@ -620,7 +620,7 @@ class ForumForumGroups(models.Model):
 
 class ForumPost(models.Model):
     thread_id = models.IntegerField()
-    author_id = models.IntegerField()
+    author = models.ForeignKey(User,on_delete="CASCADE")
     body = models.TextField()
     body_html = models.TextField()
     time = models.DateTimeField(blank=True, null=True)

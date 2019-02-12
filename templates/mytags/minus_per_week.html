@@ -1,7 +1,11 @@
 {% for m_w in minus_top_week %}
-							<div>	
-								<h6>{{ m_w.title }}</h6>
-								
-							</div>
+<div>
 
+	<a href="{% url 'minus' pk=m_w.id %}" >
+		<h6 style="color:black;">{{ m_w.author.name }}</h6>
+		<h6 style="color:#9ACD32;">{{ m_w.title }}</h6>
+	</a>
+
+</div>
+<hr>
 {% endfor %}

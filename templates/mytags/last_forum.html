@@ -1,6 +1,7 @@
 				    	{% for f in forum %}
 							<div>
-								<p>{{ f.user.username }}: </p>
-								<span>{{ f.body|safe }}</span></br>
+								<p>{{ f.author.username }}: </p>
+								<span style="color:black;">{{ f.body|striptags }}</span></br>
 							</div>
+							<br>
 				    	{% endfor %}
