@@ -20,9 +20,9 @@
 
 	<header>
 
-		<div class="lozung">
+		<!-- <div class="lozung">
 			<h1>Всеукраїнський музичний інформаційний портал</h1>
-		</div>
+		</div> -->
 		  <nav class="nav-extended">
 		    <div class="nav-wrapper top_menu">
 		      <a href="{% url 'main' %}" class="brand-logo"><img src="{% static 'img/logo.png' %}"></a>
@@ -57,10 +57,12 @@
 
 						 {% if request.user.is_authenticated %}
 
-						 <li class="tabik green_li" style="background-color: #6baf00;color:white;"><a href="{% url 'user_page' pk=request.user.id %}" class="bmenu_a" style="color:white;">Моя сторінка</a></li>
-						 <li class="tabik green_li" style="background-color: #6baf00;color:white;"><a class="bmenu_a dropdown-trigger" href="#test2" style="color:white;" name="notifications" data-target='dropdown1' ><i class="small material-icons" >notifications</i></a></li>
-							{% user_menu user_id=request.user.id %}
-
+							 <ul class="login_menu">
+						 		<li class="tabik green_li" style="background-color: #6baf00;color:white;"><a href="{% url 'user_page' pk=request.user.id %}" class="bmenu_a" style="color:white;">Моя сторінка</a></li>
+						 		<li class="tabik green_li" style="background-color: #6baf00;color:white;"><a class="bmenu_a dropdown-trigger" href="#test2" style="color:white;" name="notifications" data-target='dropdown1' ><i class="small material-icons" >notifications</i></a></li>
+								{% user_menu user_id=request.user.id %}
+							</ul>
+							
 						{% endif %}
 		      </ul>
 
@@ -123,6 +125,12 @@
 <!-- Ліва паннель  -->
 		<div class="left_block col s12 m12 l3">
 			<div class="row">
+						<div class="main_btn col s12 l11 offset-l1">
+		  <div class="row">
+		
+			<a class="waves-effect waves-light btn-large"><i class="material-icons right" style="color:red;">star</i>Статут та правила порталу</a>
+		  </div>
+		</div>
 
 				<ul class="collapsible">
 				  <li class="active">
@@ -216,6 +224,13 @@
 <!-- Права панель -->
 		<div class="right_block col col s12 m12 l3">
 			<div class="row">
+
+						<div class="main_btn col s12">
+		  <div class="row">
+			<a class="waves-effect waves-light btn-large" href="{% url 'add_minus' %}"><i class="material-icons left">file_upload</i>Завантажити мінусовку</a>
+			
+		  </div>
+		</div>
 				<div class="new-files col s12">
 					<ul class="collapsible">
 					<li>

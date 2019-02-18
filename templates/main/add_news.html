@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+<section class="col s6">
+	<div class="row">
+		<div class="header col s11 offset-s1">
+			<div class="row">
+				<form class="col s11 offset-s1 reg"  method="POST" enctype="multipart/form-data">
+								{% csrf_token %}
+								<h2>Залийте новину</h2>
+						<!-- 		<p>Заголовок новини</p>
+								{{ form.title }}
+								<p>Превью новини</p>
+								{{ form.preview }}
+								<p>Текст новини</p>
+								{{ form.body }}
+								 -->
+
+								 {{ form.as_p }}
+							  <button type="submit" class="sbm_auth waves-effect waves-light btn-large col s12">Залити мінусовку</button>
+
+					</form>
+			</div>
+		</div>
+
+
+	</div>
+</section>
+
+{% endblock %}

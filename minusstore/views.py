@@ -151,16 +151,6 @@ def letters_filter(request,letter):
         print('third')
 
 
-    # for i in author:
-    #     i.minus = MinusstoreMinusrecord.objects.filter(author_id=i.pk)
-    # for m in minus:
-    # 	print(m.author.name)
-
-	# for a in author:
-    #     a.minus = []
-    #     for m in minus:
-    #         if m.author_id == a.id:
-    #             a.minus.append(m)
 
     return render(request, 'minusstore/index.html' , {'author' : author,'letter':letter})
 

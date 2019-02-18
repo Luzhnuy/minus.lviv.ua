@@ -5,18 +5,16 @@ from minusstore.models import MinusstoreMinusrecord
 from django.contrib.auth.models import User
 from user.models import Userprofile,UserActivitys
 from django.http import HttpResponse,HttpResponseRedirect
+from django.views.generic.edit import FormView
 from django.core import serializers
-import json
-from .forms import AuthForm
+from .forms import AuthForm,AddNews
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # from minus.autentification import *
+import json
 
 
 
 
-
-
-# Create your views here.
 
 
 def main(request):
@@ -55,10 +53,6 @@ def main(request):
 
 
 def news_index(request,pk):
-
-
-
-
 	new = get_object_or_404(NewsNewsitem,pk=pk)
 
 	# new.user = User.objects.get(pk = new.user_id)
@@ -73,6 +67,27 @@ def news_index(request,pk):
 
 	})
 
+
+
+
+class AddNewsView(FormView):
+	form_class= AddNews
+	template_name = "main/add_news.html"
+	success_url = '/'
+
+	def form_valid(self,form):
+		print('add news valid')
+		form.instance.user = self.request.user
+		form.instance.allow_comments = 1
+		form_data = form.save()
+		return super().form_valid(form)
+
+
+
+
+
+
+
 def comments(request,pk):
 
 
@@ -82,6 +97,10 @@ def comments(request,pk):
 
 
 	return HttpResponse(comments)
+
+
+
+
 
 
 def likedislike(request, user_id, object_id, content_type_id,likeordislike):

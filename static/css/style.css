@@ -98,9 +98,10 @@ nav{
 
 
 }
-.bottom_menu li{
+/*.bottom_menu li{
 	border-left: 0.5px solid #6baf00;
-}
+} */
+
 .tabik {
 	display: inline-block;
     text-align: center;
@@ -145,6 +146,9 @@ nav ul a:hover{
   color:#6bad00 !important;
 }
 
+.login_menu{
+  float:right;
+}
 /* .activitis:hover .activitis>li{
   background-color:#fff;
   color:#fff;
@@ -364,7 +368,8 @@ h1{
 	}
 	.main_new{
 		height:200px;
-		border:0.2px solid lightgrey ;
+		border:0.2px solid lightgrey;
+		margin-bottom:20px;
 		color: #000;
 		font-size:25px;
 		text-align: center;
