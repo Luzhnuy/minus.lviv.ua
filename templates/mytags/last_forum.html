@@ -1,6 +1,6 @@
 				    	{% for f in forum %}
 							<div>
-								<p>{{ f.author.username }}: </p>
+								<p>{% if  f.author.first_name%} {{ f.author.first_name }} {{ f.author.last_name }}: {% else %} {{ f.author.username }} {% endif %} </p>
 								<span style="color:black;">{{ f.body|striptags }}</span><br>
 							</div>
 							<br>

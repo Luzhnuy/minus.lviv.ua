@@ -202,6 +202,20 @@
 						</div>
 						<p style="font-weight: bold;"><a href="{% url 'user_page' pk=c.user.id%}" style="color:#6baf00;">{{ c.user.username }}</a></p>
 						<p style="float:rigth;">{{ c.comment }}</p>
+						<div class="social_btn">
+						{% if request.user.is_authenticated %}
+							<a class="waves-effect waves-light btn-large like" id="{{ minus.id }}"><i class="material-icons left">mood</i><span>
+							{{ likes }} </span><span style="display:none;" id="userl">{{ request.user.id }}</span></a>
+							<a class="waves-effect waves-light btn-large dislike" id="{{ minus.id }}"><i class="material-icons left">mood_bad</i><span>
+							{{ dislikes }}</span></a>	
+
+						{% else %}
+							<a class="waves-effect waves-light btn-large like"><i class="material-icons left">mood</i><span>
+							{{ likes }} </span><span style="display:none;" id="userl">{{ request.user.id }}</span></a>
+							<a class="waves-effect waves-light btn-large dislike" ><i class="material-icons left">mood_bad</i><span>
+							{{ dislikes }} </span></a>
+						{% endif %}
+						</div>							
 					</div>
 					{% endfor %}
 					<div class="add_comment">

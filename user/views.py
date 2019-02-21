@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from user.models import Userprofile, UsersUserrating, FriendsFriendshipFriends, UserActivitys
-from minus.models import DjangoComments, DjangobbForumPost
+from minus.models import DjangoComments, ForumPost
 from minusstore.models import MinusstoreMinusauthor, MinusstoreMinusrecord
 from main.models import ModeratorMessages
 from django.http import HttpResponse, HttpResponseRedirect
@@ -23,6 +23,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.core.mail import EmailMessage
 from user.filter import UserFilter
 from django.core import serializers
+import lxml.html
 import datetime
 import json
 
@@ -30,7 +31,9 @@ import json
 def user_page(request, pk):
     user = Userprofile.objects.get(user_id=pk)
     user.comments = DjangoComments.objects.filter(user_id=user.user_id).order_by('-id')[:3]
-    user.forum = DjangobbForumPost.objects.filter(user_id=user.user_id).order_by('-id')[:3]
+    user.forum = ForumPost.objects.filter(author_id=user.user_id).order_by('-id')[:3]
+    for u_f in user.forum:
+        u_f.body = lxml.html.fromstring(u_f.body).text_content()
     user.u = User.objects.get(pk=user.user_id)
     try:
         user.rating = UsersUserrating.objects.get(user_id=user.u.id)

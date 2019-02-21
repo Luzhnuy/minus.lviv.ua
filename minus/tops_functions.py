@@ -1,6 +1,7 @@
 from minus.models import ForumPost
 from minusstore.models import MinusstoreMinusweekstats,MinusstoreMinusrecord
 from user.models import Userprofile,UsersUserrating
+import lxml.html
 
 def top_minus_per_all_time():
 
@@ -47,7 +48,8 @@ def last_forum():
 
 	for i in post:
 		# i.user =  AuthUser.objects.get(pk= i.user_id)
+		
+		i.body = lxml.html.fromstring(i.body).text_content()
 		i.body = i.body[:250] + '...'
-
 
 	return post

@@ -73,29 +73,6 @@ def minusstore_minus(request,pk):
         'upload_minuses' : upload_minuses_from_user,
     })
 
-#
-# class MinusrecordView(FormView):
-#     form_class = AddMinusForm
-#     # fields = ['file','title','author','lyrics','plusrecord','embed_video']
-#     # exclude = ['user']
-#     template_name = 'minusstore/add_minus.html'
-#
-#     def form_valid(self,form):
-#         print('zbc')
-#         print(self.request.user)
-#         form.instance.user = self.request.user
-#         print(self.user)
-#         # f = MP3(form.cleaned_data['file'])
-#         # self.bitrate = f.info.bitrate/1000
-#         # print(self.bitrate)
-#         # self.length = f.info.length
-#         # print(self.length)
-#         # self.pub_date = datetime.datetime.now()
-#         form_data = form.save()
-#         print('hello ' + form_data.user)
-#
-#         return super().form_valid(form)
-# 		# return minus
 
 def if_minus_correct(request,pk):
     form = AuthForm(request.POST)

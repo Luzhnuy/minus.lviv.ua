@@ -13,3 +13,4 @@ ALTER TABLE minusstore_minusrecord ADD COLUMN record_quality_score INT;
 ALTER TABLE minusstore_minusrecord ADD COLUMN arrangement_score INT;
 ALTER TABLE minusstore_minusrecord ALTER COLUMN record_quality_score SET DEFAULT 0;
 ALTER TABLE minusstore_minusrecord ALTER COLUMN arrangement_score SET DEFAULT 0;
+ALTER TABLE news_newsitem ADD COLUMN img varchar(100) NULL;

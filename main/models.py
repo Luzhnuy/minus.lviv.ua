@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 class NewsNewsitem(models.Model):
     user = models.ForeignKey(User,blank=True, null=True,on_delete=models.SET_NULL)
     title = models.CharField(max_length=150)
+    img = models.ImageField(upload_to='static/img/new-img/',null=True,blank=True)
     body = models.TextField()
     allow_comments = models.BooleanField()
     pub_date = models.DateTimeField(auto_now_add=True)

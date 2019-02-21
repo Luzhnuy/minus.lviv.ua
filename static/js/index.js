@@ -9,16 +9,17 @@ function give_minus(id){
          console.log(minus.length);
          $("#"+id+"b").empty();
          for(var i = 0;i<=minus.length-1;i++ ){
-           $('#'+id+"b").append("<div><p><a href='http://127.0.0.1:8000/minusstore/minus/"+minus[i].pk +"/' style='color:black;text-decoration: underline;'>"+minus[i].fields.title+"</a></p><audio src='/static/minus.mp3' controls controlsList='nodownload'></audio><p>(Аудіо) "+Number(minus[i].fields.filesize/1000000)+" мб "+ minus[i].fields.bitrate+"Кбіт/с  </p></div>");
+           $('#'+id+"b").append("<div><p><a href='http://127.0.0.1:8000/minusstore/minus/"+minus[i].pk +"/' style='color:black;text-decoration: underline;'>"+minus[i].fields.title+"</a></p><audio src='/static/minus.mp3' controls controlsList='nodownload'></audio><p style='color:#F15A24;'>(Аудіо) "+Number(minus[i].fields.filesize/1000000)+" мб "+ minus[i].fields.bitrate+"Кбіт/с  </p></div>");
 
          }
 		}
   });
 }
 
-function likedislike(user_id,object_id,likeordislike){
+function likedislike(user_id,object_id,likeordislike,contentType){
+  
     $.ajax({
-      url:'http://127.0.0.1:8000/likedislike/'+user_id+'/'+object_id+'/'+17+'/'+likeordislike+'/',
+      url:'http://127.0.0.1:8000/likedislike/'+user_id+'/'+object_id+'/'+contentType+'/'+likeordislike+'/',
 		    method:'GET',
 		      dataType: 'JSON',
 		        success:function(likeanddislike){
@@ -48,13 +49,23 @@ jQuery(document).ready(function(){
     $('.like').on('click', function(event){
       var user_id = $('#userl').text();
       var object_id = this.id;
-      likedislike(user_id,object_id,1);
+      likedislike(user_id,object_id,1,17);
     });
     $('.dislike').on('click', function(event){
       var user_id = $('#userl').text();
       var object_id = this.id;
-      likedislike(user_id,object_id,0);
+      likedislike(user_id,object_id,0,17);
     });
 
+    $('.likeC').on('click', function(event){
+      var user_id = $('#userl').text();
+      var object_id = this.id;
+      likedislike(user_id,object_id,1,45);
+    });
+    $('.dislikeC').on('click', function(event){
+      var user_id = $('#userl').text();
+      var object_id = this.id;
+      likedislike(user_id,object_id,0,45);
+    });
 
 })

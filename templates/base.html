@@ -126,15 +126,15 @@
 		<div class="left_block col s12 m12 l3">
 			<div class="row">
 						<div class="main_btn col s12 l11 offset-l1">
-		  <div class="row">
+		  					<div class="row">
 		
-			<a class="waves-effect waves-light btn-large"><i class="material-icons right" style="color:red;">star</i>Статут та правила порталу</a>
-		  </div>
-		</div>
+								<a class="waves-effect waves-light btn-large"><i class="material-icons right" style="color:red;">star</i>Статут та правила порталу</a>
+		  					</div>
+						</div>
 
 				<ul class="collapsible">
 				  <li class="active">
-				    <div class="collapsible-header active" >
+				    <div class="collapsible-header tops active" >
 				      <i class="material-icons">hourglass_full</i>
 				     	Топ завантажень
 				      <span class="badge"></span></div>
@@ -149,7 +149,7 @@
 				    </div>
 				  </li>
 				  <li >
-				    <div class="collapsible-header">
+				    <div class="collapsible-header tops">
 				      <i class="material-icons">alarm_add</i>
 				     Топ за рік
 				      <span class="badge"></span></div>
@@ -159,7 +159,7 @@
 				    </div>
 				  </li>
 				  <li >
-				    <div class="collapsible-header">
+				    <div class="collapsible-header tops">
 				      <i class="material-icons">alarm</i>
 				     Топ за місяць
 				      <span class="badge"></span></div>
@@ -169,7 +169,7 @@
 				    </div>
 				  </li>
 				  <li >
-				    <div class="collapsible-header">
+				    <div class="collapsible-header tops">
 				      <i class="material-icons">hourglass_empty</i>
 				     Топ за тиждень
 				      <span class="badge"></span></div>
@@ -180,7 +180,7 @@
 				  </li>
 
 				  <li >
-				    <div class="collapsible-header">
+				    <div class="collapsible-header tops">
 				      <i class="material-icons">person_pin_circle</i>
 				      Топ користувачів
 				      <span class="badge"></span></div>
@@ -196,7 +196,7 @@
 
 				<ul class="collapsible">
 				  <li class="active">
-				    <div class="collapsible-header active" >
+				    <div class="collapsible-header tops active" >
 				      <i class="material-icons">collections_bookmark</i>
 				     	Останні повідомлення на форумі
 				      <span class="badge"></span></div>
@@ -234,7 +234,7 @@
 				<div class="new-files col s12">
 					<ul class="collapsible">
 					<li>
-				    <div class="collapsible-header">
+				    <div class="collapsible-header tops">
 							{%	if request.user.is_authenticated %}
 				      <i class="material-icons"><img src="{% static 'avatar_mini.jpg' %}"  class="circle responsive-img" alt=""></i>{{ request.user.first_name}} {{ request.user.last_name }}
 							{% else %}
@@ -275,7 +275,7 @@
 				    </div>
 				  </li>
 				  <li  >
-				    <div class="collapsible-header active" >
+				    <div class="collapsible-header tops active" >
 				      <i class="material-icons left">access_time</i>
 				     	Файли які очікують підтвердження
 				      <span class="badge"></span></div>
@@ -284,7 +284,7 @@
 				    </div>
 				  </li>
 				  <li class="active">
-				    <div class="collapsible-header active" >
+				    <div class="collapsible-header tops active" >
 				      <i class="material-icons left">access_time</i>
 				     	Поповнення файлів
 				      <span class="badge"></span></div>
@@ -369,7 +369,7 @@
     </table>
 	<ul class="collapsible">
 			   <li class="active">
-				    <div class="collapsible-header">
+				    <div class="collapsible-header tops">
 				      <i class="material-icons">person</i>
 				      Користувачі онлайн
 				      <span class="badge"></span></div>
