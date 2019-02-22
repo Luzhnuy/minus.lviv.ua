@@ -70,16 +70,6 @@ class AuthGroup(models.Model):
         db_table = 'auth_group'
 
 
-# class AuthGroupPermissions(models.Model):
-#     group_id = models.IntegerField()
-#     permission_id = models.IntegerField()
-
-#     class Meta:
-#         managed = True
-#         db_table = 'auth_group_permissions'
-#         unique_together = (('group_id', 'permission_id'),)
-
-
 class AuthMessage(models.Model):
     user_id = models.IntegerField()
     message = models.TextField()
@@ -102,26 +92,6 @@ class AuthPermission(models.Model):
 
 
 
-
-
-# class AuthUserGroups(models.Model):
-#     user_id = models.IntegerField()
-#     group_id = models.IntegerField()
-
-#     class Meta:
-#         managed = True
-#         db_table = 'auth_user_groups'
-#         unique_together = (('user_id', 'group_id'),)
-
-
-# class AuthUserUserPermissions(models.Model):
-#     user_id = models.IntegerField()
-#     permission_id = models.IntegerField()
-
-#     class Meta:
-#         managed = True
-#         db_table = 'auth_user_user_permissions'
-#         unique_together = (('user_id', 'permission_id'),)
 
 
 class BannersBanner(models.Model):

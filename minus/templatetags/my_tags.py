@@ -63,8 +63,9 @@ def count_shame():
 @register.inclusion_tag('mytags/user_online.html')
 def user_online():
 	users = Channels.objects.filter(is_active=1)
+	count = users.count()
 	users = Userprofile.objects.filter(user_id__in=users.values_list('user_id'))
-	return {'users_online':users,'len':0,}
+	return {'users_online':users,'len':0,'count':count,}
 
 
 @register.inclusion_tag('mytags/users_menu.html')

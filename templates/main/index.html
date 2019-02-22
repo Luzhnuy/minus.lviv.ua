@@ -41,13 +41,16 @@
 							<h2>{{ new.title }}</h2>
 						</div>
 						<div class="new_text col s12">
-							<p>{% if new.preview %}{{ new.preview }}... <a href="{% url 'news_index' pk=new.id %}" class="read_next">  Читати далі</a> {% else %}{{ new.body }}{% endif %}</p>
+							<p>{% if new.preview %}{{ new.preview }}... <br><a href="{% url 'news_index' pk=new.id %}" class="read_next">  Читати далі</a> {% else %}{{ new.body }}{% endif %}</p>
+							<br>
 						</div>
 						<div class="authors_and_button col s12">
 							<div class="row">
 <!-- 	data-position="bottom" data-tooltip="" -->
 								<a class="waves-effect waves-light btn-large col s9" href="{% url 'user_page' pk=new.user.id %}"><i class="material-icons left">perm_identity</i>{{ new.user.first_name }} {{ new.user.last_name }}, {{ new.pub_date }}}</a>
-								<a class="waves-effect waves-light btn-large col s3 comments" id="{{ new.id }}"  ><i class="material-icons left">comment</i>{{ new.comments_count }}</a>
+								{% if new.allow_comments %}
+									<a class="waves-effect waves-light btn-large col s3 comments" id="{{ new.id }}"  ><i class="material-icons left">comment</i>{{ new.comments_count }}</a>
+								{% endif %}	
 								<!-- <span id="k" style="display: none;"></span> -->
 							</div>
 						</div>

@@ -1,4 +1,4 @@
-from minus.models import ForumPost
+from minus.models import ForumPost,ForumThread
 from minusstore.models import MinusstoreMinusweekstats,MinusstoreMinusrecord
 from user.models import Userprofile,UsersUserrating
 import lxml.html
@@ -44,10 +44,10 @@ def top_users():
 
 def last_forum():
 
-	post = ForumPost.objects.order_by('-id')[:4]
+	post = ForumPost.objects.order_by('-id')[:10]
 
 	for i in post:
-		# i.user =  AuthUser.objects.get(pk= i.user_id)
+		i.thread_text = ForumThread.objects.get(id = i.thread_id).title
 		
 		i.body = lxml.html.fromstring(i.body).text_content()
 		i.body = i.body[:250] + '...'

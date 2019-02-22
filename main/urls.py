@@ -8,4 +8,5 @@ urlpatterns = [
 	url(r'^add-new/$',views.AddNewsView.as_view(),name="add_new"),
 	url(r'^comments/(?P<pk>[0-9]+)/$', views.comments,name="comments"),
 	url(r'^likedislike/(?P<user_id>[0-9]+)/(?P<object_id>[0-9]+)/(?P<content_type_id>[0-9]+)/(?P<likeordislike>[0-1]+)/$', views.likedislike, name="likedislike"),
+	url(r'^rules/$',views.rules,name="rules"),
 ]

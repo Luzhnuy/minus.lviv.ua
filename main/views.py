@@ -52,6 +52,12 @@ def main(request):
 
 
 
+def rules(request):
+
+	return render(request,'main/rules.html',{})
+
+
+
 def news_index(request,pk):
 	new = get_object_or_404(NewsNewsitem,pk=pk)
 
@@ -78,7 +84,6 @@ class AddNewsView(FormView):
 	def form_valid(self,form):
 		print('add news valid')
 		form.instance.user = self.request.user
-		form.instance.allow_comments = 1
 		form_data = form.save()
 		return super().form_valid(form)
 

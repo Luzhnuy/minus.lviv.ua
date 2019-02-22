@@ -6,12 +6,12 @@ from django.contrib.auth.models import User
 
 class NewsNewsitem(models.Model):
     user = models.ForeignKey(User,blank=True, null=True,on_delete=models.SET_NULL)
-    title = models.CharField(max_length=150)
-    img = models.ImageField(upload_to='static/img/new-img/',null=True,blank=True)
-    body = models.TextField()
-    allow_comments = models.BooleanField()
+    title = models.CharField("Заголовок",max_length=150)
+    img = models.ImageField("Зображення",upload_to='static/img/new-img/',null=True,blank=True)
+    body = models.TextField("Текст новини")
+    allow_comments = models.BooleanField("Заборонити коментарi до новини")
     pub_date = models.DateTimeField(auto_now_add=True)
-    preview = models.TextField()
+    preview = models.TextField("Превью новини(те що буде видно на головнiй сторiнцi")
     # objects = models.Manager()
     # manage = NewsNewsitemManager()
 

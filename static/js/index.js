@@ -9,8 +9,13 @@ function give_minus(id){
          console.log(minus.length);
          $("#"+id+"b").empty();
          for(var i = 0;i<=minus.length-1;i++ ){
-           $('#'+id+"b").append("<div><p><a href='http://127.0.0.1:8000/minusstore/minus/"+minus[i].pk +"/' style='color:black;text-decoration: underline;'>"+minus[i].fields.title+"</a></p><audio src='/static/minus.mp3' controls controlsList='nodownload'></audio><p style='color:#F15A24;'>(Аудіо) "+Number(minus[i].fields.filesize/1000000)+" мб "+ minus[i].fields.bitrate+"Кбіт/с  </p></div>");
+              if(minus[i].fields.type_id==1){
+                  $('#'+id+"b").append("<div><p><a href='http://127.0.0.1:8000/minusstore/minus/"+minus[i].pk +"/' style='color:black;text-decoration: underline;'>"+minus[i].fields.title+"</a></p><p><audio src='/static/minus.mp3' class='mp3' controls controlsList='nodownload'></audio>(Аудіо) "+Number(minus[i].fields.filesize/1000000)+" мб "+ minus[i].fields.bitrate+"Кбіт/с  </p></div>");
+              } else if(minus[i].fields.type_id==2){
+                   $('#'+id+"b").append("<div><p><a href='http://127.0.0.1:8000/minusstore/minus/"+minus[i].pk +"/' style='color:black;text-decoration: underline;'>"+minus[i].fields.title+"</a></p><p><audio src='/static/minus.mp3' class='mp3' controls controlsList='nodownload'></audio><span style='color:red'>(Midi)</span> "+Number(minus[i].fields.filesize/1000000)+" мб "+ minus[i].fields.bitrate+"Кбіт/с  </p></div>");
+              } else {
 
+              } $('#'+id+"b").append("<div><p><a href='http://127.0.0.1:8000/minusstore/minus/"+minus[i].pk +"/' style='color:black;text-decoration: underline;'>"+minus[i].fields.title+"</a></p><p><audio src='/static/minus.mp3' class='mp3' controls controlsList='nodownload'></audio><span style='color:blue;'>(Ноти)</span> "+Number(minus[i].fields.filesize/1000000)+" мб "+ minus[i].fields.bitrate+"Кбіт/с  </p></div>");
          }
 		}
   });

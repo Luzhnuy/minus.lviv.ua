@@ -128,7 +128,7 @@
 						<div class="main_btn col s12 l11 offset-l1">
 		  					<div class="row">
 		
-								<a class="waves-effect waves-light btn-large"><i class="material-icons right" style="color:red;">star</i>Статут та правила порталу</a>
+								<a class="waves-effect waves-light btn-large" href="{% url 'rules' %}"><i class="material-icons right" style="color:red;">star</i>Статут та правила порталу</a>
 		  					</div>
 						</div>
 
@@ -369,15 +369,8 @@
     </table>
 	<ul class="collapsible">
 			   <li class="active">
-				    <div class="collapsible-header tops">
-				      <i class="material-icons">person</i>
-				      Користувачі онлайн
-				      <span class="badge"></span></div>
-				    <div class="collapsible-body">
-						<!-- Користувачі онлайн  -->
-						{% user_online %}
-				    </div>
-				  </li>
+				    {% user_online %}
+				</li>
 	</ul>
 	</div>
 </div>
