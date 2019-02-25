@@ -1,3 +1,7 @@
+const minusstore=  'http://127.0.0.1:8000/minusstore/minus/';
+const likes= 'http://127.0.0.1:8000/likedislike/';
+
+
 // ajax.
 function give_minus(id){
   $.ajax({
@@ -10,12 +14,12 @@ function give_minus(id){
          $("#"+id+"b").empty();
          for(var i = 0;i<=minus.length-1;i++ ){
               if(minus[i].fields.type_id==1){
-                  $('#'+id+"b").append("<div><p><a href='http://127.0.0.1:8000/minusstore/minus/"+minus[i].pk +"/' style='color:black;text-decoration: underline;'>"+minus[i].fields.title+"</a></p><p><audio src='/static/minus.mp3' class='mp3' controls controlsList='nodownload'></audio>(Аудіо) "+Number(minus[i].fields.filesize/1000000)+" мб "+ minus[i].fields.bitrate+"Кбіт/с  </p></div>");
+                  $('#'+id+"b").append("<div><p><a href='"+minusstore+minus[i].pk +"/' style='color:black;text-decoration: underline;'>"+minus[i].fields.title+"</a></p><p><audio src='/static/minus.mp3' class='mp3' controls controlsList='nodownload'></audio>(Аудіо) "+Number(minus[i].fields.filesize/1000000)+" мб "+ minus[i].fields.bitrate+"Кбіт/с  </p></div>");
               } else if(minus[i].fields.type_id==2){
-                   $('#'+id+"b").append("<div><p><a href='http://127.0.0.1:8000/minusstore/minus/"+minus[i].pk +"/' style='color:black;text-decoration: underline;'>"+minus[i].fields.title+"</a></p><p><audio src='/static/minus.mp3' class='mp3' controls controlsList='nodownload'></audio><span style='color:red'>(Midi)</span> "+Number(minus[i].fields.filesize/1000000)+" мб "+ minus[i].fields.bitrate+"Кбіт/с  </p></div>");
+                   $('#'+id+"b").append("<div><p><a href='"+minusstore+minus[i].pk +"/' style='color:black;text-decoration: underline;'>"+minus[i].fields.title+"</a></p><p><audio src='/static/minus.mp3' class='mp3' controls controlsList='nodownload'></audio><span style='color:red'>(Midi)</span> "+Number(minus[i].fields.filesize/1000000)+" мб "+ minus[i].fields.bitrate+"Кбіт/с  </p></div>");
               } else {
 
-              } $('#'+id+"b").append("<div><p><a href='http://127.0.0.1:8000/minusstore/minus/"+minus[i].pk +"/' style='color:black;text-decoration: underline;'>"+minus[i].fields.title+"</a></p><p><audio src='/static/minus.mp3' class='mp3' controls controlsList='nodownload'></audio><span style='color:blue;'>(Ноти)</span> "+Number(minus[i].fields.filesize/1000000)+" мб "+ minus[i].fields.bitrate+"Кбіт/с  </p></div>");
+              } $('#'+id+"b").append("<div><p><a href='"+minusstore+minus[i].pk +"/' style='color:black;text-decoration: underline;'>"+minus[i].fields.title+"</a></p><p><audio src='/static/minus.mp3' class='mp3' controls controlsList='nodownload'></audio><span style='color:blue;'>(Ноти)</span> "+Number(minus[i].fields.filesize/1000000)+" мб "+ minus[i].fields.bitrate+"Кбіт/с  </p></div>");
          }
 		}
   });
@@ -24,7 +28,7 @@ function give_minus(id){
 function likedislike(user_id,object_id,likeordislike,contentType){
   
     $.ajax({
-      url:'http://127.0.0.1:8000/likedislike/'+user_id+'/'+object_id+'/'+contentType+'/'+likeordislike+'/',
+      url:likes+user_id+'/'+object_id+'/'+contentType+'/'+likeordislike+'/',
 		    method:'GET',
 		      dataType: 'JSON',
 		        success:function(likeanddislike){

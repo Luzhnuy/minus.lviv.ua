@@ -57,7 +57,7 @@
 							</a>
 						</div>
 						<p style="font-weight: bold;"><a href="{% url 'user_page' pk=c.user.id%}" style="color:#6baf00;">{{ c.user.username }}</a></p>
-						<p>{{ c.comment }}</p>
+						<p style="font-size:1em;">{{ c.comment }}</p>
 						<div class="social_btn">
 						{% if request.user.is_authenticated %}
 							<a class="waves-effect waves-light btn-large like" id="{{ minus.id }}"><i class="material-icons left">mood</i><span>

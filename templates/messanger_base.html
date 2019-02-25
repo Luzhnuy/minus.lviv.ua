@@ -8,7 +8,8 @@
 
 	<title>minus.lviv.ua</title>
 	<!-- Materialize -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+	<link rel="stylesheet" href="{% static 'materialize/css/materialize.min.css' %}">
+
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<!-- mycss -->
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -232,7 +233,7 @@
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
 <!-- materialize_js	 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+<script src="{% static 'materialize/js/materialize.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 <script>
 	var loc = window.location;

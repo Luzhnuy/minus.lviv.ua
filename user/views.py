@@ -4,7 +4,6 @@ from minus.models import DjangoComments, ForumPost
 from minusstore.models import MinusstoreMinusauthor, MinusstoreMinusrecord
 from main.models import ModeratorMessages
 from django.http import HttpResponse, HttpResponseRedirect
-from django.core import serializers
 from django.db.models import Q
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
@@ -22,7 +21,12 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.core.mail import EmailMessage
 from user.filter import UserFilter
-from django.core import serializers
+from .serializers import UserSerializer
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
 import lxml.html
 import datetime
 import json
@@ -231,3 +235,29 @@ def add_moderator_message(request,object_pk,content_id):
             print(minus.title)
             ModeratorMessages.objects.create(object_pk=object_pk,content_id=content_id,user=request.user,attention_message="Повідомлення про мінусовку"+minus.title)
             return HttpResponseRedirect('/minusstore/minus/'+object_pk+'/')
+
+
+
+
+# API
+
+class GetUser(APIView):
+    
+    # permission_classes = (IsAuthenticated,) 
+
+
+    def get_object(self, pk):
+        try:
+            return User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            raise Http404
+
+
+    def get(self, request,pk ,format=None):
+        
+        
+        user = self.get_object(pk = pk)
+        user = UserSerializer(user,many=False)
+
+
+        return Response(user.data)

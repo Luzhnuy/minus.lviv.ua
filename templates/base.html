@@ -8,11 +8,19 @@
 
 	<title>minus.lviv.ua</title>
 	<!-- Materialize -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+	<link rel="stylesheet" href="{% static 'materialize/css/materialize.min.css' %}">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<!-- mycss -->
 
 	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+
+
+	<!--  React application  -->
+<script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
 </head>
 <body>
 
@@ -133,8 +141,8 @@
 						</div>
 
 				<ul class="collapsible">
-				  <li class="active">
-				    <div class="collapsible-header tops active" >
+				  <li >
+				    <div class="collapsible-header tops" >
 				      <i class="material-icons">hourglass_full</i>
 				     	Топ завантажень
 				      <span class="badge"></span></div>
@@ -158,7 +166,7 @@
 
 				    </div>
 				  </li>
-				  <li >
+				  <li class="active">
 				    <div class="collapsible-header tops">
 				      <i class="material-icons">alarm</i>
 				     Топ за місяць
@@ -168,7 +176,7 @@
 
 				    </div>
 				  </li>
-				  <li >
+				  <li class="active">
 				    <div class="collapsible-header tops">
 				      <i class="material-icons">hourglass_empty</i>
 				     Топ за тиждень
@@ -410,7 +418,7 @@
 	              </div>
 	            </div>
 	          </div>
-	          <div class="footer-copyright">
+	          <div class="footer-copyright" id="footer">
 	            <div class="container">
 	            © 2014 Copyright Text
 	            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
@@ -433,7 +441,7 @@
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
 <!-- materialize_js	 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+<script src="{% static 'materialize/js/materialize.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 <script>
@@ -490,6 +498,11 @@ liveuser_socket.onclose = function(e){
 {% block script %}
 {% endblock %}
 <script src="{% static 'js/search.js' %}"></script>
+
+
+<script src="{% static 'js/reactjs/index.js'  %}" type="text/babel"></script>
+
+
 
 </body>
 </html>

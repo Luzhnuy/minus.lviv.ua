@@ -1,6 +1,13 @@
 from django.conf.urls import url,include
+from rest_framework.urlpatterns import format_suffix_patterns
 from django.contrib.auth import views as auth_view
+from rest_framework import routers
 from . import views
+
+
+
+
+
 
 urlpatterns = [
 	url(r'^user/(?P<pk>[0-9]+)/$',views.user_page, name="user_page"),
@@ -15,4 +22,8 @@ urlpatterns = [
 	url(r'^false_auth/$',views.false_auth,name="false_auth"),
 	url(r'^moderator-messages/$', views.moderator_messages,name="moderator_messages"),
 	url(r'^add_moderator_message/(?P<object_pk>[0-9]+)/(?P<content_id>[0-9]+)/$',views.add_moderator_message,name="add_moderator_message"),
+	# url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+	url(r'get_user/(?P<pk>[0-9]+)/$', views.GetUser.as_view(),name="GetUser"),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)

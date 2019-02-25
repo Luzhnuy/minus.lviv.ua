@@ -59,7 +59,7 @@ SECRET_KEY = '$blbq6=3mjvd*21dq*v%7t!bwm=lra2lc9!owmm_jqcd&xu4e^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -75,7 +75,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'channels',
-    # "channels_presence2",
+    'rest_framework',
     'shop',
     'user',
     'minus',
@@ -167,6 +167,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 LOGIN_URL = '/'
+
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/

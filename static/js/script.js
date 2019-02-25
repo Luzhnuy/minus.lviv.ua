@@ -1,18 +1,3 @@
-// function gavetext(id){
-// 		$.ajax({
-// 			url:'/admin/show_practice.php',
-// 			method:'POST',
-// 			dataType:'text',
-// 			statbox:"status",
-// 			data:{'id':id},
-// 			success:function(msg){
-// 				 $('#lol').text(msg);
-// 			}
-// 		}).done(function(){
-// 			console.log('success');
-// 		});
-// }
-
 
 function getComment(id){
 
@@ -36,18 +21,8 @@ $(document).ready(function(){
 	  $('.comments').on('click', function(){
 	  		id = this.id
 	  		getComment(id);
-
-
-
 	  });
-	// $('#like').click(function() {
- //        $('#likes').html(+$('#likes').html()+1);
 
- //    });
- //    $('#dislike').click(function() {
- //        $('#dislike').html(+$('#dislikes').html()+1);
-
- //    });
 
       $('.dropdown-trigger').dropdown({
       	constrainWidth: false,

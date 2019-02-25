@@ -264,7 +264,9 @@ h1{
   	  font-size: 100%;
   	  font: inherit;
 }
-
+.users_and_rate a:hover .name_rate p{
+	text-decoration: underline;	
+}
 
 .last_forum div p{
 	color:#000;
@@ -720,14 +722,14 @@ h1{
 		color: #6baf00;
 	}
 	.comments_in_minusstore img{
-		height:100px;
+		height:75px;
 	}
 	.comments_in_minusstore>p {
 		font-weight: bold;
-		font-size:1.3em;
+		font-size: 1.3em;
 	}
   .comments_in_minusstore .comment{
-    margin-bottom: 10vh;
+   	 margin-bottom: 5vh;
   }
 
 	/* endminus  */

@@ -2,6 +2,7 @@ from minus.models import ForumPost,ForumThread
 from minusstore.models import MinusstoreMinusweekstats,MinusstoreMinusrecord
 from user.models import Userprofile,UsersUserrating
 import lxml.html
+from django.core import serializers
 
 def top_minus_per_all_time():
 
@@ -34,8 +35,7 @@ def top_minus_per_week():
 def top_users():
 
 	users = UsersUserrating.objects.order_by('-rating')[:10]
-
-
+	# users = serializers.serialize("json",users)
 
 	return users
 
@@ -50,6 +50,6 @@ def last_forum():
 		i.thread_text = ForumThread.objects.get(id = i.thread_id).title
 		
 		i.body = lxml.html.fromstring(i.body).text_content()
-		i.body = i.body[:250] + '...'
+		i.body = i.body[:150] + '...'
 
 	return post
