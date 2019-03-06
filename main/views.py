@@ -9,6 +9,11 @@ from django.views.generic.edit import FormView
 from django.core import serializers
 from .forms import AuthForm,AddNews
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+from main.serializers import CommentSerializer
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
 # from minus.autentification import *
 import json
 
@@ -18,14 +23,7 @@ import json
 
 
 def main(request):
-
-	# signin(request,form)
-
-
-
 	news_objects = NewsNewsitem.objects.all().order_by('-id')
-	# comments_count = DjangoComments.objects.filter(content_type_id = 51,object_pk = pk).count()
-
 	paginator = Paginator(news_objects, 10)
 	page = request.GET.get('page')
 	try:
@@ -60,18 +58,9 @@ def rules(request):
 
 def news_index(request,pk):
 	new = get_object_or_404(NewsNewsitem,pk=pk)
-
-	# new.user = User.objects.get(pk = new.user_id)
 	new.comments = DjangoComments.objects.filter(content_type_id = 51,object_pk = pk)
 	count =   DjangoComments.objects.filter(content_type_id = 51,object_pk = pk).count()
-	return render(request, 'main/news.html' , {
-		'count': count,
-
-
-		'news' : new,
-
-
-	})
+	return render(request, 'main/news.html', dict(count=count, news=new))
 
 
 
@@ -93,18 +82,33 @@ class AddNewsView(FormView):
 
 
 
-def comments(request,pk):
+# def comments(request,pk):
 
 
-	comments = DjangoComments.objects.filter(content_type_id = 51,object_pk = pk)
+# 	comments = DjangoComments.objects.filter(content_type_id = 51,object_pk = pk)
 
-	comments = serializers.serialize("json",comments)
-
-
-	return HttpResponse(comments)
+# 	comments = serializers.serialize("json",comments)
 
 
+# 	return HttpResponse(comments)
 
+class GetComments(APIView):
+
+	def get_objects(self,pk):
+		try:
+			return DjangoComments.objects.filter(content_type_id = 51,object_pk = pk)
+		except DjangoComments.DoesNotExist:
+			raise Http404	
+
+
+
+	def get(self,request,pk,format=None):
+		comments = self.get_objects(pk = pk)
+		serializer_context = {
+            'request': request,
+        }		
+		comments = CommentSerializer(comments,many=True,	context=serializer_context)
+		return Response(comments.data)
 
 
 

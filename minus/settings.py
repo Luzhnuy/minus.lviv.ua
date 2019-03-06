@@ -86,6 +86,20 @@ INSTALLED_APPS = [
     'django_filters',
 ]
 
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'minus',
+        'USER': 'minus',
+        'PASSWORD' : 'minuselita',
+        'HOST':'localhost',
+        'OPTIONS': {
+            'sql_mode': 'traditional',
+        }
+    }
+}
+
 ACCOUNT_ACTIVATION_DAYS = 2 # кол-во дней для хранения кода активации
 
 CELERY_RESULT_BACKEND = 'django-cache'
@@ -127,18 +141,6 @@ ASGI_APPLICATION = 'minus.routing.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'minus',
-        'USER': 'minus',
-        'PASSWORD' : 'minuselita',
-        'HOST':'localhost',
-        'OPTIONS': {
-            'sql_mode': 'traditional',
-        }
-    }
-}
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
@@ -172,9 +174,8 @@ LOGIN_URL = '/'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 40 
 }
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 

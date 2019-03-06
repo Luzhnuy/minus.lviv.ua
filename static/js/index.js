@@ -1,7 +1,5 @@
 const minusstore=  'http://127.0.0.1:8000/minusstore/minus/';
 const likes= 'http://127.0.0.1:8000/likedislike/';
-
-
 // ajax.
 function give_minus(id){
   $.ajax({

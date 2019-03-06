@@ -16,6 +16,9 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core import serializers
 from django.core.files.storage import default_storage
 from django.db.models import Q
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from minusstore.serializers import MinusAuthorSerializer
 
 
 
@@ -24,7 +27,7 @@ from django.db.models import Q
 def minusstore_main(request):
 
 	# signin(request,form)
-    author = MinusstoreMinusauthor.objects.all().order_by('name')
+    author = MinusstoreMinusauthor.objects.all().order_by('name').filter(Q(name__startswith = 'А') | Q(name__startswith = "a"))
     paginator = Paginator(author, 40)
     page = request.GET.get('page')
     try:
@@ -172,70 +175,6 @@ def subscribe(request):
         })
 
 
-
-
-
-
-
-
-
-#Інші варіанти заливання мінусів (З багами)
-
-# def add_minus(request):
-#     minuscategory = MinusstoreMinusrecordCategories.objects.all()[:20]
-#     minustype = MinusstoreFiletype.objects.all()
-#     if request.method == 'POST':
-#         z = False
-#         for i in MinusstoreMinusauthor.objects.all():
-#             if request.POST['author'].lower() == i.name.lower():
-#                 author = i
-#                     # Якщо воно стане тру то воно найшло такого автора і записало
-#                 print('lol')
-#                 z = True
-#             else:
-#                 continue
-#             # Якщо фолс то воно не знайшло такого автора і створить нового
-#         if z == False:
-#              a = MinusstoreMinusauthor.objects.create(name = request.POST['author'])
-#              a.save()
-#              author = MinusstoreMinusauthor.objects.latest('id')
-#
-#              print('kek')
-#         print('автор',author)
-#         print(request.FILES)
-#         print(request.POST['title'])
-#         print(request.user)
-#
-#         print(author.id)
-#         print(request.POST['embed_video'])
-#         minus = default_storage.save('/home/lubas/minus.lviv.ua/minus/minus.lviv.ua/static/files/minuses/',request.FILES['minus'])
-#         f = MP3(request.FILES['minus'])
-#
-#
-#         m = MinusstoreMinusrecord.objects.create(
-#             title=request.POST['title'],
-#             file = minus,
-#             user=request.user,
-#             bitrate = f.info.bitrate/1000,
-#             length = f.info.length,
-#             pub_date=datetime.date.today(),
-#             author_id = author.id,
-#             # embed_video = str(request.POST['embed_video']),
-#         )
-#         m.save()
-#         if request.FILES['pluses']:
-#             pluses = default_storage.save('/home/lubas/minus.lviv.ua/minus/minus.lviv.ua/static/files/pluses/',request.FILES['pluses'])
-#             p = MinusstoreMinusplusrecord.objects.create(minus_id = MinusstoreMinusrecord.objects.latest('id'),user_id = request.user.id,file=pluses)
-#             p.save()
-#         print('plus')
-#         return HttpResponse('zbs')
-#     else:
-#         return render(request, 'minusstore/add_minus.html' , {
-#             'minuscategory':minuscategory,
-#     	    # "form_add_minus" : form_add_minus,
-#             'minustype' : minustype,
-#     	})
-
 def add_minus(request):
     print('lol')
     if request.user.is_authenticated:
@@ -325,3 +264,31 @@ def minus_search(request):
         print('third')
 
     return render(request,'user/user_minuses.html',{'minus':minuses,'k':True})
+
+
+
+
+# API
+
+
+
+class MinusAuthor(APIView):
+    def get_objects(self):
+
+        return MinusstoreMinusauthor.objects.all().order_by('name')
+
+    def get(self,format=None):
+        authors=self.get_objects()
+        paginator = Paginator(authors, 40)
+        page = self.request.GET.get('page')
+        try:
+            authors = paginator.page(page)
+            print('first')
+        except PageNotAnInteger:
+            authors = paginator.page(1)
+            print('second')
+        except EmptyPage:
+            authors = paginator.page(paginator.num_pages)
+            print('third')
+        authors = MinusAuthorSerializer(authors,many=True)
+        return Response(authors.data)

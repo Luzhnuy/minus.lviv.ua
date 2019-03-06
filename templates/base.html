@@ -20,6 +20,8 @@
 <script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
 <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script src="{% static 'js/reactjs/index.js'  %}" type="text/babel"></script>
+
 
 </head>
 <body>
@@ -190,12 +192,13 @@
 				  <li >
 				    <div class="collapsible-header tops">
 				      <i class="material-icons">person_pin_circle</i>
-				      Топ користувачів
+				      Топ користувачів 
 				      <span class="badge"></span></div>
 				    <div class="collapsible-body">
 				    	<div class="row">
-				    		<div class="col s6 header_of_rate"><p>Користувач</p></div>
-				    		<div class="col s6 header_of_rate"><p>Рейтинг</p></div>
+				    		<div class="col  header_of_rate" style="float:left;"><p>Користувач</p></div>
+								<div class="col  header_of_rate" style="float:right;"><p>Рейтинг</p></div>
+								<br>
 							{% top_u %}
 						</div>
 				    </div>
@@ -500,7 +503,6 @@ liveuser_socket.onclose = function(e){
 <script src="{% static 'js/search.js' %}"></script>
 
 
-<script src="{% static 'js/reactjs/index.js'  %}" type="text/babel"></script>
 
 
 

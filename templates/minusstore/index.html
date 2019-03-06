@@ -73,7 +73,7 @@
 			<div class="row">
 				<h3>{% if letter %} Всі автори на {{ letter }} {% else %}Всі автори {% endif %}</h3>
 				<ul class="collapsible">
-				{% for a in author %}
+				{% for a in author|dictsort:'name' %}
 				<li>
 				    <div class="collapsible-header gaveminus" id="{{ a.id }}">
 				      <!-- <i class="material-icons">person</i> -->

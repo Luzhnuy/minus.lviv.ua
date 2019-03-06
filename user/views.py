@@ -131,8 +131,9 @@ class UserLoginView(LoginView):
                     print('lol')
                     User.objects.get(username=username)
                 except User.DoesNotExist:
-                    return HttpResponseRedirect('../../')
                     print('sobaka2')
+                    return HttpResponseRedirect('../../')
+
 
             return self.form_invalid(form)
 
@@ -204,7 +205,7 @@ def user_search(request):
 
 
 def activities(request):
-    last_forum = DjangobbForumPost.objects.order_by('-id')[:10]
+    last_forum = ForumPost.objects.order_by('-id')[:10]
     last_comments = DjangoComments.objects.order_by('-id')[:30]
     if request.user.is_authenticated:
         activities = UserActivitys.objects.filter(to_user_id=request.user.id)

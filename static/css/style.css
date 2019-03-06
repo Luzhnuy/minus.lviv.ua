@@ -250,20 +250,39 @@ h1{
 	color:#000;
 	font-weight: bold;
 }
-.users_and_rate{
-  display: block;
+.u_rate{	
+  widows: 100%;
+  display:block;
+  height:auto;
+  clear:both;
+}
+.name_rate {
+	float:left;
 
 }
-.users_and_rate{
-  display:block;
+.user_rating {
+	float:right;
 }
+
 .users_and_rate a,p{
 	    margin: 0;
-  	  padding: 0;
-      /* border-bottom: 1px solid grey; */
-  	  font-size: 100%;
-  	  font: inherit;
+  	  	padding: 0;
 }
+/*.usershortprofile{
+	
+	
+/*	
+}
+.usershortprofile .avatar{
+	float:left;
+}
+.usershortprofile .userinfo{
+
+	float:right;
+}
+.usershortprofile .userinfo p{
+	margin-left:20%;
+}*/
 .users_and_rate a:hover .name_rate p{
 	text-decoration: underline;	
 }

@@ -1,4 +1,5 @@
 from django.conf.urls import url,include
+from rest_framework.urlpatterns import format_suffix_patterns
 from django.contrib import admin
 from . import views
 
@@ -13,5 +14,9 @@ urlpatterns = [
     url(r'^subscribe/', views.subscribe, name="subscribe"),
     url(r'^minus-archiv/(?P<day>[0-9]+)/$', views.archiv_of_minuses, name="archiv_of_minuses"),
     url(r'^minus-search/$',views.minus_search,name="minus-search"),
+    url(r'^get_authors/$',views.MinusAuthor.as_view(),name="get_minus_author")
 
 ]
+
+
+urlpatterns = format_suffix_patterns(urlpatterns)

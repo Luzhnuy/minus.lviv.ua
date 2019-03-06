@@ -8,18 +8,27 @@
 <div class="collapsible-body">
             <!-- Користувачі онлайн  -->
   <ul class="collection">
+    <div class="row">
     {% for online in users_online %}
-    <li class="collection-item avatar">
-        <a href="{% url 'user_page' pk=online.user_id %} " style="color:#6baf00;"><img src="{% static 'avatar_mini.jpg' %}" alt="" class="circle">
+    
+    <li class="collection-item avatar user col s12" style="
+    text-align:left;
+    clear:both;
+    display:block;
+    line-height: 3rem;">
       
-      <p style="color:black;">{{ online.user.first_name }}
+      <a href="{% url 'user_page' pk=online.user_id %} "  style="color:#6baf00;">
+        <img src="{% static 'avatar_mini.jpg' %}" alt="" class="circle">
+        <span style="display:none;">{{ online.user.id }}</span>
+        <p style="color:black;">{{ online.user.first_name }}
           {{ online.user.last_name }}
-      </p>
+        </p>
       </a>
       
     </li>
 
     {% endfor %}
+  </div>
  </ul>
 
 </div>
