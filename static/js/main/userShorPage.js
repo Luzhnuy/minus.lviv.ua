@@ -15,8 +15,7 @@ class UserShortProfile extends React.Component {
 
 	componentDidMount() {
     	fetch('http://127.0.0.1:8000/user/get_user/'+this.props.userId[0].textContent + '/').then(res => res.json()).then((result) => {
-              console.log('fetch work');
-              console.log(result);
+
 
           		this.setState({
             	isLoaded: true,
@@ -34,7 +33,7 @@ class UserShortProfile extends React.Component {
 
 
 	render(){
-      console.log(this.state.items);
+
     	// const { error, isLoaded, items } = this.state;
 		  return (
 			 <div className="usershortprofile" style={{width:'100%'}}>

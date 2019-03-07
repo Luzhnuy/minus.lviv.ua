@@ -6,4 +6,4 @@ class MinusAuthorSerializer(serializers.HyperlinkedModelSerializer):
 
 	class Meta:
 		model = MinusstoreMinusauthor
-		fields = ('name',)
+		fields = ('name','id')

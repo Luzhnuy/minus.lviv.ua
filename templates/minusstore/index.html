@@ -72,9 +72,10 @@
 		<div class="authors col s11 offset-s1">
 			<div class="row">
 				<h3>{% if letter %} Всі автори на {{ letter }} {% else %}Всі автори {% endif %}</h3>
-				<ul class="collapsible">
+                <span style="display:none;" id="letter">{{ letter }}</span>
+				<ul class="collapsible" id="authors">
 				{% for a in author|dictsort:'name' %}
-				<li>
+				<li class="authors_li">
 				    <div class="collapsible-header gaveminus" id="{{ a.id }}">
 				      <!-- <i class="material-icons">person</i> -->
 				      <a  style="text-decoration: underline;">{{ a.name }}</a>
@@ -90,21 +91,12 @@
 				  </li>
 				  {% endfor %}
 				</ul>
-				<div class="pagination">
-					<span class="step-links">
-							{% if author.has_previous %}
-								<a href="?page={{ author.previous_page_number }}">Попередня сторінка</a>
-							{% endif %}
-							<span class="current">
-									Сторінка {{ author.number }} з {{ author.paginator.num_pages }}.
-							</span>
-							{% if author.has_next %}
-								<a href="?page={{ author.next_page_number }}">Наступна сторінка</a>
-							{% endif %}
-					</span>
-				</div>
+
 			</div>
 		</div>
 </div>
 </section>
+{% endblock %}
+{% block script %}
+<script src="{% static 'js/minusstore/authorsList.js' %}" type="text/babel"></script>
 {% endblock %}

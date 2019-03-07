@@ -273,12 +273,12 @@ def minus_search(request):
 
 
 class MinusAuthor(APIView):
-    def get_objects(self):
+    def get_objects(self, letter):
 
-        return MinusstoreMinusauthor.objects.all().order_by('name')
+        return MinusstoreMinusauthor.objects.filter(name__startswith=letter)
 
-    def get(self,format=None):
-        authors=self.get_objects()
+    def get(self, request, letter='А', format=None):
+        authors=self.get_objects(letter)
         paginator = Paginator(authors, 40)
         page = self.request.GET.get('page')
         try:
@@ -290,5 +290,9 @@ class MinusAuthor(APIView):
         except EmptyPage:
             authors = paginator.page(paginator.num_pages)
             print('third')
-        authors = MinusAuthorSerializer(authors,many=True)
+
+        serializer_context = {
+                'request': request,
+            }
+        authors = MinusAuthorSerializer(authors,many=True, context = serializer_context)
         return Response(authors.data)

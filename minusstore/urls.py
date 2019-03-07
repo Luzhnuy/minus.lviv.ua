@@ -14,7 +14,7 @@ urlpatterns = [
     url(r'^subscribe/', views.subscribe, name="subscribe"),
     url(r'^minus-archiv/(?P<day>[0-9]+)/$', views.archiv_of_minuses, name="archiv_of_minuses"),
     url(r'^minus-search/$',views.minus_search,name="minus-search"),
-    url(r'^get_authors/$',views.MinusAuthor.as_view(),name="get_minus_author")
+    url(r'^get_authors/(?P<letter>[a-zA-Z0-9А-ЯЄІ]+)/$', views.MinusAuthor.as_view(), name="get_minus_author")
 
 ]
 
