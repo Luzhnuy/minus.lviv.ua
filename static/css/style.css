@@ -100,7 +100,10 @@ nav{
 .bottom_menu{
 	background-color:  #fff;
 
+}
 
+.bottom_menu .tabiks {
+    width:100%;
 }
 /*.bottom_menu li{
 	border-left: 0.5px solid #6baf00;
