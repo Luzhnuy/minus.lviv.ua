@@ -5,5 +5,10 @@
 	<button type="submit" class="sbm_auth waves-effect waves-light btn-small">Увійти</button>
 
 </form>
+<script>
+	var el = document.querySelector('.auth input[name="password"]');
+	console.log(el);
+	el.setAttribute('type', 'password');
+</script>
 <div class="url_to_reg"><a href="{% url 'registration_page' %}">Можливо ви хочете зараєструватись?</a></div>
 <div class="url_to_reg"><a href="{% url 'password_reset' %}">Або можливо ви забули пароль?</a></div>

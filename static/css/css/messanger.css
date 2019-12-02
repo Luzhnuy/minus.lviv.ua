@@ -1,0 +1,148 @@
+body{
+	overflow: hidden;
+
+}
+.chat_window{
+	height: 100vh;
+	overflow-x: hidden;
+	padding: 0px 10px 0px 0px;
+	box-sizing: border-box;
+
+}
+nav{
+	background-color: #fff;
+}
+nav  .username{
+	color:black;
+	font-weight: 800;
+	color:#6baf00;
+	margin-right: 5%;
+	font-size:1.5em;
+}
+
+.sender {
+	height: 100vh;
+	overflow-y: scroll;
+	position: fixed;
+	left:0;
+
+}
+.sender li{
+	width:100%;
+}
+.sender .title{
+	font-size:1em;
+}
+.chat_window_messages{
+
+	margin-top: 0px;
+	/* width: 80%; */
+	height:100vh;
+	/* padding: 10px 10px 10px 10px; */
+	box-sizing: border-box;
+	/* position: fixed;
+  right:0; */
+	padding-bottom: 50px;
+  overflow-y: scroll;
+}
+.left_message_row,.right_message_row{
+	padding: 15px;
+}
+
+.chat_window_field{
+	width:70%;
+	position:fixed;
+	bottom:0;
+	right:0;
+	box-shadow: 0 0 10px black;
+	margin-top: 10%;
+
+}
+.chat_window_field input{
+	width:70%;
+	background-color: #dedede;
+	color:black;
+
+
+}
+.chat_window_field button{
+	width:100%;
+	background-color: #6baf00;
+	color:#fff;
+	border-radius:10px 10px 10px 10px;
+}
+
+@media screen and (max-width: 992px) {
+	.chat_window_field{
+		width:100%;
+		position:fixed;
+		bottom:0;
+		right:0;
+		box-shadow: 0 0 10px black;
+		margin-top: 10%;
+
+	}
+	.chat_window_field input{
+		width:100%;
+		background-color: #dedede;
+		color:black;
+
+
+	}
+	.chat_window_field button{
+		width:100%;
+		background-color: #6baf00;
+		color:#fff;
+		border-radius:10px 10px 10px 10px;
+	}
+}
+
+.chat_window_field input::-webkit-input-placeholder {
+	color: black;
+}
+
+.left{
+	background-color: white;
+	border-radius: 5px;
+	margin-bottom: 5%;
+
+}
+
+.right{
+	border-radius: 5px;
+	background-color: lightgreen;
+		margin-bottom: 5%;
+}
+
+
+.message_text{
+	margin-bottom:0px;
+	padding: 10px 10px 10px 10px;
+
+}
+
+.message_time{
+	margin: 0px 10px;
+
+}
+
+
+
+#new_message_count{
+	font-size: 20px;
+
+}
+
+#search_field{
+	padding-top: 0px;
+
+}
+
+#search_field div{
+	margin-bottom: 0px
+}
+
+.hidden_a{
+	color: black;
+	text-decoration: none;
+}
