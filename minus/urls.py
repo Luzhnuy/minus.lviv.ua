@@ -26,4 +26,5 @@ urlpatterns = [
     url(r'^desks/', include('desks.urls')),
     url(r'^messanger/', include('messanger.urls')),
     url(r'^plusstore/', include('plusstore.urls')),
+    url(r'^albums/', include('album.urls')),
 ]

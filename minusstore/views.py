@@ -1,16 +1,17 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from minus.models import DjangoComments,Likedislike,DeliverySubscriber
-from minusstore.models import MinusstoreMinusauthor,MinusstoreMinusrecord,MinusstoreMinusrecordCategories,MinusstoreMinuscategory,MinusstoreMinusplusrecord,MinusstoreMinusrecordCategories,MinusstoreFiletype
+from minusstore.models import MinusstoreMinusauthor,MinusstoreMinusrecord,MinusstoreMinusrecordCategories,MinusstoreMinuscategory,MinusstoreMinusplusrecord,MinusstoreMinusrecordCategories,MinusstoreFiletype,MinusstoreMinusquality,MinusstoreMinusarrangement
+from user.models import UserActivitys,SubscribeOnComments
 import os
 import pdfkit
 import datetime
 from mutagen.mp3 import MP3
 from django.http import HttpResponse,HttpResponseRedirect
 from django.core import serializers
-from main.forms import AuthForm
+from main.forms import AuthForm,AddComments
 from minusstore.forms import AddMinusForm
 from django.contrib.auth.models import User
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView,UpdateView
 from django.views.decorators.cache import cache_page
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core import serializers
@@ -27,53 +28,131 @@ from minusstore.serializers import MinusAuthorSerializer
 def minusstore_main(request):
 
 	# signin(request,form)
-    author = MinusstoreMinusauthor.objects.all().order_by('name').filter(Q(name__startswith = 'А') | Q(name__startswith = "a"))
-    paginator = Paginator(author, 40)
-    page = request.GET.get('page')
-    try:
-        author = paginator.page(page)
-        print('first')
-    except PageNotAnInteger:
-        author = paginator.page(1)
-        print('second')
-    except EmptyPage:
-        author = paginator.page(paginator.num_pages)
-        print('third')
+    author = MinusstoreMinusauthor.objects.order_by('name').filter(Q(name__startswith = 'А') | Q(name__startswith = "a"))
+
+    folk_minus = MinusstoreMinusrecord.objects.order_by('title').filter(Q(title__startswith = 'А') | Q(title__startswith = "a"),is_folk=1)
 
     return render(request, 'minusstore/index.html' , {
-
+        'folk_minus' : folk_minus,
 		'author' : author,
 
 
-		})
+    })
+
+
+def minusstore_filter(request):
+    minuses = MinusstoreMinusrecord.objects.all()
+    z = []
+    for m in minuses:
+        if m.minus_appointment.name == request.GET['specifik'] and m.minus_genre.name == request.GET['genre']:
+            z.append(m)
+    minuses = z.value_list('name')
+    author = MinusstoreMinusauthor.objects.filter(name__in=minuses)
+    return render(request, 'minusstore/index.html' , {
+        'author' : author,
+    })
+
 
 
 def minusstore_minus(request,pk):
-
-		# signin(request,form)
     minus = get_object_or_404(MinusstoreMinusrecord,pk=pk)
     author = get_object_or_404(MinusstoreMinusauthor,pk=minus.author_id)
-    comments = DjangoComments.objects.filter(object_pk=minus.pk,content_type_id=17)
+    quality_rate = MinusstoreMinusquality.objects.filter(minus_id = minus.id)
+    count_quality_rate = quality_rate.count()
+    arrangement_rate = MinusstoreMinusarrangement.objects.filter(minus_id = minus.id)
+    count_arrangement_rate = arrangement_rate.count()
+    sum_q_rate = 0
+    for q_rate in quality_rate:
+        sum_q_rate = sum_q_rate + q_rate.rate
+
+    try:
+        quality_rate = sum_q_rate/count_quality_rate
+    except ZeroDivisionError:
+        quality_rate = 0
+    sum_a_rate = 0
+
+    for a_rate in arrangement_rate:
+        sum_a_rate = sum_a_rate + a_rate.rate
+
+    try:
+        arrangement_rate = sum_a_rate/count_arrangement_rate
+    except ZeroDivisionError:
+        arrangement_rate = 0
+
+    minus.all_rate = (quality_rate+arrangement_rate) / 2
+    minus.comments = DjangoComments.objects.filter(object_pk=minus.pk, content_type_id=17)
+
+    for c in minus.comments:
+        c.answer = DjangoComments.objects.filter(object_pk = c.id, content_type_id = 45)
+        c.likes = Likedislike.objects.filter(type_id= 45,object_id = c.pk,likes=1).count()
+        c.dislikes = Likedislike.objects.filter(type_id= 45,object_id = c.pk,likes=0).count()
     try:
         minus.plusrecord = MinusstoreMinusplusrecord.objects.get(minus_id=minus.id)
     except MinusstoreMinusplusrecord.DoesNotExist:
         minus.plusrecord=None
-    print('lol')
+
     likes = Likedislike.objects.filter(type_id= 17,object_id = minus.pk,likes=1).count()
-    print('kek')
+
     dislikes = Likedislike.objects.filter(type_id= 17,object_id = minus.pk,likes=0).count()
 
     minus_user = get_object_or_404(User,pk=minus.user_id)
     upload_minuses_from_user = MinusstoreMinusrecord.objects.filter(user_id=minus_user.id).count()
     minus.filesize = int(minus.filesize/1000000)
+    add_comment_form = AddComments(request.POST)
+    if request.user.is_authenticated:
+        try:
+            arrangement_assessment = MinusstoreMinusarrangement.objects.get(user_id = request.user.id,minus_id = minus.id)
+            minus.arrangement_assessment = arrangement_assessment.rate
+        except MinusstoreMinusarrangement.DoesNotExist:
+            minus.arrangement_assessment = ''
+        try:
+            quality_assessment = MinusstoreMinusquality.objects.get(user_id = request.user.id, minus_id = minus.id)
+            print('quality assessment >')
+            print(quality_assessment.rate)
+            minus.quality_assessment = quality_assessment.rate
+        except MinusstoreMinusquality.DoesNotExist:
+            minus.quality_assessment = ''
+        if request.method == "POST":
+            if add_comment_form.is_valid():
+                comment = add_comment_form.cleaned_data['comment']
+                if comment[0] == "@":
+                    comment = comment.split(" ")
+                    user = comment[0]
+                    comment_id = user.split('#')
+                    comment_id = comment_id[1]
+
+                    comment = user[0]
+                    add_comment = add_comment_form.save(commit=True,pk=comment_id,request=request,content_type_id=45)
+                else:
+                    add_comment = add_comment_form.save(commit=True,pk=pk,request=request,content_type_id=17)
+                if request.POST.get('subscribe'):
+                    for subscriber in SubscribeOnComments.objects.filter(content_type_id = 51, object_pk = pk):
+                        UserActivitys.objects.create(from_user = request.user,type='s',to_user_id = subscriber.user.id,activity_to=pk)
+                    try:
+                        SubscribeOnComments.objects.get(content_type_id = 51,object_pk = pk, user = request.user)
+                    except SubscribeOnComments.DoesNotExist:
+                        SubscribeOnComments.objects.create(
+							content_type_id=51,
+							object_pk = pk,
+							user = request.user
+						)
+                return render(request, 'minusstore/minus.html' , {
+                    'likes' : likes,
+                    'dislikes' : dislikes,
+                    'minus' : minus,
+                    'author' : author,
+                    'minus_user':minus_user,
+                    'upload_minuses' : upload_minuses_from_user,
+                    'add_comment_form':add_comment_form,
+                })
     return render(request, 'minusstore/minus.html' , {
         'likes' : likes,
         'dislikes' : dislikes,
         'minus' : minus,
         'author' : author,
-        'comments' : comments,
         'minus_user':minus_user,
         'upload_minuses' : upload_minuses_from_user,
+        'add_comment_form':add_comment_form,
     })
 
 
@@ -109,7 +188,7 @@ def pdf_generete(request,pk):
     }
     minus = get_object_or_404(MinusstoreMinusrecord,pk=pk)
     text= "<h1>"+minus.lyrics+"</h1>"
-    print(text)
+
     pdf = pdfkit.from_string(text, 'micro.pdf', options=options)
     response = HttpResponse(pdf, content_type="application/pdf")
     response['Content-Disposition'] = 'attachment; filename="micro.pdf"'
@@ -118,21 +197,11 @@ def pdf_generete(request,pk):
 # @cache_page(60 * 15)
 def letters_filter(request,letter):
     author = MinusstoreMinusauthor.objects.filter(name__startswith=letter)
-    paginator = Paginator(author, 40)
-    page = request.GET.get('page')
-    try:
-        author = paginator.page(page)
-        print('first')
-    except PageNotAnInteger:
-        author = paginator.page(1)
-        print('second')
-    except EmptyPage:
-        author = paginator.page(paginator.num_pages)
-        print('third')
+
+    minus_folk = MinusstoreMinusrecord.objects.filter(title__startswith=letter,is_folk=1)
 
 
-
-    return render(request, 'minusstore/index.html' , {'author' : author,'letter':letter})
+    return render(request, 'minusstore/index.html' , {'author' : author,'letter':letter,'minus_folk':minus_folk})
 
 def gave(request,author_id):
     minuss = MinusstoreMinusrecord.objects.filter(author_id=int(author_id))
@@ -142,19 +211,17 @@ def gave(request,author_id):
 
 def archiv_of_minuses(request,day):
     date = datetime.date.today()
-    print(date.year)
     minuses = MinusstoreMinusrecord.objects.filter(pub_date__year=date.year,pub_date__month=date.month,pub_date__day=day)
     paginator = Paginator(minuses, 10)
     page = request.GET.get('page')
     try:
         minuses = paginator.page(page)
-        print('first')
     except PageNotAnInteger:
         minuses = paginator.page(1)
-        print('second')
+
     except EmptyPage:
         minuses = paginator.page(paginator.num_pages)
-        print('third')
+
     # minus = MinusstoreMinusrecord.objects.filter(pub_date__year='2015',pub_date__month='6'.month,pub_date__day=day)
     return render(request,'user/user_minuses.html',{'minus':minuses,'z':day,})
 
@@ -174,9 +241,20 @@ def subscribe(request):
             'k':k
         })
 
+def all_minuses_by_date(request):
+    minuses = MinusstoreMinusrecord.objects.order_by('-pub_date')
+    paginator = Paginator(minuses, 40)
+    page = request.GET.get('page')
+    try:
+        minuses = paginator.page(page)
+    except PageNotAnInteger:
+        minuses = paginator.page(1)
+    except EmptyPage:
+        minuses = paginator.page(paginator.num_pages)
+
+    return render(request, 'user/user_minuses.html', {'minus': minuses,'all_minuses':True})
 
 def add_minus(request):
-    print('lol')
     if request.user.is_authenticated:
 
         form_add_minus = AddMinusForm(request.POST)
@@ -185,21 +263,12 @@ def add_minus(request):
         if request.method == "POST" and request.FILES:
             form_add_minus = AddMinusForm(request.FILES, request.POST)
             if form_add_minus.is_valid():
-                print('zbs')
                 minusrecord = form_add_minus.save(commit=False)
-                # f = MP3(minusrecord.minus)
-                # print(f.info.bitrate/1000)
-
-                print(minusrecord.author)
-                # print(f.info.length)
-
-
                 z = False
                 for i in MinusstoreMinusauthor.objects.all():
                     if minusrecord.author.lower() == i.name.lower():
                         minusrecord.author = i
                             # Якщо воно стане тру то воно найшло такого автора і записало
-                        print('lol')
                         z = True
                     else:
                         continue
@@ -208,8 +277,7 @@ def add_minus(request):
                      MinusstoreMinusauthor.objects.create(name=minusrecord.author)
                      minusrecord.author = MinusstoreMinusauthor.objects.latest('id')
 
-                     print('kek')
-                print('автор',author)
+
 
 
 
@@ -224,17 +292,18 @@ def add_minus(request):
 
                 if request.FILES['plus']:
                     MinusstoreMinusplusrecord.objects.create(minus_id = MinusstoreMinusrecord.objects.latest('id'),user_id = request.user.id,file=request.FILES['plusrecord'])
-                print('plus')
+
                 minusrecord.save()
                 return HttpResponseRedirect('add_minus')
             else:
-                print('форма не валiдна')
-                return HttpResponseRedirect('add_minus')
+                print("NOT VALID !!! NOT VALID !!!")
+                return render(request, 'minusstore/add_minus.html' , {
+                    'minuscategory':minuscategory,
+            	    "form_add_minus" : form_add_minus,
+                    'minustype' : minustype,
+            	})
         else:
             form_add_minus = AddMinusForm()
-            print('Хуй вам а не реквест метод')
-            # print(minuscategory)
-            # print(minustype)
             return render(request, 'minusstore/add_minus.html' , {
                 'minuscategory':minuscategory,
         	    "form_add_minus" : form_add_minus,
@@ -244,10 +313,16 @@ def add_minus(request):
 
 
     else:
-        print('yobanuy')
+
         return HttpResponseRedirect('../../')
 
 
+
+
+class MinusRecordUpdate(UpdateView):
+    model = MinusstoreMinusrecord
+    fields = ['title','file','annotation','minus_genre','minus_appointment','lyrics','plusrecord']
+    template_name_suffix = '_update_form'
 
 def minus_search(request):
     minuses = MinusstoreMinusrecord.objects.filter(title__startswith = request.GET['search'])
@@ -255,13 +330,13 @@ def minus_search(request):
     page = request.GET.get('page')
     try:
         minuses = paginator.page(page)
-        print('first')
+
     except PageNotAnInteger:
         minuses = paginator.page(1)
-        print('second')
+
     except EmptyPage:
         minuses = paginator.page(paginator.num_pages)
-        print('third')
+
 
     return render(request,'user/user_minuses.html',{'minus':minuses,'k':True})
 
@@ -269,7 +344,30 @@ def minus_search(request):
 
 
 # API
+def minusarrangement(request,user_id,minus_id,assessment):
+    try:
+        minus_arrangement = MinusstoreMinusarrangement.objects.get(minus_id = minus_id, user_id = user_id)
+        minus_arrangement.rate = assessment
+        minus_arrangement.save()
+        return HttpResponse(assessment)
 
+    except MinusstoreMinusarrangement.DoesNotExist:
+        minus_arrangement = MinusstoreMinusarrangement.objects.create(minus_id = minus_id, user_id = user_id , rate = assessment)
+        minus_arrangement.save()
+        return HttpResponse(assessment)
+
+
+def minusquality(request,user_id,minus_id,assessment):
+    try:
+        minus_quality = MinusstoreMinusquality.objects.get(minus_id = minus_id, user_id = user_id)
+        minus_quality.rate = assessment
+        minus_quality.save()
+        return HttpResponse(assessment)
+
+    except MinusstoreMinusquality.DoesNotExist:
+        minus_quality = MinusstoreMinusquality.objects.create(minus_id = minus_id, user_id = user_id , rate = assessment)
+        minus_quality.save()
+        return HttpResponse(assessment)
 
 
 class MinusAuthor(APIView):
@@ -283,13 +381,13 @@ class MinusAuthor(APIView):
         page = self.request.GET.get('page')
         try:
             authors = paginator.page(page)
-            print('first')
+
         except PageNotAnInteger:
             authors = paginator.page(1)
-            print('second')
+
         except EmptyPage:
             authors = paginator.page(paginator.num_pages)
-            print('third')
+
 
         serializer_context = {
                 'request': request,

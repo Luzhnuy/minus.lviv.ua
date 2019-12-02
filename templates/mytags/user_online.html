@@ -1,8 +1,9 @@
 {% load static %}
+{% load my_tags %}
 <div class="collapsible-header tops">
 
               <i class="material-icons">person</i>
-              Користувачі онлайн 
+              Користувачі онлайн
               <span class="badge">{{ count }}</span>
 </div>
 <div class="collapsible-body">
@@ -10,21 +11,21 @@
   <ul class="collection">
     <div class="row">
     {% for online in users_online %}
-    
+
     <li class="collection-item avatar user col s12" style="
     text-align:left;
     clear:both;
     display:block;
     line-height: 3rem;">
-      
+
       <a href="{% url 'user_page' pk=online.user_id %} "  style="color:#6baf00;">
-        <img src="{% static 'avatar_mini.jpg' %}" alt="" class="circle">
+        <img src="/static/{% avatar pk=online.user.id %}" alt="" class="circle">
         <span style="display:none;">{{ online.user.id }}</span>
         <p style="color:black;">{{ online.user.first_name }}
           {{ online.user.last_name }}
         </p>
       </a>
-      
+
     </li>
 
     {% endfor %}

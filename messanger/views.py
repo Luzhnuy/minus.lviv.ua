@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from minus.models import MessagesMessage
 from django.contrib.auth.models import User
 from django.db.models import Q
@@ -17,6 +18,9 @@ def messanger(request):
             print(i.new)
             print('messanger sender if exist new')
         return render(request, 'messanger/messanger.html' , {'sender':sender,})
+    else:
+        return HttpResponseRedirect('/')    
+    
 
 
 
@@ -31,9 +35,8 @@ def messages(request,pk):
         sender = User.objects.filter(Q(id__in = sender.values('sender_id'))|Q(id__in = sender.values('recipient_id'))).order_by('-id')
         for i in sender:
             i.new = NewMessagesChannels.objects.filter(frm_user = i.id)
-            print(i.new)
-            print('messanger sender if exist new')
-        return render(request, 'messanger/messanger.html' , {'messages':messages,'sender':sender,'pk':pk,})
+        recipient = User.objects.get(id = pk)
+        return render(request, 'messanger/messanger.html' , {'messages':messages,'sender':sender,'pk':pk,'recipient':recipient})
 
 def users_search(request):
     users_all = User.objects.all()

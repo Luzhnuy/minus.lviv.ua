@@ -1,6 +1,9 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
+from main.models import ModeratorMessages
+from album.models import PhotosPhotoalbum, PhotosPhoto
+from .models import UserPost,Userprofile
 from django.shortcuts import render
 import datetime
 from django.contrib.auth.forms import AuthenticationForm
@@ -31,6 +34,25 @@ class UserCreateForm(UserCreationForm):
         print('W')
         return user
 
+
+
+class AddUserPost(forms.ModelForm):
+
+    class Meta:
+        model = UserPost
+        fields = ('text','image')
+
+    def save(self,request,commit=True):
+        post = super(AddUserPost,self).save(commit=False)
+        post.userprofile = Userprofile.objects.get(user_id = request.user.id)
+        if commit:
+            post.save()
+
+        return post
+
+
+
+
 class EmailAuthenticationForm(AuthenticationForm):
     def clean_username(self):
         username = self.data['username']
@@ -48,3 +70,25 @@ class EmailAuthenticationForm(AuthenticationForm):
                 return HttpResponseRedirect('false_auth')
 
         return username
+
+class AddModeratorMessagesForm(forms.ModelForm):
+    class Meta:
+        model = ModeratorMessages
+        fields = ('attention_message',)
+
+    def save(self,request,content_type_id,object_pk,commit=True):
+        post = super(AddModeratorMessagesForm,self).save(commit=False)
+        post.user = request.user
+        post.content_id = content_type_id
+        post.object_pk = object_pk
+        if commit:
+            print("add moderator messages form presave")
+            post.save()
+            print("add moderator messages form save")
+
+        return post
+
+class AddPhotoForm(forms.ModelForm):
+    class Meta:
+        model = PhotosPhoto
+        fields = ('title','image',)

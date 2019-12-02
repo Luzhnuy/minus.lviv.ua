@@ -19,17 +19,18 @@
 		{% letters %}
 
 		<div class="main_new col s12 l11 offset-l1">
-			<span>Банер-кнопка.Важлива новина</span>
+			{% autoescape off %}{% main_banner %}{% endautoescape %}
+			<!-- <span>Банер-кнопка.Важлива новина</span> -->
 
 		</div>
 		{% if request.user.is_authenticated%}
 			{% if request.user.is_staff %}
-				<div class="col s12 l9 main_btn offset-l4">
+				<div class="col s12 l9 main_btn offset-l4" id="addNewBtn">
 					<div class="row">
 						<a class="waves-effect waves-light btn-large col s6 " href="{% url 'add_new' %}"><i class="material-icons right" style="color:red;">add</i>Додати новину</a>
-					</div>	
+					</div>
 				</div>
-			{% endif %}	
+			{% endif %}
 		{% endif %}
 		<div class="all_news col s12 l11 offset-l1">
 			<div class="row">
@@ -50,7 +51,7 @@
 								<a class="waves-effect waves-light btn-large col s9" href="{% url 'user_page' pk=new.user.id %}"><i class="material-icons left">perm_identity</i>{{ new.user.first_name }} {{ new.user.last_name }}, {{ new.pub_date }}}</a>
 								{% if new.allow_comments %}
 									<a class="waves-effect waves-light btn-large col s3 comments" id="{{ new.id }}"  ><i class="material-icons left">comment</i>{{ new.comments_count }}</a>
-								{% endif %}	
+								{% endif %}
 								<!-- <span id="k" style="display: none;"></span> -->
 							</div>
 						</div>

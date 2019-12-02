@@ -14,6 +14,7 @@ application = ProtocolTypeRouter({
      "websocket": AuthMiddlewareStack(
         URLRouter([
             url(r"^(?P<pk>[0-9]+)/$", consumers.LiveuserConsumer),
+            # url(r"None/", consumers.LiveuserConsumer),
             url(r'^messanger/(?P<pk>[0-9]+)/$', consumers.MessangerConsumer),
         ])
     ),

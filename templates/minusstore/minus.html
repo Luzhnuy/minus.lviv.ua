@@ -1,36 +1,87 @@
 {% extends 'base.html' %}
-
+<span style="display:none;" id="content_type_id">17</span>
 {% load staticfiles %}
-
+{% load my_tags %}
 {% block content %}
 <section class="col s6">
 	<div class="row">
-		<div class="header col s11 offset-s1">
+		<span id="minus_id" style="display:none;">{{ minus.id }}</span>
+		<span id="user_id" style="display:none;"> {{ request.user.id }} </span>
+		<!-- Modal -->
+			<div id="modal1" class="modal">
+					<div class="modal-content" style="text-align:center">
+						<h4>Оцiнiть якicть мiнуса</h4>
+						<a class='waves-effect waves-light btn-small quality-number'>1</a>
+						<a class='waves-effect waves-light btn-small quality-number'>2</a>
+						<a class='waves-effect waves-light btn-small quality-number'>3</a>
+						<a class='waves-effect waves-light btn-small quality-number'>4</a>
+						<a class='waves-effect waves-light btn-small quality-number'>5</a>
+						<a class='waves-effect waves-light btn-small quality-number'>6</a>
+						<a class='waves-effect waves-light btn-small quality-number'>7</a>
+						<a class='waves-effect waves-light btn-small quality-number'>8</a>
+						<a class='waves-effect waves-light btn-small quality-number'>9</a>
+						<a class='waves-effect waves-light btn-small quality-number'>10</a>
+					</div>
+					<!-- <div class="modal-footer">
+						<a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+					</div> -->
+				</div>
+				<div id="modal2" class="modal">
+						<div class="modal-content" style="text-align:center">
+							<h4>Оцiнiть якiсть аранжування мiнуса</h4>
+							<a class='waves-effect waves-light btn-small arrangement-number'>1</a>
+							<a class='waves-effect waves-light btn-small arrangement-number'>2</a>
+							<a class='waves-effect waves-light btn-small arrangement-number'>3</a>
+							<a class='waves-effect waves-light btn-small arrangement-number'>4</a>
+							<a class='waves-effect waves-light btn-small arrangement-number'>5</a>
+							<a class='waves-effect waves-light btn-small arrangement-number'>6</a>
+							<a class='waves-effect waves-light btn-small arrangement-number'>7</a>
+							<a class='waves-effect waves-light btn-small arrangement-number'>8</a>
+							<a class='waves-effect waves-light btn-small arrangement-number'>9</a>
+							<a class='waves-effect waves-light btn-small arrangement-number'>10</a>
+						</div>
+						<!-- <div class="modal-footer">
+							<a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+						</div> -->
+					</div>
+		<!--  end Modal -->
+		<div class="header col s12 m10 offset-m1">
 			<div class="row">
 				<div class="col s12 author">
 
 					<p><span><i class="large material-icons">accessibility</i></span> {{ author.name }}</p>
 				</div>
 				<div class="col s6 name">
-					<p><span><i class="large material-icons">audiotrack</i></span> {{ minus.title }}</p>
+					<h1><span><i class="large material-icons">audiotrack</i></span> {{ minus.title }}</h1>
 
 				</div>
 				<div class="col s6 minus_main_btn">
 					<div class="row">
-						{% if request.user.is_staff %}<a class="waves-effect waves-light btn-large col s12">Редагувати</a> {% endif %}
+						{% if request.user.is_staff %}<a href="{% url 'minus-update' pk=minus.id %}" class="waves-effect waves-light btn-large col s12">Редагувати</a> {% endif %}
 						{% if request.user.is_authenticated %}
 						<a class="waves-effect waves-light btn-large col s12" href="{% url 'add_moderator_message' object_pk=minus.id  content_id=17 %}">Повідомити модератора</a>
 						{% endif %}
 					</div>
 				</div>
-				<div class="col s12 about_minus">
+            <div class="col s12 user_which_upload">
+					<div class="row">
+            <div class="col s4 information_about">
+                <p><b>Мінусовку завантажив:</b></p>
+							<div class="avatar_mini col s4">
+								<img src="/static/{% avatar pk=minus.user.pk %}"  class="circle responsive-img" alt="">
+								<!--силка на месенджер  -->
+							</div>
+							<p><a href="{% url 'user_page' pk=minus.user.pk %}">{{ minus_user.first_name }} {{ minus_user.last_name }}</a><br><a href="{% url 'message_user' pk=minus.user.pk %}"><i class="material-icons left">message</i></a></p><br>
+							<p>Всього завантежених мінусовок ({{ upload_minuses }})</p>
+						</div>
+				<div class="col s4 about_minus">
 					      <table>
 					        <thead>
 					          <tr>
-					              <th>Мінусовку додав</th>
+
 								  <th>Бітрейт </th>
 								  <th>Розмір</th>
-					              <th>Тип файлу</th>
+					              <th>Тип</th>
 					              <th>Тривалість</th>
 					              <th>Дата </th>
 					          </tr>
@@ -38,7 +89,7 @@
 
 					        <tbody>
 					          <tr>
-					            <td>{{ minus_user.username }}</td>
+
 					            <td>{{ minus.bitrate }}</td>
 					            <td>{{ minus.filesize }} Мб</td>
 					            <td>Аудіо</td>
@@ -49,6 +100,8 @@
 					        </tbody>
 					      </table>
 				</div>
+                    </div>
+            </div>
 				<div class="col s12 minus">
 					<div class="audio col s6">
 						<audio src="/static/{{ minus.file }}" controls controlsList="nodownload"></audio>
@@ -56,7 +109,7 @@
 					{% if request.user.is_authenticated %}
 					<div class="download_btn col s1 ">
 
-							<a class="waves-effect waves-light btn-small ">Завантажити</a>
+							<a class="waves-effect waves-light btn-small" href="/static/{{ minus.file }}">Завантажити</a>
 
 </div>
 <div class="howmany col s3 offset-s2">
@@ -66,8 +119,8 @@
 	{% else %}
 	<p style="clear:both;"> Щоб завантажити мінусовку <a href="{% url 'main' %}">увійдіть</a> або <a href="{% url 'registration_page' %}">зареєструйтесь</a></p>
 	<div class="howmany col s3">
-		<p>Прослухано:800</p>
-		<p>Завантажено: 153</p>
+		<p>Прослухано:0</p>
+		<p>Завантажено: 0</p>
 	</div>
 	{% endif %}
 
@@ -76,53 +129,51 @@
 				<div class="col s12 social_btn">
 				{% if request.user.is_authenticated %}
 					<a class="waves-effect waves-light btn-large like" id="{{ minus.id }}"><i class="material-icons left">mood</i><span>
-						{{ likes }} </span><span style="display:none;" id="userl">{{ request.user.id }}</span></a>
+						{{ likes }} </span><span style="display:none;" id="userl">{{ request.user.pk }}</span></a>
 					<a class="waves-effect waves-light btn-large dislike" id="{{ minus.id }}"><i class="material-icons left">mood_bad</i><span>
 				{{ dislikes }}</span></a>
 
 				{% else %}
 				<a class="waves-effect waves-light btn-large like"><i class="material-icons left">mood</i><span>
-				{{ likes }} </span><span style="display:none;" id="userl">{{ request.user.id }}</span></a>
+				{{ likes }} </span><span style="display:none;" id="userl">{{ request.user.pk }}</span></a>
 				<a class="waves-effect waves-light btn-large dislike" ><i class="material-icons left">mood_bad</i><span>
 				{{ dislikes }} </span></a>
 				{% endif %}
-					<a class="waves-effect waves-light btn-large tooltipped" data-position="bottom" data-tooltip="<a class='waves-effect waves-light btn-small '>1</a><a class='waves-effect waves-light btn-small '>2</a><a class='waves-effect waves-light btn-small '>3</a><a class='waves-effect waves-light btn-small '>4</a><a class='waves-effect waves-light btn-small '>5</a><a class='waves-effect waves-light btn-small '>6</a><a class='waves-effect waves-light btn-small '>7</a><a class='waves-effect waves-light btn-small '>8</a><a class='waves-effect waves-light btn-small '>9</a><a class='waves-effect waves-light btn-small '>10</a>">Якість запису: <span>10</span></a>
-					<a class="waves-effect waves-light btn-large tooltipped" data-position="bottom" data-tooltip="<a class='waves-effect waves-light btn-small '>1</a><a class='waves-effect waves-light btn-small '>2</a><a class='waves-effect waves-light btn-small '>3</a><a class='waves-effect waves-light btn-small '>4</a><a class='waves-effect waves-light btn-small '>5</a><a class='waves-effect waves-light btn-small '>6</a><a class='waves-effect waves-light btn-small '>7</a><a class='waves-effect waves-light btn-small '>8</a><a class='waves-effect waves-light btn-small '>9</a><a class='waves-effect waves-light btn-small '>10</a>">Аранжування: <span>10</span></a>
-					<a class="waves-effect waves-light btn-large tooltipped" data-position="bottom" data-tooltip="<a class='waves-effect waves-light btn-small '>1</a><a class='waves-effect waves-light btn-small '>2</a><a class='waves-effect waves-light btn-small '>3</a><a class='waves-effect waves-light btn-small '>4</a><a class='waves-effect waves-light btn-small '>5</a><a class='waves-effect waves-light btn-small '>6</a><a class='waves-effect waves-light btn-small '>7</a><a class='waves-effect waves-light btn-small '>8</a><a class='waves-effect waves-light btn-small '>9</a><a class='waves-effect waves-light btn-small '>10</a>">Загальний рейтинг: <span>8.5</span></a>
+					<a class="waves-effect waves-light btn-large modal-trigger" href="#modal1" id="quality">Якість запису: <span>{{ minus.quality_assessment }}</span></a>
+					<a class="waves-effect waves-light btn-large modal-trigger" href="#modal2" id="arrangement">Аранжування: <span>{{ minus.arrangement_assessment }}</span></a>
+
+					<a class="waves-effect waves-light btn-large ">Загальний рейтинг: <span>{{ minus.all_rate }}</span></a>
+					<script src="{% static 'js/minusstore/ratings.js' %}"></script>
 				</div>
 				<div class="col s12 user_which_upload">
 					<div class="row">
-						<div class="col s6 information_about">
-							<p>Мінусовку завантажив:</p>
-							<div class="avatar_mini col s4">
-								<img src="{% static 'avatar_mini.jpg' %}"  class="circle responsive-img" alt="">
-							</div>
-							<p>{{ minus_user.first_name }} {{ minus_user.last_name }}<a href="#"><i class="material-icons left">message</i></a></p>
-							<p>Всього завантежених мінусовок ({{ upload_minuses }})</p>
+                        <div class="col s11  more_about_minus_from_uploader">
+							<p>{{  minus.annotation }} </p>
 						</div>
-						<div class="col s5 offset-s1 more_about_minus_from_uploader">
-							<p>Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. </p>
-						</div>
+
+
 					</div>
 				</div>
+
+
 				<div class="col s12 more_about">
 					<div class="row">
 						<div class="col s12 main_more_about_p ">
 							<p>Додаткові дані:
 							</p>
 						</div>
-						<div class="col s4 left"><p>Автор аранжування<span></p></div>
-						<div class="col s1 line">_____</div>
-						<div class="col s4"><p>Вальс</p></div>
-						<div class="col s4 left"><p>Вид каталогу</p></div>
-						<div class="col s1 line">_____</div>
-						<div class="col s4"><p>Помірна</p></div>
-						<div class="col s4 left"><p>Вид за призначенням</p></div>
-						<div class="col s1 line">_____</div>
-						<div class="col s4"><p>Соло</p></div>
-						<div class="col s4 left"><p>Належить до жанру</p></div>
-						<div class="col s1 line">_____</div>
-						<div class="col s4"><p>Обрядові(весілля,свята)</p></div>
+						<div class="col  left"><p>Автор аранжування<span></p></div>
+						<div class="col  line">_____</div>
+						<div class="col "><p>{{ minus.arrangeuathor }}</p></div><div class="col s12"></div>
+						<div class="col  left"><p>Вид каталогу</p></div>
+						<div class="col  line">_____</div>
+						<div class="col "><p>{{ minus.category }}</p></div><div class="col s12"></div>
+						<div class="col  left"><p>Вид за призначенням</p></div>
+						<div class="col  line">_____</div>
+						<div class="col "><p>{{ minus.minus_appointment }}</p></div><div class="col s12"></div>
+						<div class="col  left"><p>Належить до жанру</p></div>
+						<div class="col  line">_____</div>
+						<div class="col "><p>{{ minus.minus_genre }}</p></div><div class="col s12"></div>
 
 
 					</div>
@@ -146,92 +197,72 @@
 				<div class="col s12 text_of_track">
 					<p>Текст пісні</p>
 					<a class="waves-effect waves-light btn-large" href="{% url 'generete_pdf' pk=minus.id %}"><i class="material-icons left">cloud_download</i>Завантажити текст</a>
-					<p class="col s5"><!-- {Якби на річку покласти кладку,
-											І через неї перейти.
-											Якби забути щире кохання,
-											І до дівчини більш не йти.
-
-											Ой знаю, занаю Ти мій миленький,
-											Що Ти аж трьох нас полюбив.
-											Тільки не знаю Ти мій миленький,
-											Котру на серці залишив.
-
-											Одну любив я за карі очі,
-											Другу любив за красоту.
-											А тая третя сумна ходила,
-											Лишилась в серці моєму.
-
-											Ой вийшла мила на крутий берег,
-											Там де плавають кораблі.
-											Скочила вводу згубила вроду,
-											Знайшла притулочок собі.
-
-											За нею милий на крутий берег,
-											Там де плавають кораблі.
-											Вийняв хустину кинув на воду,
-											Візьми миленька – це Тобі.
-
-											Візьми миленька зав'яжи рану,
-											Щоб не розмила її вода.
-											Ті карі очі, той стан дівочий,
-											Що нахилився вже до дна.
-
-											І став дрібненький дощ накрапати,
-											Висока хвиля виграва.
-											Усі дівчата гуляють в парі,
-											Моєї милої нема.
-
-											І вже на річку поклали кладку,
-											Я через річку перейшов.
-											Я не забув те щире кохання,
-											Хоч до дівчини більш не йшов.} -->
-					{{ minus.lyrics }}</p>
+					<p class="col s12 m5 s12">{{ minus.lyrics }}</p>
 				</div>
 				{% endif %}
 				<div class="col s12 video">
 					<iframe width="560" height="315" src="https://www.youtube.com/embed/082v4qv7lAA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 				</div>
 				<div class="col s12 comments_in_minusstore">
-					<p>Коментарі:</p>
-					{% for c in comments %}
+					<p>Коментарі({{ count }}):</p>
+					{% load my_tags %}
+					{% for c in minus.comments %}
 					<div class="comment col s12">
-						<div class="avatar_mini col s4">
-							<a href="{% url 'user_page' pk=c.user.id%}">
-								<img src="{% static 'avatar_mini.jpg' %}"  class="circle responsive-img" alt="">
+						<div class="avatar_mini col s2">
+							<a href="{% url 'user_page' pk=c.user.pk %}">
+								<img src="/static/{% avatar pk=c.user.pk %}"  class="responsive-img" alt="">
 							</a>
 						</div>
-						<p style="font-weight: bold;"><a href="{% url 'user_page' pk=c.user.id%}" style="color:#6baf00;">{{ c.user.username }}</a></p>
-						<p style="float:rigth;">{{ c.comment }}</p>
+						<p style="font-weight: bold;"><a href="{% url 'user_page' pk=c.user.pk%}" style="color:#6baf00;">{% if c.user.first_name %} {{ c.user.first_name }} {{ c.user.last_name }}{% else %}{{ c.user.username }}{% endif %}</a></p>
+						<p style="font-size:1em;">{{ c.comment }}</p>
 						<div class="social_btn">
 						{% if request.user.is_authenticated %}
-							<a class="waves-effect waves-light btn-large like" id="{{ minus.id }}"><i class="material-icons left">mood</i><span>
-							{{ likes }} </span><span style="display:none;" id="userl">{{ request.user.id }}</span></a>
-							<a class="waves-effect waves-light btn-large dislike" id="{{ minus.id }}"><i class="material-icons left">mood_bad</i><span>
-							{{ dislikes }}</span></a>	
+							<a class="waves-effect waves-light btn-large likeC" id="{{ c.pk }}"><i class="material-icons left">mood</i><span>
+							{{ c.likes }} </span><span style="display:none;" id="userl">{{ request.user.pk }}</span></a>
+							<a class="waves-effect waves-light btn-large dislikeC" id="{{ c.pk }}"><i class="material-icons left">mood_bad</i><span>
+							{{ c.dislikes }}</span></a>
 
 						{% else %}
-							<a class="waves-effect waves-light btn-large like"><i class="material-icons left">mood</i><span>
-							{{ likes }} </span><span style="display:none;" id="userl">{{ request.user.id }}</span></a>
-							<a class="waves-effect waves-light btn-large dislike" ><i class="material-icons left">mood_bad</i><span>
-							{{ dislikes }} </span></a>
+							<a class="waves-effect waves-light btn-large likeC"><i class="material-icons left">mood</i><span>
+							{{ c.likes }} </span><span style="display:none;" id="userl">{{ request.user.pk }}</span></a>
+							<a class="waves-effect waves-light btn-large dislikeC" ><i class="material-icons left">mood_bad</i><span>
+							{{ c.dislikes }} </span></a>
 						{% endif %}
-						</div>							
+						</div>
+						<a class="waves-effect waves-light btn-small answer" comment_id="{{ c.id }}"  username="{{ c.user.username }}" style="float:right;color:#6baf00;background-color:#fff;">Відповісти</a>
+						{% for a in c.answer %}
+							<hr />
+							<div class="comment col s10 offset-s2">
+								<div class="avatar_mini col s2">
+									<a href="{% url 'user_page' pk=a.user.pk%}">
+										<img src="/static/{% avatar pk=a.user.pk %}"  class="responsive-img" alt="">
+									</a>
+								</div>
+								<p style="font-weight: bold;"><a href="{% url 'user_page' pk=a.user.pk%}" style="color:#6baf00;">{% if a.user.first_name %} {{ a.user.first_name }} {{ a.user.last_name }}{% else %}{{ a.user.username }}{% endif %}</a></p>
+								<p style="font-size:1em;">{{ a.comment }}</p>
+							</div>
+						{% endfor %}
 					</div>
 					{% endfor %}
+					{% if request.user.is_authenticated %}
 					<div class="add_comment">
 						<form  method="POST">
-							<textarea name="comment_body"   cols="30" rows="15" placeholder="Залиште коментар"></textarea>
-								<button type="submit" class="waves-effect waves-light btn-small">
+							{% csrf_token %}
+							{{ add_comment_form.as_p }}
+								<button type="submit" id="comment_form" class="waves-effect waves-light btn-small">
 									Відправити
 								</button>
 
       								<label>
-        								<input type="checkbox" />
-        								<span>Підписатись на коментарі до цього мінуса</span>
+        								<input type="checkbox" name="subscribe" />
+        								<span>Підписатись на коментарі до цього мiнуса</span>
       								</label>
 
 						</form>
+
 					</div>
+
+					{% endif %}
 				</div>
 			</div>
 		</div>

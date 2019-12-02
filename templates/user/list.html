@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% load staticfiles %}
-
+{% load my_tags %}
 {% block content %}
 
 <section class="col s6">
@@ -19,7 +19,7 @@
     	</form>
 
 
-		<div class="authors col s11 offset-s1 list">
+		<div class="authors col s12 m10 offset-m1 list">
 			<div class="row">
 				<h3>Користувачі</h3>
 
@@ -27,7 +27,7 @@
 				<div class="col s12">
 					<ul class="collection">
 						    <li class="collection-item avatar">
-						      <img src="{% static 'avatar_mini.jpg' %}" alt="" class="circle">
+						      <img src="/static/{% avatar pk=u.id %}" alt="" class="circle">
 						      <span class="title" style="color:#9ACD32;">{{ u.username }}</span>
 						      <p style="font-weight: bold;">{{ u.first_name }} {{ u.last_name }} <br>
 						        {{ u.email }}

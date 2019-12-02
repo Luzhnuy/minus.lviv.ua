@@ -1,15 +1,15 @@
 
-{% extends 'base.html' %}
+{% extends 'base_2.html' %}
 
 {% load staticfiles %}
-
+{% load my_tags %}
 {% block content %}
-<section class="col s6">
+<section class="col s12">
 	<div class="row">
-		<div class="col s11 offset-s1 photo_and_contact">
+		<div class="col s12 m10 offset-m1 photo_and_contact">
 			<div class="row">
 				<div class="avatar_mini col s3">
-					<img src="{% static 'avatar_mini.jpg' %}"  class="rectengular responsive-img" alt="">
+					<img src="/static/{% avatar pk=user.user.pk %}"  class="rectengular responsive-img materialboxed" alt="">
 					<div>
 						<table>
 							<tr>
@@ -24,32 +24,56 @@
 					</div>
 				</div>
 				<div class="col s9 name_and_lastname">
-					<p>{{ user.u.first_name }} {{ user.u.last_name }}</p>
+					<h1>{{ user.user.first_name }} {{ user.user.last_name }}</h1>
+					{% if request.user.id == user.user.id %}<span style="float:right;"><a class="waves-effect waves-light btn-small" style="background-color:#F15A24;" href="{% url 'profile_update' pk=user.id %}">Редагувати профіль</a></span>{% endif %}
 				</div>
 
 				<div class="col s9 status">
-					<p style="color: green;">{{ user.status_title }}</p>
+					{% if user.user.is_superuser == 1 %}<p style="color: red;"> Адміністратор {% else %}<p style="color: green;">{{ user.status_title }}{% endif %}</p>
 					<pre><p>Рейтинг:   {{ user.rating.rating }}</p></pre>
-					<p><pre>Заслуги:    <i class="material-icons">star</i><i class="material-icons">star</i><i class="material-icons">star</i></pre></p>
-					<p>На сайті з: {{ user.u.date_joined }}</p>
-					<p>Востаннє заходив: {{ user.u.last_login }}</p>
-					<div style="display: inline-block;"><a style="text-decoration: none; color: green;" href="#">Товари користувача</a></div><br>
+					<p><pre>Заслуги: </pre> </p>
+					<!--  <i class="material-icons">star</i><i class="material-icons">star</i><i class="material-icons">star</i>< -->
+					<p>На сайті з: {{ user.user.date_joined }}</p>
+					<p>Востаннє заходив: {{ user.user.last_login }}</p>
+
+					<!-- ПРОСТАВИТИ СИЛКУ  -->
+					<br>
+					<div style="display: inline-block;"><a style="text-decoration: none;font-weight:bold;background-color:#6baf00; color: #fff;" class="waves-effect waves-light btn-small" href="{% url 'user_goods' user_id=user.user.id %}">Товари користувача</a></div><br>
+				{% if request.user.is_authenticated %}
 					<div style="margin-bottom: 10px; margin-top: 0px;" class="right">
-						<input type="button" class="btn" style="color: green; background-color: white;" value="Додати/вилучити друга">
+						<input type="button" class="btn" id="add_to_friend" style="color: green; background-color: white;" value="{% if is_friend %}Ви друзi{% else %} Додати друга {% endif %}">
+						<span id="user_id" style="display:none;">{{ request.user.id }} </span>
+						<span id="to_user_id" style="display:none;">{{ user.user.id }}</span>
 					</div>
+					<script src="{% static 'js/user/main_user_page.js' %}"></script>
+				{% endif %}
 				</div>
 
 				<div class="col s12 main_btn">
 					<div class="row">
-						<a class="waves-effect waves-light btn-large col s3">Повідомлення</a>
-						<a class="waves-effect waves-light btn-large col s3" href="{% url 'userminuses' user_id=user.u.id %}">Мінусовки</a>
-						<a class="waves-effect waves-light btn-large col s3">Записи</a>
-						<a class="waves-effect waves-light btn-large col s3">Фото і відео</a>
 
+						<a class="waves-effect waves-light btn-large col s3 user_use" href="{% url 'message_user' pk=user.user.id %}">Повідомлення</a>
+						<a class="waves-effect waves-light btn-large col s3 user_use" href="{% url 'userminuses' user_id=user.user.id %}">Мінусовки</a>
+						<a class="waves-effect waves-light btn-large col s3 user_use">Записи</a>
+						<a class="waves-effect waves-light btn-large col s3 user_use" href="{% url 'user_album' pk=user.user.id %}">Галерея</a>
+						<script>
+
+							if (screen.width < 1024) {
+								var btn = document.getElementsByClassName('user_use');
+								btn[0].innerHTML="<i class='small material-icons'>email</i>";
+								btn[1].innerHTML="<i class='large material-icons'>audiotrack</i>";
+								btn[2].innerHTML="<i class='large material-icons'>headset</i>";
+								btn[3].innerHTML = "<i class='large material-icons'>filter</i>";
+							}
+
+
+						</script>
 					</div>
 				</div>
-				<div class="col s6 more_about">
-					<div class="row">
+				<div class="col m6 s12">
+				<div class="row">
+					<div class="col s12 more_about">
+						<div class="row">
 
 
 						<div class="col s4"><p>Країна</p></div>
@@ -61,80 +85,121 @@
 						<div class="col s4"><p>Д/Н:</p></div>
 						<div class="col s6"><p>{% if user.birthdate %}{{ user.birthdate }}{% else %} немає {% endif %}</p></div>
 						<div class="col s4"><p>На сайті з:</p></div>
-						<div class="col s6"><p>{{ user.u.date_joined }}</p></div>
+						<div class="col s6"><p>{{ user.user.date_joined }}</p></div>
 						<div class="col s12 user_activity">
-							<h6>Активність користувача</h6>
+							<h6>Активність користувача </h6>
 							<div class="row">
+								<ul class="collapsible expandable">
+								  <li class="comments">
+									<div class="collapsible-header">
+										Останні коментарі:
+									<span class="badge"></span></div>
+									<div class="collapsible-body">
+										{% for c in user.comments %}
+											{% if c.content_type_id != 45 %}
+											<div>{% if c.content_type_id == 52 %}<a style="color:#6baf00;" href="{% url 'goods' pk=c.object_pk %}"> {% elif c.content_type_id == 17 %}<a href="{% url 'minus' pk=c.object_pk %}"> {% else %}<a href="{% url 'news_index' pk=c.object_pk %}">{% endif %}{{ c.comment|truncatechars:150 }}</a></div>
+											{% endif %}
+										{% endfor %}
+									</div>
+								  </li>
+								  <li class="comments">
+								  	<div class="collapsible-header">
+										Останні повідомлення на форумi:
+									<span class="badge"></span></div>
+									<div class="collapsible-body">
+										{% for f in user.forum %}
+										<div>
+											<a href="http://minus.lviv.ua/forum/thread/{{ f.thread_id }}/">
+											<p style="color:black;color:#F15A24;">{{ f.thread_text }}</p>
+											<br>
+											<p>{% if f.author.first_name or f.author.last_name %} {{ f.author.first_name }} {{ f.author.last_name }}: {% else %} {{ f.author.username }} {% endif %} </p><br>
+											<span style="color:black;">{{ f.body|striptags }}</span><br>
+			                                </a>
+										</div>
+										<br>
+							    	{% endfor %}
+									</div>
 
-								<div class="col s12 comments">
-									<h6>Останні коментарі:</h6>
-									{% for c in user.comments %}
-									<div>{{ c.comment|truncatechars:150 }}</div>
-									{% endfor %}
-								</div>
-								<div class="col s12 comments">
-									<h6>Останні повідомлення на форумі:</h6>
-									{% for c in user.forum %}
-									<div>{{ c.body|safe|striptags }}</div>
-									{% endfor %}
-								</div>
+								  </li>
+								</ul>
+							</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col s6 about_me">
+				<div class="col s12 about_me">
 				<div class="row">
 
 				<div class="col s12">
 					<h5>Друзі користувача:</h5><br>
 					<ul class="collection">
+                      {% for friend in friends %}
 						    <li class="collection-item avatar">
-						      <img src="{% static 'avatar_mini.jpg' %}" alt="" class="circle">
-						      <span class="title" style="color:#9ACD32;">{{ user.u.username }}</span>
-						      <p style="font-weight: bold;">{{ user.u.first_name }} {{ user.u.last_name }} <br>
+						      <img src="/static/{% avatar pk=friend.user.id %}" alt="" class="circle">
+						      <span class="title" style="color:#9ACD32;">{{ friend.user.username }}</span>
+						      <p style="font-weight: bold;">{{ friend.user.first_name }} {{ friend.user.last_name }} <br>
 						        {{ u.email }}
 						      </p>
-						      <a href="{% url 'user_page' pk=user.id %}" class="secondary-content"><i class="material-icons">send</i></a>
+						      <a href="{% url 'user_page' pk=friend.user.id %}" class="secondary-content"><i class="material-icons">send</i></a>
 						    </li>
-						    <li class="collection-item avatar">
-						      <img src="{% static 'avatar_mini.jpg' %}" alt="" class="circle">
-						      <span class="title" style="color:#9ACD32;">{{ user.u.username }}</span>
-						      <p style="font-weight: bold;">{{ user.u.first_name }} {{ user.u.last_name }} <br>
-						        {{ u.email }}
-						      </p>
-						      <a href="{% url 'user_page' pk=user.id %}" class="secondary-content"><i class="material-icons">send</i></a>
-						    </li>
-						    <li class="collection-item avatar">
-						      <img src="{% static 'avatar_mini.jpg' %}" alt="" class="circle">
-						      <span class="title" style="color:#9ACD32;">{{ user.u.username }}</span>
-						      <p style="font-weight: bold;">{{ user.u.first_name }} {{ user.u.last_name }} <br>
-						        {{ u.email }}
-						      </p>
-						      <a href="{% url 'user_page' pk=user.id %}" class="secondary-content"><i class="material-icons">send</i></a>
-						    </li>
-						    <li class="collection-item avatar">
-						      <img src="{% static 'avatar_mini.jpg' %}" alt="" class="circle">
-						      <span class="title" style="color:#9ACD32;">{{ user.u.username }}</span>
-						      <p style="font-weight: bold;">{{ user.u.first_name }} {{ user.u.last_name }} <br>
-						        {{ u.email }}
-						      </p>
-						      <a href="{% url 'user_page' pk=user.id %}" class="secondary-content"><i class="material-icons">send</i></a>
-						    </li>
-						    <li class="collection-item avatar">
-						      <img src="{% static 'avatar_mini.jpg' %}" alt="" class="circle">
-						      <span class="title" style="color:#9ACD32;">{{ user.u.username }}</span>
-						      <p style="font-weight: bold;">{{ user.u.first_name }} {{ user.u.last_name }} <br>
-						        {{ u.email }}
-						      </p>
-						      <a href="{% url 'user_page' pk=user.id %}" class="secondary-content"><i class="material-icons">send</i></a>
-						    </li>
+                       {% endfor %}
+
 
 						 </ul>
-					<a href='#' style="color:#9ACD32;font-weight: bold;"> Ще друзі...</a>
+					<a href="{% url 'all_friends' pk=user.user.id %}" style="color:#9ACD32;font-weight: bold;"> Ще друзі...</a>
+					</div>
+					</div>
+				</div>
+			</div>
+			<div class="col s12 m6 wall">
+				<div class="row">
+					{% if request.user.is_authenticated %}
+						{% if request.user.id == user.user.id %}
+							<form method="POST" enctype="multipart/form-data">
+								{% csrf_token %}
+								<h5>Добавте пост на свою стiну</h5>
+									{{ add_post_form.as_table }}
+									<button type="submit" style="float:right;background-color: #6baf00;" class="btn">Вiдправити</button>
+
+							</form>
+						{% endif %}
+					{% endif %}
+					{% for post in posts %}
+						<div class="post col s12">
+							<h6 class="author">{{ post.userprofile.user.first_name }} {{ post.userprofile.user.last_name }}</h6>
+
+							<!-- <span style="color:gray;">{{ post.pub_date }}</span> -->
+							<p>{{ post.text }}</p><br>
+							{% if post.image %}
+								<p><img class="materialboxed" src="/{{ post.image }}"></p>
+							{% endif %}
+							{% if request.user.is_authenticated %}
+							  <div style="float:left;">
+								<a class="waves-effect waves-light btn-large like" id="{{ minus.id }}"><i class="material-icons left">mood</i><span>
+								</span><span style="display:none;" id="userl">{{ request.user.id }}</span></a>
+							   <a class="waves-effect waves-light btn-large dislike" id="{{ minus.id }}"><i class="material-icons left">mood_bad</i><span>
+							   </span></a>
+							  </div>
+							{% endif %}
+							<span style="color:gray;float:right;">{{ post.pub_date }}</span>
+
+						</div>
+
+
+
+
+
+
+
+					{% endfor %}
 				</div>
 
-				</div>
-				</div>
+			</div>
+
+
+		</div>
+
+			</div>
 
 			</div>
 		</div>

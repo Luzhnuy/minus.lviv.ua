@@ -1,4 +1,4 @@
-<ul id='dropdown1' class='dropdown-content activitis' >
+<ul id='dropdown1' class='dropdown-content activitis'>
   {% for a in activitys %}
     {% if a.type == "l" %}
       <li><a href="{% url 'minus'  pk=a.activity_to %}"><span style="color:red;font-size:1.5em;font-weight:800;">!</span> Ваш запис сподобався користувачу {{ a.from_user.username }}</a></li>
@@ -7,6 +7,9 @@
       <li><a href="{% url 'minus'  pk=a.activity_to %}"><span style="color:red;font-size:1.5em;font-weight:800;">!</span> Ваш запис не сподобався користувачу {{ a.from_user.username }}</a></li>
     {% elif a.type == "c" %}
       <li><a href="{% url 'minus'  pk=a.activity_to %}"><span style="color:red;font-size:1.5em;font-weight:800;">!</span> Ваш запис прокоментував користувач {{ a.from_user.username }}</a></li>
+    {% elif a.type == "s" %}
+      <li><a href="{% url 'news_index'  pk=a.activity_to %}"><span style="color:red;font-size:1.5em;font-weight:800;">!</span> Користувач {{ a.from_user.username }} прокоментував запис</a></li>
+
     {% endif %}
   {% endfor %}
 </ul>

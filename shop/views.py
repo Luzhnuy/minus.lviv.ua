@@ -1,42 +1,145 @@
 from django.shortcuts import render
-from django.http import HttpResponse,HttpResponseRedirect
+from django.http import HttpResponse,HttpResponseRedirect,Http404
 from django.core import serializers
-from shop.models import BlurbsBlurb,BlurbsGeoregion
-from user.models import Userprofile
+from shop.models import BlurbsBlurb,BlurbsGeoregion,SelectedBlurb
+from minus.models import DjangoComments, Likedislike
+from album.models import PhotosPhotoalbum,PhotosPhoto
+from user.models import Userprofile,UserActivitys,SubscribeOnComments
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, UpdateView
 from shop.forms import BlurbForm
-
+from main.forms import AddComments
+from django.utils import timezone
 
 
 def main_shop(request):
-	good = BlurbsBlurb.objects.all().order_by('-id')
-	georegion = BlurbsGeoregion.objects.all()
-	paginator = Paginator(good, 40)
-	page = request.GET.get('page')
-	try:
-	    good = paginator.page(page)
-
-	except PageNotAnInteger:
-	    good = paginator.page(1)
-	       # print('second')
-	except EmptyPage:
-	    good = paginator.page(paginator.num_pages)
+	if request.method == "GET":
+		good = BlurbsBlurb.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')
+		georegion = BlurbsGeoregion.objects.all()
+		paginator = Paginator(good, 40)
+		page = request.GET.get('page')
+		try:
+			good = paginator.page(page)
+		except PageNotAnInteger:
+			good = paginator.page(1)
+	       	# print('second')
+		except EmptyPage:
+			good = paginator.page(paginator.num_pages)
 	        #print('third')
+			print("start ________________")
+		for g in good:
+			print("work hard")
+			try:
+				print("try")
+				ph_a = PhotosPhotoalbum.objects.get(content_type_id=52,object_pk = g.id)
+				g.photo = PhotosPhoto.objects.filter(album_id = ph_a.id)
+				try:
+					g.photo = g.photo[0].image
+				except:
+					g.photo='pass'
+			except PhotosPhotoalbum.DoesNotExist:
+				print("except")
+				g.photo = "http://praktikaprava.ru/wp-content/uploads/2017/11/obmen-tovara-v-techenii-14-dnej.jpg"
+			print("end--------------------")
+		return render(request, 'shop/index.html' , {
+				'goods':good,
+				'georegion':georegion,
 
+		})
+	else:
+		pass
 
-	return render(request, 'shop/index.html' , {
-		'goods':good,
-		'georegion':georegion,
-
-	})
 def goods(request,pk):
-	good = BlurbsBlurb.objects.get(pk=pk)
+	try:
+		good = BlurbsBlurb.objects.get(pk=pk)
+		photo_album = PhotosPhotoalbum.objects.get(content_type_id = 52,object_pk = good.id)
+	except (BlurbsBlurb.DoesNotExist, PhotosPhotoalbum.DoesNotExist):
+		raise Http404
+	photos = PhotosPhoto.objects.filter(album_id = photo_album.id)
+	good.comments = DjangoComments.objects.filter(content_type_id = 52,object_pk = pk)
+	for c in good.comments:
+		c.answer = DjangoComments.objects.filter(object_pk = c.id, content_type_id = 45)
+		c.likes = Likedislike.objects.filter(type_id= 45,object_id = c.pk,likes=1).count()
+		c.dislikes = Likedislike.objects.filter(type_id= 45,object_id = c.pk,likes=0).count()
+	count = DjangoComments.objects.filter(content_type_id = 52,object_pk = pk).count()
+	add_comment_form = AddComments(request.POST)
+	likes = Likedislike.objects.filter(type_id= 52, object_id = good.pk,likes=1).count()
+	dislikes = Likedislike.objects.filter(type_id= 52, object_id = good.pk,likes=0).count()
+	print(likes)
+	print("-------------00--------------------")
+	print(dislikes)
+	next_good =  BlurbsBlurb.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date').values_list('id')
+	len_n = len(next_good)
+	for i in range(len_n):
+		if next_good[i][0] == good.id:
+			if i == 0:
+				previus_good = next_good[len_n - 1][0]
+			else:
+				previus_good = next_good[i-1][0]
 
-	return render(request, 'shop/goods.html' , {'good':good,})
+			if i == len_n-1:
+				next_good = next_good[0][0]
+			else:
+				next_good = next_good[i+1][0]
+			break
+	if request.user.is_authenticated:
+		if request.method == "POST":
+			if add_comment_form.is_valid():
+				comment = add_comment_form.cleaned_data['comment']
+				if comment[0] == "@":
+					print(comment)
+					comment = comment.split(" ")
+					user = comment[0]
+					comment_id = user.split('#')
+					comment_id = comment_id[1]
+					print(user)
+					print(comment_id)
+					comment = user[0]
+					add_comment = add_comment_form.save(commit=True,pk=comment_id,request=request,content_type_id=45)
+				else:
+					add_comment = add_comment_form.save(commit=True,pk=pk,request=request,content_type_id=52)
+				if request.POST.get('subscribe'):
+					for subscriber in SubscribeOnComments.objects.filter(content_type_id = 51, object_pk = pk):
+						UserActivitys.objects.create(from_user = request.user,type='s',to_user_id = subscriber.user.id,activity_to=pk)
+					try:
+						SubscribeOnComments.objects.get(content_type_id = 51,object_pk = pk, user = request.user)
+					except SubscribeOnComments.DoesNotExist:
+						SubscribeOnComments.objects.create(
+							content_type_id=51,
+							object_pk = pk,
+							user = request.user
+						)
+					return render(request, 'minusstore/minus.html' , {
+                    'likes' : likes,
+                    'dislikes' : dislikes,
+                    'minus' : minus,
+                    'author' : author,
+                    'minus_user':minus_user,
+                    'upload_minuses' : upload_minuses_from_user,
+                    'add_comment_form':add_comment_form,
+                })
+	return render(request, 'shop/goods.html' , {'good':good,'photos':photos,"count":count,'add_comment_form':add_comment_form,
+	'next_good':next_good, 'previus_good':previus_good,'likes':likes,'dislikes':dislikes})
+
+class BlurbUpdate(UpdateView):
+    model = BlurbsBlurb
+    fields = ['title','category','description','cost','georegion']
+    template_name_suffix = '_update_form'
 
 
+def add_to_selected(request,pk):
+	if request.user.is_authenticated:
+		selected = SelectedBlurb.objects.create(user = request.user, blurb_id = pk)
+	return HttpResponseRedirect('/shop/goods/' + pk + '/')
+
+
+def lift_up(request,pk):
+	if request.user.is_authenticated:
+		blurb = BlurbsBlurb.objects.get(pk = pk)
+		blurb.pub_date = timezone.now()
+		blurb.save()
+		return HttpResponseRedirect('/shop/')
 
 def gave_business_or_private(request,bool):
 	#goods = []
@@ -73,13 +176,8 @@ def add_blurb(request):
 	if request.user.is_authenticated:
 		blurb_form = BlurbForm(request.POST or None,request.FILES or None)
 		if request.method == 'POST':
-			print('method POST')
-			# blurb_form.is_valid = True
-
-			# blurb_form.errors= False
 			if blurb_form.is_valid():
 				blurb_form_s = blurb_form.save(commit=False)
-				print('form valid kostul zbc')
 				blurb_form_s.user = request.user
 				blurb_form_s.is_user_business = Userprofile.objects.get(user_id = request.user.id).is_business
 				blurb_form_s.category_id = request.POST.get('category')
@@ -96,18 +194,6 @@ def add_blurb(request):
 					print('error with files')
 
 				blurb_form_s.save()
-				#
-				# print('form valid')
-				# # blurb_form_s = blurb_form.save(commit=False)
-				# # blurb_form_s.user = request.user
-				# print('user')
-				# # blurb_form_s.category_id = request.POST['category']
-				# print('category')
-				#
-				# print('business')
-
-			# else:
-				# print('form invalid')
 		return render(request, 'shop/add_blurb.html', {
 			'form':blurb_form,
 		})

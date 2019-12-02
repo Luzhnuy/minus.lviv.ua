@@ -31,35 +31,6 @@ class AdminToolsMenuBookmark(models.Model):
         db_table = 'admin_tools_menu_bookmark'
 
 
-class AlbumsAudio(models.Model):
-    user_id = models.IntegerField()
-    title = models.CharField(max_length=256, blank=True, null=True)
-    pub_date = models.DateTimeField()
-    order = models.IntegerField()
-    file = models.CharField(max_length=256)
-    rating_votes = models.IntegerField()
-    rating_score = models.IntegerField()
-    description = models.TextField(blank=True, null=True)
-    album_id = models.IntegerField(blank=True, null=True)
-    downloadable = models.IntegerField()
-
-    class Meta:
-        managed = True
-        db_table = 'albums_audio'
-
-
-class AlbumsAudioalbum(models.Model):
-    user_id = models.IntegerField()
-    content_type_id = models.IntegerField(blank=True, null=True)
-    object_pk = models.IntegerField(blank=True, null=True)
-    name = models.CharField(max_length=128,default='null')
-    slug = models.CharField(unique=True, max_length=150)
-    description = models.TextField(blank=True, null=True)
-    pub_date = models.DateTimeField()
-
-    class Meta:
-        managed = True
-        db_table = 'albums_audioalbum'
 
 
 class AuthGroup(models.Model):
@@ -267,9 +238,9 @@ class DjangoComments(models.Model):
     user = models.ForeignKey(User,on_delete="CASCADE")
     user_name = models.CharField(max_length=50)
     user_email = models.CharField(max_length=75)
-    user_url = models.CharField(max_length=200)
+    user_url = models.CharField(max_length=200,blank=True,null=True)
     comment = models.TextField()
-    submit_date = models.DateTimeField()
+    submit_date = models.DateTimeField(auto_now_add=True)
     ip_address = models.CharField(max_length=15, blank=True, null=True)
     is_public = models.IntegerField()
     is_removed = models.IntegerField()
@@ -752,31 +723,6 @@ class Likedislike(models.Model):
 
 
 
-class PhotosPhotoalbum(models.Model):
-    user = models.ForeignKey(User,on_delete="PROTECT")
-    name = models.CharField(max_length=128,default='null')
-    slug = models.CharField(unique=True, max_length=150)
-    description = models.TextField(blank=True, null=True)
-    pub_date = models.DateTimeField(auto_now_add=True)
-    size = models.IntegerField()
-    content_type_id = models.IntegerField(blank=True, null=True)
-    object_pk = models.IntegerField(blank=True, null=True)
-
-    class Meta:
-        managed = True
-        db_table = 'photos_photoalbum'
-
-class PhotosPhoto(models.Model):
-    title = models.CharField(max_length=256)
-    description = models.TextField(blank=True, null=True)
-    date_created = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(upload_to="static/files/userphotos/")
-    album = models.ForeignKey(PhotosPhotoalbum,on_delete="CASCADE")
-    is_cover = models.IntegerField()
-
-    class Meta:
-        managed = True
-        db_table = 'photos_photo'
 
 
 class RadioRadiojingle(models.Model):

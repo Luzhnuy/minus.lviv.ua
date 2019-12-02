@@ -36,6 +36,9 @@ class BlurbsGeoregion(models.Model):
     def __str__(self):
         return self.title
 
+
+
+
 class BlurbsBlurb(models.Model):
     buy_or_sell = (
     ('B', 'Куплю'),
@@ -57,3 +60,10 @@ class BlurbsBlurb(models.Model):
 
     def __str__(self):
         return self.title
+
+class SelectedBlurb(models.Model):
+    user = models.ForeignKey(User,on_delete="CASCADE")
+    blurb= models.ForeignKey(BlurbsBlurb,on_delete="PROTECT")
+
+    class Meta:
+        db_table = "selected_blurb"

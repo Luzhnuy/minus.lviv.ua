@@ -2,8 +2,12 @@ from django import template
 from minus.new_minuses import *
 from minus.tops_functions import *
 import datetime
-from user.models import UsersUserrating,Userprofile,UserActivitys
+from django.contrib.auth.models import User
+from main.models import ModeratorMessages,MainBanner, LeftBanner, RightBanner
+from user.models import UsersUserrating,Userprofile,UserActivitys, FriendsFriendshiprequest
 from main.forms import AuthForm
+
+from minusstore.models import MinusstoreMinusrecord,PreModerationRecord
 from django.views.decorators.cache import cache_page
 from messanger.models import Channels,NewMessagesChannels
 
@@ -27,13 +31,54 @@ def top_u():
 		# 'rating' : rate,
 	}
 
+
+@register.simple_tag
+def main_banner():
+	try:
+		banner = MainBanner.objects.all().reverse()[0].html_code
+	except:
+		banner = "<p>hello hello hello</p>"
+	return banner
+
+@register.simple_tag
+def left_banner():
+	try:
+		banner = LeftBanner.objects.all().reverse()[0].html_code
+	except:
+		banner = "<p>hello hello hello</p>"
+	return banner
+
+
+@register.simple_tag
+def right_banner():
+	try:
+		banner = RightBanner.objects.all().reverse()[0].html_code
+	except:
+		banner = "<p>hello hello hello</p>"
+	return banner
+
+
+@register.simple_tag
+def count_friend_request(pk):
+	friends_request = FriendsFriendshiprequest.objects.filter(to_user_id=pk).count()
+	return friends_request
+
+
 @register.inclusion_tag('mytags/new_m.html')
 def new_m():
-	return {'new_m':new_minuses()}
+	pre_moderation_minus = PreModerationRecord.objects.all()
+	return {'new_m': pre_moderation_minus}
 
 @register.inclusion_tag('mytags/last_minuses.html')
 def last_minuses():
 	return {'new_m':new_minuses()}
+
+
+@register.inclusion_tag('mytags/last_minus_another.html')
+def last_minuses_another():
+	new_m = MinusstoreMinusrecord.objects.filter(alternative = 1)[:10]
+	return {'new_m':new_m}
+
 
 @register.inclusion_tag('mytags/last_forum.html')
 def last_f():
@@ -49,6 +94,17 @@ def login():
 def letters():
 	pass
 
+@register.simple_tag
+def avatar(pk):
+	avatar = Userprofile.objects.get(user_id = pk).avatar
+	return avatar
+
+
+@register.simple_tag
+def count_moderators_message():
+	count = ModeratorMessages.objects.all().count()
+	return count
+
 @register.inclusion_tag('mytags/len_shame.html')
 def count_shame():
 	banned_users = []
@@ -57,6 +113,8 @@ def count_shame():
 		if u.banned_until>datetime.date.today():
 			banned_users.append(u)
 	return {'len':len(banned_users)}
+
+
 
 
 
@@ -81,3 +139,13 @@ def user_menu(user_id):
 def get_activitys(user_id):
 	activitys = UserActivitys.objects.filter(to_user_id = user_id)[:20]
 	return {'activitys':activitys}
+
+
+@register.inclusion_tag('mytags/last_minuses_for_user.html')
+def last_minuses_for_user(user_id):
+	try:
+		user = User.objects.get(id = user_id)
+	except User.DoesNotExist:
+		pass
+	minuses = MinusstoreMinusrecord.objects.filter(pub_date__range = (user.last_login,datetime.datetime.now()))[:20]
+	return {'last_minuses_for_user':minuses}

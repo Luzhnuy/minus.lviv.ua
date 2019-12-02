@@ -1,5 +1,7 @@
 from __future__ import unicode_literals
 from django.contrib.auth.models import User
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 from django.db import models
 import os
 
@@ -39,6 +41,7 @@ class MinusstoreMinus(models.Model):
 
 
 
+
 class MinusstoreMinusauthorFiletypes(models.Model):
     minusauthor_id = models.IntegerField()
     filetype_id = models.IntegerField()
@@ -49,13 +52,33 @@ class MinusstoreMinusauthorFiletypes(models.Model):
 
 
 class MinusstoreMinuscategory(models.Model):
-    name = models.CharField(max_length=15,default='null')
-    display_name = models.CharField(max_length=20, blank=True, null=True)
+    name = models.CharField(max_length=50,default='null')
+    display_name = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
         managed = True
         db_table = 'minusstore_minuscategory'
 
+    def __str__(self):
+        return self.display_name
+
+class Minusgenre(models.Model):
+    name = models.CharField(max_length=100,null=True)
+
+    class Meta:
+        db_table = 'minusstore_minusgenre'
+
+    def __str__(self):
+        return self.name
+
+class Minusappointment(models.Model):
+    name = models.CharField(max_length=100)
+
+    class Meta:
+        db_table = 'minusstore_minusappointment'
+
+    def __str__(self):
+        return self.name
 
 class MinusstoreMinusplusrecord(models.Model):
     minus_id = models.IntegerField(unique=True, blank=True, null=True)
@@ -76,12 +99,14 @@ class MinusstoreMinusauthor(models.Model):
         return self.name
 
 
+
+
 class MinusstoreMinusrecord(models.Model):
     user = models.ForeignKey(User,on_delete="PROTECT")
     file = models.FileField("Мінусовка",upload_to="static/files/minuses/",null=True,blank=True)
     title = models.CharField("Назва мінусовки",max_length=255)
-    is_folk = models.IntegerField()
-    author = models.ForeignKey(MinusstoreMinusauthor,on_delete="PROTECT")
+    is_folk = models.IntegerField(default=0)
+    author = models.ForeignKey(MinusstoreMinusauthor,on_delete="PROTECT",null=True,blank=True)
     arrangeuathor = models.CharField(max_length=50, blank=True, null=True)
     annotation = models.TextField()
     thematics = models.CharField(max_length=30, blank=True, null=True)
@@ -91,7 +116,9 @@ class MinusstoreMinusrecord(models.Model):
     is_childish = models.IntegerField(default=0)
     is_amateur = models.IntegerField(default=0)
     is_ritual = models.IntegerField(default=0)
-    lyrics = models.TextField("Текст пісні")
+    minus_genre = models.ForeignKey(Minusgenre,on_delete="PROTECT")
+    minus_appointment = models.ForeignKey(Minusappointment, on_delete="PROTECT")
+    lyrics = models.TextField("Текст пісні",null=True,blank=True)
     plusrecord = models.FileField(upload_to="static/files/pluses/", blank=True, null=True)
     pub_date = models.DateTimeField()
     length = models.TimeField()
@@ -111,6 +138,46 @@ class MinusstoreMinusrecord(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return '/minusstore/minus/' + str(self.id) + '/'
+
+
+
+class MinusstoreMinusquality(models.Model):
+    user = models.ForeignKey(User, on_delete="CASCADE")
+    rate = models.IntegerField()
+    minus = models.ForeignKey(MinusstoreMinusrecord, on_delete="CASCADE")
+
+
+    class Meta:
+        managed = True
+        db_table = 'minusstore_minusquality'
+
+class MinusstoreMinusarrangement(models.Model):
+    user = models.ForeignKey(User, on_delete="CASCADE")
+    rate = models.IntegerField()
+    minus = models.ForeignKey(MinusstoreMinusrecord, on_delete="CASCADE")
+
+
+    class Meta:
+        managed = True
+        db_table = 'minusstore_minusarrangement'
+
+
+
+
+
+class PreModerationRecord(models.Model):
+    minus = models.ForeignKey(MinusstoreMinusrecord,on_delete="CASCADE")
+    class Meta:
+        managed = True
+        db_table = 'pre_moderation_record'
+
+
+@receiver(post_save, sender=MinusstoreMinusrecord)
+def create_premoderationrecord(sender, instance, created, **kwargs):
+    if created:
+        PreModerationRecord.objects.create(minus=instance)
 
 
 class MinusstoreMinusrecordCategories(models.Model):

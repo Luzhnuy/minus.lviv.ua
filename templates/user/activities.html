@@ -34,6 +34,9 @@
 
 					{% elif a.type == 'd' %}
 						<a href="{% url 'minus' pk=a.activity_to %}"><p style="color:#9ACD32;font-weight: bold;">Ваш запис не сподобався користувачу {{ a.from_user }}</p></a>
+					{% elif a.type == "s" %}
+						<li><a href="{% url 'news_index'  pk=a.activity_to %}"><span style="color:red;font-size:1.5em;font-weight:800;">!</span> Користувач {{ a.from_user.username }} прокоментував запис</a></li>
+				  
 					{% endif %}
 
 				{% else %}
@@ -45,7 +48,11 @@
 
 					{% elif a.type == 'd' %}
 						<a href="{% url 'minus' pk=a.activity_to %}"><p style="color:#9ACD32;font-weight: bold;">Запис не сподобався користувачу {{ a.from_user }}</p></a>
+						{% elif a.type == "s" %}
+						<li><a href="{% url 'news_index'  pk=a.activity_to %}"><span style="color:red;font-size:1.5em;font-weight:800;">!</span> Користувач {{ a.from_user.username }} прокоментував запис</a></li>
+				  
 					{% endif %}
+
 
 
 				{% endif %}

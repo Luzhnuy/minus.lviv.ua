@@ -53,7 +53,7 @@ class FriendsFriendshiprequest(models.Model):
     from_user_id = models.IntegerField()
     to_user_id = models.IntegerField()
     message = models.CharField(max_length=200)
-    created = models.DateTimeField()
+    created = models.DateTimeField(auto_now_add=True)
     accepted = models.IntegerField()
 
     class Meta:
@@ -86,6 +86,7 @@ class UserActivitys(models.Model):
         ('l','like'),
         ('d','dislike'),
         ('c', 'comment'),
+        ('s', 'subscribe')
     )
 
     type = models.CharField(choices=activity_type,null=True,max_length=255)
@@ -98,12 +99,21 @@ class UserActivitys(models.Model):
         db_table = 'useractivitys'
 
 
+class SubscribeOnComments(models.Model):
+    content_type_id = models.IntegerField()
+    object_pk = models.IntegerField()
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
+
+    class Meta:
+        managed = True
+        db_table = 'subscribed_on_comments'
+
 class Userprofile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     gender = models.CharField(max_length=6, blank=True, null=True)
     city = models.CharField(max_length=128, blank=True, null=True)
     country = models.CharField(max_length=128, blank=True, null=True)
-    avatar = models.CharField(max_length=128, blank=True, null=True)
+    avatar = models.ImageField(upload_to='static/img/avatars/',blank=True,null=True)
     birthdate = models.DateField(blank=True, null=True)
     hide_birthdate = models.IntegerField(blank=True, null=True)
     icq = models.CharField(max_length=10, blank=True, null=True)
@@ -123,6 +133,9 @@ class Userprofile(models.Model):
     class Meta:
         managed = True
         db_table = 'userprofile'
+
+    def get_absolute_url(self):
+        return "/user/user/%i/" % self.user_id
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -167,7 +180,11 @@ class UsersUserrating(models.Model):
         managed = True
         db_table = 'users_userrating'
 
-
+class UserPost(models.Model):
+    userprofile = models.ForeignKey(Userprofile,on_delete="CASCADE")
+    text = models.TextField()
+    pub_date = models.DateTimeField(auto_now_add = True)
+    image = models.ImageField(upload_to="static/img/user-post-img/",blank=True,null=True)
 
 
 

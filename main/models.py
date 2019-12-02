@@ -34,3 +34,30 @@ class ModeratorMessages(models.Model):
 
     def __str__(self):
         return self.attention_message
+
+
+
+class MainBanner(models.Model):
+    html_code = models.TextField()
+
+    class Meta:
+        db_table = 'main_banner'
+        managed = True
+
+
+
+class LeftBanner(models.Model):
+    html_code = models.TextField()
+
+    class Meta:
+        db_table = 'left_banner'
+        managed = True
+
+
+
+class RightBanner(models.Model):
+    html_code = models.TextField()
+
+    class Meta:
+        db_table = 'right_banner'
+        managed = True

@@ -17,22 +17,54 @@
     	</form>
 
 
-		<div class="authors col s8 offset-s3">
+		<div class="authors col s12 m10 offset-m1">
 			<div class="row">
 				{% if z %}
 					<h3>Мінусовки за {{ z }} </h3>
 				{% elif k %}
 					<h3>Мінусовки за вашим запитом </h3>
+                {% elif all_minuses %}
+                    <h3>Мiнусовки по датам</h3>
 				{% else %}
 					<h3>Мінусовки користувача</h3>
 				{% endif %}
-				{% for m in minus %}
-				<div class="col s12">
-					<a href="{% url 'minus' pk=m.pk %}"><p style="color:#9ACD32;font-weight: bold;">{{ m.title }}</p></a>
-					<audio src="/static/{{ m.file }}" controls controlsList="nodownload"></audio>
+                {% if all_minuses %}
 
-				</div>
-				{% endfor %}
+				    {% for m in minus %}
+				    <div class="col s12" style="margin-bottom: 20px;">
+
+                        <span><b>{{ m.pub_date }}</b></span>
+					    <a href="{% url 'minus' pk=m.pk %}"><p style="color:#9ACD32;font-weight: bold;">{{ m.title }}</p></a>
+					    <audio src="/static/{{ m.file }}" controls controlsList="nodownload"></audio>
+
+				    </div>
+
+				    {% endfor %}
+                {% else %}
+								<table class="responsive-table">
+				<thead>
+					<tr>
+							<th>Виконавець</th>
+							<th>Пісня</th>
+							<th>Тип файлу</th>
+							<th>Додано</th>
+							<th>Опції</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					{% for m in minus %}
+					<tr>
+						<td>{{ m.author.name }}</td>
+						<td>{{ m.title }}</td>
+						<td>{% if m.type_id == 1 %}(Аудіо) {% elif m.type_id == 2 %}(Midi){% elif m.type_id == 3 %} (Ноти){% endif %}</td>
+						<td>{{ m.pub_date }}</td>
+						<td><audio src="/static/{{ m.file }}" width="20%"controls controlsList="nodownload"></audio></td>
+					</tr>
+					 {% endfor %}
+				</tbody>
+			</table>
+                {% endif %}
         <div class="pagination">
           <span class="step-links">
               {% if minus.has_previous %}

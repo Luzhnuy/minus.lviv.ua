@@ -1,8 +1,7 @@
 from django.contrib.auth.models import User
-from minus.models import PhotosPhotoalbum,PhotosPhoto
+from album.models import PhotosPhotoalbum,PhotosPhoto
 from django import forms
 from shop.models import BlurbsBlurb,BlurbsBlurbcategory
-
 
 
 

@@ -24,10 +24,19 @@
 
 				{% for message in moderator_messages %}
 				<div class="col s12">
-					<a href="{% url 'minus' pk=m.pk %}"><p style="color:#9ACD32;font-weight: bold;">{{ m.attention_message }}</p></a>
-					<audio src="/static/{{ m.file }}" controls controlsList="nodownload"></audio>
+					{% if message.content_id == 17 %}
+						<a href="/minusstore/minus/{{ message.object_pk }}"><p style="color:#9ACD32;font-weight: bold;">Проблемна мінусовкаа !Перевірте оформлення та інше<p style="color:black;">{{ message.attention_message }}</p><br> </p></a>
+					<!-- <audio src="/static/{{ m.file }}" controls controlsList="nodownload"></audio> -->
 
+					{% elif message.content_id == 52 %}
+					<a href="/shop/goods/{{ message.object_pk }}"><p style="color:#9ACD32;font-weight: bold;"> Проблемне оголошення!Перевірте оформлення та інше<p style="color:black;">{{ message.attention_message }}</p></p></a>
+
+					{% endif %}
+						<br>
+					<hr width="100%">
 				</div>
+
+
 				{% endfor %}
 
 			</div>

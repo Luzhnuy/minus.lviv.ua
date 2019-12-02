@@ -16,7 +16,7 @@ import djcelery
 # указываем на то, что расписание будет задаваться посредством django-ORM
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 # указываем брокер сообщений
-BROKER_URL = 'redis://127.0.0.1:6379/0'
+BROKER_URL = 'redis://176.9.25.121:6379/0'
 
 # формат хранения задач (можете не указывать)
 # CELERY_TASK_SERIALIZER = 'json'
@@ -61,7 +61,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
+DATA_UPLOAD_MAX_MEMORY_SIZE = 50*1024*1024
 # Application definition
 
 INSTALLED_APPS = [
@@ -83,6 +83,7 @@ INSTALLED_APPS = [
     'minusstore',
     'desks',
     'messanger',
+    'album',
     'django_filters',
 ]
 
@@ -99,7 +100,6 @@ DATABASES = {
         }
     }
 }
-
 ACCOUNT_ACTIVATION_DAYS = 2 # кол-во дней для хранения кода активации
 
 CELERY_RESULT_BACKEND = 'django-cache'
@@ -145,7 +145,7 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
+            "hosts": [('176.9.25.121', 6379)],
         },
     },
 }
@@ -174,7 +174,8 @@ LOGIN_URL = '/'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 40 
+    'PAGE_SIZE': 40 ,
+
 }
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/

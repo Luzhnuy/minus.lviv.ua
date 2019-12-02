@@ -132,8 +132,12 @@
 
 <section class="col s12">
 	<div class="row">
-		<div class="col s3 l3 sender col s3">
-	    	<ul class="collection">
+		<nav>
+			<a href="#" data-target="slide-out" class="sidenav-trigger"  style="color:#6baf00;text-align:center;"><i class="material-icons">menu</i></a>
+			{% if recipient %}<p class="right-align username">{% if recipient.first_name or recipient.last_name %}{{ recipient.first_name}} {{ recipient.last_name }}{% else %}{{ recipient.username }} {% endif %}</p>{% endif %}
+		<div class="col s5 l3 sender nav-content hide-on-med-and-down">
+
+	    	<ul class="collection hide-on-med-and-down" >
 
 	    		<li id="search_field" class="collection-item l3">
 
@@ -154,65 +158,127 @@
 					    </div>
 				  	</div>
 
-		    	</li>
+					</li>
+					<!-- {% if recipient %}
+					<li class="collection-item avatar l3 tab" style="background-color:#6baf00;">
+						<a class="hidden_a  l{{ recipent.id }}" href="{% url 'message_user' pk=recipient.id %}"  >
+					<span style="display: none;" class="id" data-id="{{ recipient.id }}"></span>
+
+
+								<img src="http://forum.gamexp.ru/image.php?u=1167939&dateline=1497791278"   alt="" class="circle">
+									<span  class="title">{% if recipient.first_name %}{{ recipient.first_name }} {{ recipient.last_name }}{% else %} {{ recipient.username }} {% endif %}</span>
+
+								{#	<!-- {% if recipient.new %}<p><span id="new_message_count" class="right new badge">!</span></p>{% endif %} --> #}
+<!--
+							</a>
+
+
+				</li> -->
+
+					<!-- {% endif %}  -->
 					{% for s in sender %}
 
 						{% if s.id == pk %}
+
 						<li class="collection-item avatar l3 tab" style="background-color:red;">
 		    		<a class="hidden_a" href="{% url 'message_user' pk=s.id %}"  style='background-color:#66baf00;' >
 							<!-- <span -->
 						{% else %}
-						<li class="collection-item avatar l3 tab">
+						{% if recipient.id == s.id %}
+
+							<li class="collection-item avatar l3 tab" style="background-color:greenyellow;">
+						{% else %}
+						<li class="collection-item avatar l3 tab" >
+						{% endif %}
 							<a class="hidden_a  l{{ s.id }}" href="{% url 'message_user' pk=s.id %}"  >
 						{% endif %}
 						<span style="display: none;" class="id" data-id="{{ s.id }}"></span>
-			     		<img src="http://forum.gamexp.ru/image.php?u=1167939&dateline=1497791278"   alt="" class="circle">
-			      		<span class="title">{% if s.first_name %}{{ s.first_name }} {{ s.last_name }}{% else %} {{ s.username }} {% endif %}</span>
-						<!-- </a> -->
-								{% if s.new %}<p><span id="new_message_count" class="right new badge">!</span></p>{% endif %}
-		      		</a>
+
+							{% load my_tags %}
+									<img src="/static/{% avatar pk=s.pk %}"   alt="" class="circle">
+			      				<p  class="title">{% if s.first_name %}{{ s.first_name }} {{ s.last_name }} {% else %} {{ s.username }} {% endif %}</p>
+
+										{% if s.new %}<p><span id="new_message_count" class="right new badge">!</span></p>{% endif %}
+
+								</a>
+
 
 		    	</li>
 					{% endfor %}
-<!--
-		    	<li class="collection-item avatar l3">
-		    		<a class="hidden_a" href="#message2">
-			     		<img src="http://forum.gamexp.ru/image.php?u=1167939&dateline=1497791278" alt="" class="circle">
-			      		<span class="title">Nick</span>
-
-			      		<p>Proger...
-			      			<span id="new_message_count" class="right new badge">2
-			      			</span>
-			      		</p>
-			      	</a>
-		    	</li>
-
-		    	<li class="collection-item avatar l3">
-		    		<a class="hidden_a" href="#message3">
-			     		<img src="http://forum.gamexp.ru/image.php?u=1167939&dateline=1497791278" alt="" class="circle">
-			      		<span class="title">Ded Petro</span>
-
-			      		<p>Риба сьогодні...
-			      			<span id="new_message_count" class="right new badge">0 <Якщо 0 - то display: none -->
-			      			<!-- </span>
-			      		</p>
-			      	</a>
-		    	</li> -->
-
-		    	<!-- <li class="collection-item avatar l3"> -->
-		    		<!-- <a class="hidden_a" href="#message4"> -->
-			     		<!-- <img src="http://forum.gamexp.ru/image.php?u=1167939&dateline=1497791278" alt="" class="circle"> -->
-			      		<!-- <span class="title">Kuzya</span> -->
-
-			      		<!-- <p>Chat top... -->
-			      			<!-- <span id="new_message_count" class="right new badge">0 <Якщо 0 - то display: none -->
-			      			<!-- </span> -->
-			      		<!-- </p> -->
-			      	<!-- </a> -->
-		    	<!-- </li> -->
 
 		    </ul>
+
 		</div>
+		<ul class="sidenav collection" id="slide-out">
+			<li id="search_field" class="collection-item l3">
+
+			<div class="row">
+					<div class="col s12">
+						<div class="row">
+							<form  action="{% url 'search' %}" method="GET">
+							<div class="input-field col s12">
+								<i class="material-icons prefix">search</i>
+
+									<input type="text" id="autocomplete-input" class="autocomplete" name="search">
+									<label for="autocomplete-input">Пошук користувача</label>
+									<input type="submit" style="display:none;">
+
+							</div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+			</li>
+			<!-- {% if recipient %}
+			<li class="collection-item avatar l3 tab" style="background-color:#6baf00;">
+				<a class="hidden_a  l{{ recipent.id }}" href="{% url 'message_user' pk=recipient.id %}"  >
+			<span style="display: none;" class="id" data-id="{{ recipient.id }}"></span>
+
+
+						<img src="http://forum.gamexp.ru/image.php?u=1167939&dateline=1497791278"   alt="" class="circle">
+							<span  class="title">{% if recipient.first_name %}{{ recipient.first_name }} {{ recipient.last_name }}{% else %} {{ recipient.username }} {% endif %}</span>
+
+						{#	<!-- {% if recipient.new %}<p><span id="new_message_count" class="right new badge">!</span></p>{% endif %} --> #}
+<!--
+					</a>
+
+
+		</li> -->
+
+			<!-- {% endif %}  -->
+			{% for s in sender %}
+
+				{% if s.id == pk %}
+
+				<li class="collection-item avatar l3 tab" style="background-color:red;">
+				<a class="hidden_a" href="{% url 'message_user' pk=s.id %}"  style='background-color:#66baf00;' >
+					<!-- <span -->
+				{% else %}
+				{% if recipient.id == s.id %}
+
+					<li class="collection-item avatar l3 tab" style="background-color:greenyellow;">
+				{% else %}
+				<li class="collection-item avatar l3 tab" >
+				{% endif %}
+					<a class="hidden_a  l{{ s.id }}" href="{% url 'message_user' pk=s.id %}"  >
+				{% endif %}
+				<span style="display: none;" class="id" data-id="{{ s.id }}"></span>
+
+					{% load my_tags %}
+							<img src="/{% avatar pk=s.pk %}"   alt="" class="circle">
+								<p  class="title">{% if s.first_name %}<p>{{ s.first_name }}</p><p> {{ s.last_name }}</p>{% else %} {{ s.username }} {% endif %}</p>
+
+								{% if s.new %}<p><span id="new_message_count" class="right new badge">!</span></p>{% endif %}
+
+						</a>
+
+
+			</li>
+			{% endfor %}
+
+		</ul>
+		</nav>
 
 <!-- Центральна панель -->
  {% block content %}
@@ -242,7 +308,7 @@
 		wsStart = 'wss://';
 	}
 	// var request_user = {{ request.user.id }};
-	var endpoint = wsStart + '127.0.0.1:8000/'+ {{ request.user.id }} + '/';
+	var endpoint = wsStart + '176.9.25.121:7000/'+ {{ request.user.id }} + '/';
 	console.log(endpoint);
 	var liveuser_socket = new WebSocket(endpoint);
 	console.log(liveuser_socket);
@@ -296,7 +362,7 @@
 
 
 
-	var messanger_endpoint = wsStart + '127.0.0.1:8000/messanger/'+{{ pk }} + '/' ;
+	var messanger_endpoint = wsStart + '176.9.25.121:7000/messanger/'+{{ pk }} + '/' ;
 	var messanger_websocket = new WebSocket(messanger_endpoint);
 	console.log(messanger_endpoint);
 
@@ -331,8 +397,21 @@
 	}
 	var message;
 	$('.message').keyup(function(event){
+			console.log(event.keyCode);
 			if(event.keyCode === 13){
 					event.preventDefault();
+					message = $('.message').val();
+					console.log(message);
+					messanger_websocket.send(message);
+					liveuser_socket.send(message);
+					$('.message').val('');
+					$('#chat_window_messages').append('<div class="right_message col m12"><div class="right z-depth-1 col m6 offset-m6"><p class="message_text">'+ message+'</p></div></div>');
+					var block = document.getElementById("chat_window_messages");
+					block.scrollTop = block.scrollHeight;
+
+			}
+	});
+	$('#submit').on('click',function(event){
 					message = $('.message').val();
 					console.log(message);
 
@@ -344,7 +423,7 @@
 					var block = document.getElementById("chat_window_messages");
 					block.scrollTop = block.scrollHeight;
 					console.log('zbc');
-			}
+			// }
 	});
 </script>
 </body>
