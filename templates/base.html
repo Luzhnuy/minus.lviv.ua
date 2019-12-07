@@ -463,7 +463,7 @@ if (loc.protocol === 'https:'){
 	wsStart = 'wss://';
 }
 // var request_user = {{ request.user.id }};
-var endpoint = wsStart + '176.9.25.121:7000/'+ {% if request.user.is_authenticated %}{{ request.user.id }}{% else %}'None'{% endif %} + '/';
+var endpoint = wsStart + '127.0.0.1:8000/'+ {% if request.user.is_authenticated %}{{ request.user.id }}{% else %}'None'{% endif %} + '/';
 
 console.log(endpoint);
 var liveuser_socket = new WebSocket(endpoint);

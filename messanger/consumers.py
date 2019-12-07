@@ -17,8 +17,6 @@ class LiveuserConsumer(AsyncWebsocketConsumer):
 
     @database_sync_to_async
     def update_user_status(self, user, status):
-
-        print(status)
         channel =Channels.objects.filter(user_id=user.pk).update(is_active=status)
         print(channel)
         if channel:
@@ -28,7 +26,6 @@ class LiveuserConsumer(AsyncWebsocketConsumer):
 
     @database_sync_to_async
     def update_newmessages(self,frm_user,to_user):
-
         new_message = NewMessagesChannels.objects.filter(frm_user=frm_user,to_user=to_user)
         if new_message:
             print("new_message")
@@ -43,7 +40,6 @@ class LiveuserConsumer(AsyncWebsocketConsumer):
 
 
     async def websocket_connect(self,event):
-
 
         self.user = self.scope["user"]
         await self.accept()
@@ -71,8 +67,6 @@ class LiveuserConsumer(AsyncWebsocketConsumer):
         self.accept()
 
     async def websocket_receive(self, text_data):
-
-
         # message = text_data['message']
         to_user = self.scope['url_route']['kwargs']['pk']
         frm_user = self.scope['user']
@@ -102,15 +96,11 @@ class LiveuserConsumer(AsyncWebsocketConsumer):
 
 class MessangerConsumer(AsyncWebsocketConsumer):
 
-
-
     @database_sync_to_async
     def create_user_message(self, sender_id, recipient_id, message):
 
         user = User.objects.get(id = recipient_id)
         message = MessagesMessage.objects.create(sender_id=sender_id.id,recipient_id = user.id,body=message['text'],sent_at = datetime.datetime.now())
-
-
 
 
     async def websocket_connect(self,event):

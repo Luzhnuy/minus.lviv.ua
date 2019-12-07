@@ -1,12 +1,17 @@
-from django.shortcuts import render,get_object_or_404,redirect
-from minus.models import DjangoComments,Likedislike,DeliverySubscriber
-from minusstore.models import MinusstoreMinusauthor,MinusstoreMinusrecord,MinusstoreMinusrecordCategories,MinusstoreMinuscategory,MinusstoreMinusplusrecord,MinusstoreMinusrecordCategories,MinusstoreFiletype,MinusstoreMinusquality,MinusstoreMinusarrangement
-from user.models import UserActivitys,SubscribeOnComments
+from django.shortcuts import render,get_object_or_404, redirect
+from minus.models import DjangoComments, Likedislike, DeliverySubscriber
+from minusstore.models import Minusgenre, Minusappointment, MinusstoreMinusauthor, MinusstoreMinusrecord, \
+    MinusstoreMinusrecordCategories, MinusstoreMinuscategory, \
+    MinusstoreMinusplusrecord, MinusstoreMinusrecordCategories, MinusstoreFiletype, MinusstoreMinusquality, \
+    MinusstoreMinusarrangement
+from past.builtins import reduce
+from user.models import UserActivitys, SubscribeOnComments
 import os
 import pdfkit
 import datetime
+import operator
 from mutagen.mp3 import MP3
-from django.http import HttpResponse,HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.core import serializers
 from main.forms import AuthForm,AddComments
 from minusstore.forms import AddMinusForm
@@ -20,39 +25,28 @@ from django.db.models import Q
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from minusstore.serializers import MinusAuthorSerializer
-
-
+from haystack.query import SearchQuerySet
 
 
 # @cache_page(60 * 15)
 def minusstore_main(request):
+    if request.GET:
+        if request.GET['category']:
+            print(request.GET.getlist('category'))
+            for search_item in request.GET.getlist('category'):
+                filtred_categories = SearchQuerySet().models(MinusstoreMinuscategory).filter(
+                    Q(display_name__fuzzy = search_item) |
+                    Q(name__fuzzy = search_item)
+                )
+                print(len(filtred_categories.all()))
 
-	# signin(request,form)
     author = MinusstoreMinusauthor.objects.order_by('name').filter(Q(name__startswith = 'А') | Q(name__startswith = "a"))
-
     folk_minus = MinusstoreMinusrecord.objects.order_by('title').filter(Q(title__startswith = 'А') | Q(title__startswith = "a"),is_folk=1)
 
     return render(request, 'minusstore/index.html' , {
         'folk_minus' : folk_minus,
 		'author' : author,
-
-
     })
-
-
-def minusstore_filter(request):
-    minuses = MinusstoreMinusrecord.objects.all()
-    z = []
-    for m in minuses:
-        if m.minus_appointment.name == request.GET['specifik'] and m.minus_genre.name == request.GET['genre']:
-            z.append(m)
-    minuses = z.value_list('name')
-    author = MinusstoreMinusauthor.objects.filter(name__in=minuses)
-    return render(request, 'minusstore/index.html' , {
-        'author' : author,
-    })
-
-
 
 def minusstore_minus(request,pk):
     minus = get_object_or_404(MinusstoreMinusrecord,pk=pk)
@@ -99,6 +93,7 @@ def minusstore_minus(request,pk):
     upload_minuses_from_user = MinusstoreMinusrecord.objects.filter(user_id=minus_user.id).count()
     minus.filesize = int(minus.filesize/1000000)
     add_comment_form = AddComments(request.POST)
+
     if request.user.is_authenticated:
         try:
             arrangement_assessment = MinusstoreMinusarrangement.objects.get(user_id = request.user.id,minus_id = minus.id)

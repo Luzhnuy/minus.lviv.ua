@@ -1,3 +1,4 @@
+import React from "react";
 
 class UserShortProfile extends React.Component {
 	constructor(props) {
@@ -75,22 +76,12 @@ function removeUserShortPage(){
     div.parentNode.removeChild(div);
 }
 
-
-
-
 var users = document.getElementsByClassName('user');
-// var users_online = document.getElementsByClassName('user_online');
 for(let i = 0;i<users.length;i++){
   console.log("event");
   users[i].addEventListener("mouseover",getUserShortPage,true);
   users[i].addEventListener("mouseout",removeUserShortPage,true);
-}   
-
-// for(let i = 0;i<users_online.length;i++){
-//   console.log("event");
-//   users_online[i].addEventListener("mouseover",getUserShortPage,true);
-//   users_online[i].addEventListener("mouseout",removeUserShortPage,true);
-// }   
+}
 
 
 

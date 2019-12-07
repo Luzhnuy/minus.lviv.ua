@@ -21,12 +21,12 @@
 	{% letters %}
 		<div class="form_select_type_minus col s12">
 			<div class="row">
-				<form action="{% url 'minusstore_filter' %}" class="col s11 offset-s1" method="get">
+				<form action="" class="col s11 offset-s1" method="get">
 					<div class="row">
 						 <div class="input-field col s6 select_region">
 						    <select multiple name="type">
 
-						      <option value="Всі">Всі</option>
+						      <option value="0">Всі</option>
 						      <option value="Аудіо">Аудіо</option>
 						      <option value="General MIDI">General MIDI</option>
 						      <option value="Ноти">Ноти</option>
@@ -35,7 +35,7 @@
 
 						  </div>
 							 <div class="input-field col s6 select_region">
-							    <select multiple name="katalog">
+							    <select multiple name="category">
 
 							      <option value="Все">Все</option>
 										<optgroup label="Українські мінусовки">

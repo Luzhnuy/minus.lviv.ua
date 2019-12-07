@@ -84,6 +84,7 @@ INSTALLED_APPS = [
     'desks',
     'messanger',
     'album',
+    'haystack',
     'django_filters',
 ]
 
@@ -100,6 +101,17 @@ DATABASES = {
         }
     }
 }
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': 'http://127.0.0.1:9200/',
+        'INDEX_NAME': 'haystack',
+    },
+}
+
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
 ACCOUNT_ACTIVATION_DAYS = 2 # кол-во дней для хранения кода активации
 
 CELERY_RESULT_BACKEND = 'django-cache'
@@ -145,7 +157,7 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [('176.9.25.121', 6379)],
+            "hosts": [("127.0.0.1", 6379)],
         },
     },
 }
