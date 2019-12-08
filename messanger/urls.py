@@ -1,8 +1,7 @@
 from django.conf.urls import url
-from . import views
+from . import views, api_views
 
 urlpatterns = [
 	url(r'^$', views.messanger,name='messanger'),
-	url(r'^(?P<pk>[0-9]+)/$',views.messages, name="message_user"),
-	url(r'^users-search/$',views.users_search,name="search"),
+	url(r'^api/message-list/$', api_views.ListMessages.as_view(), name="listMessages"),
 ]
