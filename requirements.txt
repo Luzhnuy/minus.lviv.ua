@@ -19,7 +19,7 @@ django-appconf==1.0.2
 django-celery==3.2.2
 django-celery-email==2.0.1
 django-celery-mon==1.0
-django-celery-results==1.0.4
+django-celery-results==2.4.0
 django-contrib-comments==1.9.0
 django-filter==2.1.0
 django-filters==0.2.1
